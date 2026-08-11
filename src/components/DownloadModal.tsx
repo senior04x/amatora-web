@@ -23,7 +23,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="glass-card w-full max-w-lg p-6 lg:p-8 rounded-3xl border border-white/25 relative shadow-2xl space-y-6">
+      <div className="glass-card w-full max-w-lg p-6 sm:p-8 rounded-3xl border border-white/25 relative shadow-2xl space-y-6">
         
         {/* Close Button */}
         <button
@@ -33,39 +33,79 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
           <X className="w-4 h-4" />
         </button>
 
-        {/* Download Options — Unified Clickable Cards */}
-        <div className="space-y-3 pt-4">
-          
-          {/* Google Play / Android — Whole Card Clickable */}
-          <a
-            href="https://amatora.uz/downloads/amatora-admin.apk"
-            download
-            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                <PlayStoreIcon className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-white">Google Play</h4>
-            </div>
-            <Download className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors shrink-0" />
-          </a>
+        {/* Modal Title */}
+        <div className="pr-8">
+          <h3 className="font-heading font-black text-xl text-white">AMATORA Ilovalarini Yuklab Olish</h3>
+        </div>
 
-          {/* App Store / iOS — Whole Card Clickable */}
-          <a
-            href="https://amatora.uz/ios"
-            target="_blank"
-            rel="noreferrer"
-            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                <AppStoreIcon className="w-6 h-6" />
-              </div>
-              <h4 className="font-heading font-bold text-base text-white">App Store</h4>
+        {/* Download Options — Categorized by AMATORA App & AMATORA Admin */}
+        <div className="space-y-5">
+          
+          {/* Section 1: AMATORA App (O'yinchilar) */}
+          <div className="space-y-2">
+            <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-1">AMATORA App (O'yinchilar & Ishqibozlar)</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <a
+                href="https://amatora.uz/downloads/amatora-app.apk"
+                download
+                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <PlayStoreIcon className="w-5 h-5 text-white" />
+                  <span className="font-heading font-bold text-xs text-white">Google Play</span>
+                </div>
+                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              </a>
+
+              <a
+                href="https://amatora.uz/ios/app"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <AppStoreIcon className="w-5 h-5 text-white" />
+                  <span className="font-heading font-bold text-xs text-white">App Store</span>
+                </div>
+                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              </a>
+
             </div>
-            <Download className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors shrink-0" />
-          </a>
+          </div>
+
+          {/* Section 2: AMATORA Admin (Tashkilotchilar) */}
+          <div className="space-y-2">
+            <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-1">AMATORA Admin (Tashkilotchilar & Hakamlar)</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <a
+                href="https://amatora.uz/downloads/amatora-admin.apk"
+                download
+                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <PlayStoreIcon className="w-5 h-5 text-white" />
+                  <span className="font-heading font-bold text-xs text-white">Google Play</span>
+                </div>
+                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              </a>
+
+              <a
+                href="https://amatora.uz/ios/admin"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <AppStoreIcon className="w-5 h-5 text-white" />
+                  <span className="font-heading font-bold text-xs text-white">App Store</span>
+                </div>
+                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              </a>
+
+            </div>
+          </div>
 
         </div>
 
