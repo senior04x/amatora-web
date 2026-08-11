@@ -1,49 +1,32 @@
 import React from 'react';
-import { Smartphone, Trophy, Users, Zap, CheckCircle2, ArrowRight, Download, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
+import { Smartphone, Trophy, Users, Zap, CheckCircle2, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
   onOpenDownload: () => void;
-  setActiveTab: (tab: string) => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload, setActiveTab }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
     <div className="space-y-16 sm:space-y-20">
       
       {/* 1. HERO SECTION */}
       <section className="relative pt-6 sm:pt-10 text-center space-y-6 max-w-4xl mx-auto">
         
-        {/* Official AMATORA White Logo Hero Headline */}
-        <div className="flex items-center justify-center gap-3 sm:gap-4 my-4">
+        {/* Official AMATORA Logo + AMATORA Text */}
+        <div className="flex items-center justify-center gap-3 sm:gap-5 my-4">
           <img 
             src={logoWhite} 
             alt="AMATORA Official Logo" 
-            className="h-16 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,255,255,0.25)]" 
+            className="h-12 sm:h-18 md:h-22 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,255,255,0.25)]" 
           />
-        </div>
-
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          <button
-            onClick={onOpenDownload}
-            className="glass-button glass-button-primary w-full sm:w-auto py-3 px-6 text-sm"
-          >
-            <Download className="w-4 h-4 text-black" />
-            <span>Ilovani Yuklash</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('features')}
-            className="glass-button w-full sm:w-auto py-3 px-6 text-sm"
-          >
-            <span>Imkoniyatlar</span>
-            <ArrowRight className="w-4 h-4 text-white" />
-          </button>
+          <h1 className="font-heading font-black text-4xl sm:text-7xl md:text-8xl tracking-wider text-white">
+            AMATORA <span className="text-sm sm:text-2xl font-bold px-2.5 py-0.5 rounded-lg bg-white/10 border border-white/20 text-slate-300 align-middle">.UZ</span>
+          </h1>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4">
           
           <div className="glass-card p-4 text-center space-y-1">
             <Trophy className="w-5 h-5 text-white mx-auto opacity-80" />
@@ -169,7 +152,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload, setActiveTab
             onClick={onOpenDownload}
             className="glass-button glass-button-primary py-3 px-8 text-sm"
           >
-            <Download className="w-4 h-4 text-black" />
             <span>Yuklab Olish</span>
           </button>
         </div>

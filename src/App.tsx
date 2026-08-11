@@ -33,7 +33,6 @@ export function App() {
         {activeTab === 'home' && (
           <HomePage
             onOpenDownload={() => setDownloadModalOpen(true)}
-            setActiveTab={setActiveTab}
           />
         )}
 
