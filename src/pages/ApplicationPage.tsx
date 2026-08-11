@@ -287,22 +287,50 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
     try {
       const targetOrgId = org?.id || 1;
-      const payload = {
+      
+      // 1. Insert team record into 'teams' table
+      const teamPayload = {
         organization_id: targetOrgId,
         league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
-        team_name: teamName.trim(),
-        team_logo: teamLogoUrl || null,
+        name: teamName.trim(),
+        logo_url: teamLogoUrl || null,
         captain_name: captainName.trim(),
         captain_phone: captainPhone.trim(),
-        players_data: players.filter((p) => p.name.trim() || p.surname.trim()),
         status: 'pending',
         created_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase.from('team_requests').insert([payload]);
+      const { data: teamData, error: teamErr } = await supabase
+        .from('teams')
+        .insert([teamPayload])
+        .select()
+        .single();
 
-      if (error) {
-        console.warn('team_requests insertion fallback note:', error);
+      if (teamErr) {
+        console.warn('Teams table insertion note:', teamErr);
+      }
+
+      // 2. Insert players into 'applications' table
+      const validPlayers = players.filter((p) => p.name.trim() || p.surname.trim());
+      if (validPlayers.length > 0) {
+        const playerRows = validPlayers.map((p) => ({
+          organization_id: targetOrgId,
+          team_id: teamData?.id || null,
+          first_name: p.name.trim() || 'O\'yinchi',
+          last_name: p.surname.trim() || '',
+          father_name: p.fatherName.trim() || '',
+          position: p.position || 'Yarim himoyachi',
+          player_number: p.number || '',
+          passport_series: p.passportSeries || '',
+          passport_number: p.passportNumber || '',
+          phone: p.phone || captainPhone.trim(),
+          photo_url: p.photoUrl || null,
+          status: 'pending',
+          comment: `Jamoa: ${teamName.trim()}`,
+          created_at: new Date().toISOString(),
+        }));
+
+        await supabase.from('applications').insert(playerRows);
       }
 
       setSubmitSuccess(true);
@@ -326,25 +354,28 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
     try {
       const targetOrgId = org?.id || 1;
-      const payload = {
+      const nameParts = indName.trim().split(' ');
+      const firstName = nameParts[0] || indName.trim();
+      const lastName = nameParts.slice(1).join(' ') || '';
+
+      const playerPayload = {
         organization_id: targetOrgId,
-        league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
-        target_team_id: selectedTeamId ? Number(selectedTeamId) : null,
         team_id: selectedTeamId ? Number(selectedTeamId) : null,
-        player_name: indName.trim(),
+        first_name: firstName,
+        last_name: lastName,
         phone: indPhone.trim(),
         position: indPosition,
-        age: indAge,
+        birth_date: indAge ? `${indAge} yosh` : '',
         photo_url: indPhotoUrl || null,
-        notes: indNotes,
+        comment: indNotes ? `[INDIVIDUAL] ${indNotes}` : '[INDIVIDUAL]',
         status: 'pending',
         created_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase.from('individual_requests').insert([payload]);
+      const { error: appErr } = await supabase.from('applications').insert([playerPayload]);
 
-      if (error) {
-        console.warn('individual_requests insertion fallback note:', error);
+      if (appErr) {
+        console.warn('Applications table insertion note:', appErr);
       }
 
       setSubmitSuccess(true);
