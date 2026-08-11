@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
 
 interface HomePageProps {
   onOpenDownload: () => void;
@@ -9,14 +9,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
     <div className="relative">
       
-      {/* 1. HERO VIEWPORT SPACE WITH ANIMATED DOWN ARROW INDICATOR */}
+      {/* 1. HERO VIEWPORT SPACE WITH ANIMATED UP ARROW INDICATOR */}
       <div className="h-[100dvh] flex flex-col justify-end items-center pb-8 sm:pb-12 pointer-events-none relative z-10">
         <div 
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
           className="flex flex-col items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity animate-bounce pointer-events-auto cursor-pointer"
         >
-          <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Pastga Scroll</span>
-          <ChevronDown className="w-5 h-5 text-white" />
+          <ChevronUp className="w-5 h-5 text-white" />
+          <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Scroll</span>
         </div>
       </div>
 
