@@ -8,9 +8,10 @@ interface NavbarProps {
 }
 
 const CustomMenuIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 5l5 9 10 3" />
-    <path d="M4 11l5 9 10 3" />
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 5l4.5 5 10.5 2.5" />
+    <path d="M4 11l4.5 5 10.5 2.5" />
+    <path d="M4 17l4.5 5 10.5 2.5" />
   </svg>
 );
 
