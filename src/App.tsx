@@ -26,23 +26,22 @@ export function App() {
         onOpenDownload={() => setDownloadModalOpen(true)}
       />
 
-      {/* 3. MAIN PAGE CONTENT (CONCISE, PUNCHY & 100% RESPONSIVE) */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
+      {/* 3. MAIN PAGE CONTENT (PARALLAX HERO FOR HOME PAGE) */}
+      <main className="flex-1 w-full mx-auto relative z-10">
         {activeTab === 'home' && (
           <HomePage
             onOpenDownload={() => setDownloadModalOpen(true)}
           />
         )}
 
-        {activeTab === 'apps' && (
-          <AppsPage />
+        {activeTab !== 'home' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+            {activeTab === 'apps' && <AppsPage />}
+            {activeTab === 'features' && <FeaturesPage />}
+            {activeTab === 'about' && <AboutPage />}
+            {activeTab === 'security' && <SecurityPage />}
+          </div>
         )}
-
-        {activeTab === 'features' && <FeaturesPage />}
-
-        {activeTab === 'about' && <AboutPage />}
-
-        {activeTab === 'security' && <SecurityPage />}
       </main>
 
       {/* 4. FOOTER */}

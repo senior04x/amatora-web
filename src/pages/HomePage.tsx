@@ -8,11 +8,11 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
-    <div className="space-y-24">
+    <div className="relative">
       
-      {/* 1. HERO SECTION (100vh FULLSCREEN CENTERED BRAND DISPLAY) */}
-      <section className="min-h-[calc(100vh-8rem)] flex items-center justify-center text-center px-4 relative">
-        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto my-auto animate-fade-in">
+      {/* 1. STICKY HERO SECTION (Pinned logo and text during scroll) */}
+      <section className="sticky top-0 h-[85vh] sm:h-screen flex items-center justify-center text-center px-4 z-0 pointer-events-none">
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto animate-fade-in pointer-events-auto">
           <img 
             src={logoWhite} 
             alt="AMATORA Official Logo" 
@@ -24,106 +24,111 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
         </div>
       </section>
 
-      {/* 2. ECOSYSTEM CARDS */}
-      <section className="space-y-8">
+      {/* 2. GLASS BACKDROP OVERLAY SHEET (Scrolls OVER the sticky logo with blur effect) */}
+      <div className="relative z-10 bg-black/85 backdrop-blur-3xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.98)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
         
-        <div className="text-center space-y-2">
-          <div className="glass-badge">Imkoniyatlar</div>
-          <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {/* Imkoniyatlar Section */}
+        <section className="space-y-8">
           
-          {/* Card 1 */}
-          <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="font-heading font-bold text-lg text-white">Turnir Jadvali</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Ochko, to'purarlar va kartochkalar avtomatik hisoblanadi.
-              </p>
-            </div>
-            <ul className="space-y-1.5 text-xs text-slate-300">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Real-vaqt ochkolari</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>To'purarlar reytingi</span>
-              </li>
-            </ul>
+          <div className="text-center space-y-2">
+            <div className="glass-badge">Imkoniyatlar</div>
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
           </div>
 
-          {/* Card 2 */}
-          <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                <ImageIcon className="w-5 h-5 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            
+            {/* Card 1 */}
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-heading font-bold text-lg text-white">Turnir Jadvali</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Ochko, to'purarlar va kartochkalar avtomatik hisoblanadi.
+                </p>
               </div>
-              <h3 className="font-heading font-bold text-lg text-white">PNG Grafika Eksport</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Jadvallar va o'yinlar 1080x1080 rasmlarga 1 soniyada eksport qilinadi.
-              </p>
+              <ul className="space-y-1.5 text-xs text-slate-300">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Real-vaqt ochkolari</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>To'purarlar reytingi</span>
+                </li>
+              </ul>
             </div>
-            <ul className="space-y-1.5 text-xs text-slate-300">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Avtomatik brending</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Homiylar logotiplari</span>
-              </li>
-            </ul>
+
+            {/* Card 2 */}
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                  <ImageIcon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-heading font-bold text-lg text-white">PNG Grafika Eksport</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Jadvallar va o'yinlar 1080x1080 rasmlarga 1 soniyada eksport qilinadi.
+                </p>
+              </div>
+              <ul className="space-y-1.5 text-xs text-slate-300">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Avtomatik brending</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Homiylar logotiplari</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 3 */}
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                  <Smartphone className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="font-heading font-bold text-lg text-white">Arizalar va Transferlar</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  O'yinchilar pasporti hamda transfer arizalarini bir bosishda tasdiqlang.
+                </p>
+              </div>
+              <ul className="space-y-1.5 text-xs text-slate-300">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Pasport verifikatsiyasi</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Transfer oynalari</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
-          {/* Card 3 */}
-          <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                <Smartphone className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="font-heading font-bold text-lg text-white">Arizalar va Transferlar</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                O'yinchilar pasporti hamda transfer arizalarini bir bosishda tasdiqlang.
-              </p>
-            </div>
-            <ul className="space-y-1.5 text-xs text-slate-300">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Pasport verifikatsiyasi</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                <span>Transfer oynalari</span>
-              </li>
-            </ul>
+        </section>
+
+        {/* CTA GLASS BANNER */}
+        <section className="glass-card p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
+          <div className="space-y-2 relative z-10 max-w-xl mx-auto">
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA Admin Ilovasini Yuklang</h2>
+            <p className="text-xs text-slate-400">
+              Turnirlaringizni tezkor va qulay boshqaring (amatora.uz).
+            </p>
           </div>
+          <div className="pt-2 relative z-10">
+            <button
+              onClick={onOpenDownload}
+              className="glass-button glass-button-primary py-3 px-8 text-sm"
+            >
+              <span>Yuklab Olish</span>
+            </button>
+          </div>
+        </section>
 
-        </div>
-
-      </section>
-
-      {/* 3. CTA GLASS BANNER */}
-      <section className="glass-card p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
-        <div className="space-y-2 relative z-10 max-w-xl mx-auto">
-          <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA Admin Ilovasini Yuklang</h2>
-          <p className="text-xs text-slate-400">
-            Turnirlaringizni tezkor va qulay boshqaring (amatora.uz).
-          </p>
-        </div>
-        <div className="pt-2 relative z-10">
-          <button
-            onClick={onOpenDownload}
-            className="glass-button glass-button-primary py-3 px-8 text-sm"
-          >
-            <span>Yuklab Olish</span>
-          </button>
-        </div>
-      </section>
+      </div>
 
     </div>
   );
