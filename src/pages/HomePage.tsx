@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Smartphone, Trophy, Users, Zap, CheckCircle2, ArrowRight, Download, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
+import { Smartphone, Trophy, Users, Zap, CheckCircle2, ArrowRight, Download, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
 
 interface HomePageProps {
   onOpenDownload: () => void;
@@ -13,21 +13,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload, setActiveTab
       {/* 1. HERO SECTION */}
       <section className="relative pt-6 sm:pt-10 text-center space-y-6 max-w-4xl mx-auto">
         
-        {/* Top Badge */}
-        <div className="inline-flex items-center gap-2 glass-badge py-1 px-3">
-          <Shield className="w-3.5 h-3.5 text-white" />
-          <span>Futbol Boshqaruv Ekotizimi</span>
-        </div>
-
         {/* Headline */}
         <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl tracking-tight text-white leading-tight">
           Havaskor Futbol Ligalari Platformasi
         </h1>
-
-        {/* Subtitle */}
-        <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-normal leading-relaxed">
-          Turnirlar, o'yinlar jadvali, statistikalar va match grafikalarini tezkor boshqaring.
-        </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
