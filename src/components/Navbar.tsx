@@ -38,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
           {menuOpen ? (
             <X className="w-6 h-6" />
           ) : (
-            <img src="/burger.png" alt="Menu" className="w-6 h-6 object-contain" />
+            <img src="/burger.PNG" alt="Menu" className="w-6 h-6 object-contain" />
           )}
         </button>
       </div>
