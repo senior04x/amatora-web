@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe } from 'lucide-react';
+
 
 const PlayStoreIcon = ({ className = "w-7 h-7" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -87,27 +87,7 @@ export const AppsPage: React.FC = () => {
 
       </div>
 
-      {/* Web Access Container */}
-      <div className="glass-card p-8 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border-white/20">
-        <div className="space-y-2 flex-1">
-          <div className="flex items-center gap-2">
-            <Globe className="w-5 h-5 text-white" />
-            <h3 className="font-heading font-bold text-xl text-white">AMATORA Web Portal (amatora.uz)</h3>
-          </div>
-          <p className="text-xs text-slate-400">
-            Hech qanday dastur o'rnatmasdan to'g'ridan-to'g'ri brauzer orqali admin paneliga va o'yinlar statistikasiga kiring.
-          </p>
-        </div>
 
-        <a
-          href="https://amatora.uz"
-          target="_blank"
-          rel="noreferrer"
-          className="glass-button glass-button-primary py-3 px-8 text-sm whitespace-nowrap"
-        >
-          <span>Web Portalga Kirish</span>
-        </a>
-      </div>
 
       {/* Installation Guide */}
       <div className="max-w-5xl mx-auto space-y-6">
