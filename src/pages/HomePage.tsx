@@ -135,9 +135,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             <img
               src={logoWhite}
               alt="AMATORA Logo"
-              className="h-14 sm:h-20 w-auto object-contain logo-glow-radiance"
+              className="h-8 sm:h-10 w-auto object-contain logo-glow-radiance"
             />
-            <span className="font-heading font-black text-2xl sm:text-4xl tracking-wider text-white">AMATORA</span>
+            <span className="font-heading font-black text-lg sm:text-xl tracking-wider text-white">AMATORA</span>
           </div>
           <button
             onClick={onOpenDownload}
