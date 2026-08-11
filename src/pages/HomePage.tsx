@@ -45,18 +45,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
       <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full">
         
         {/* Imkoniyatlar Section */}
-        <section className="pt-16 pb-0">
+        <section className="pt-16 pb-0 px-4 sm:px-8 lg:px-12">
 
-          <div className="text-center space-y-2 reveal-on-scroll delay-1 px-4 sm:px-8 mb-10">
+          <div className="text-center space-y-2 reveal-on-scroll delay-1 mb-10">
             <div className="glass-badge">Imkoniyatlar</div>
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
           </div>
 
-          {/* Cards — full width grid, no side gaps */}
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          {/* Cards — with gap and padding */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             
             {/* Card 1 */}
-            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-1 border-b md:border-b-0 md:border-r border-white/10">
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-1">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <BarChart3 className="w-5 h-5 text-white" />
@@ -79,7 +79,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             </div>
 
             {/* Card 2 */}
-            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-2 border-b md:border-b-0 md:border-r border-white/10">
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-2">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <ImageIcon className="w-5 h-5 text-white" />
@@ -102,7 +102,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             </div>
 
             {/* Card 3 */}
-            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-3">
+            <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-3">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <Smartphone className="w-5 h-5 text-white" />
