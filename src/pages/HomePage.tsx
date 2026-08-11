@@ -12,8 +12,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
       {/* 1. EMPTY HERO SPACE (Initially reveals fixed body logo) */}
       <div className="h-[85vh] sm:h-screen pointer-events-none" />
 
-      {/* 2. GLASS BACKDROP OVERLAY SHEET (Scrolls OVER fixed body logo with subtle blur effect) */}
-      <div className="relative z-10 bg-black/90 backdrop-blur-md border-t border-white/10 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.98)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
+      {/* 2. COLORLESS GLASS BACKDROP OVERLAY SHEET */}
+      <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.8)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
         
         {/* Imkoniyatlar Section */}
         <section className="space-y-8">
