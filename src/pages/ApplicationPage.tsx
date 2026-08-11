@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, User, Plus, Trash2, CheckCircle2, AlertCircle, Send, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Shield, User, Plus, Trash2, CheckCircle2, AlertCircle, Send, ArrowLeft, Camera, Image as ImageIcon, Crop } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface ApplicationPageProps {
@@ -22,10 +22,117 @@ interface Organization {
 interface PlayerInput {
   id: string;
   name: string;
+  surname: string;
+  fatherName: string;
   position: string;
   number: string;
-  passport: string;
+  passportSeries: string;
+  passportNumber: string;
+  phone: string;
+  photoUrl?: string;
 }
+
+// Interactive 1:1 Image Cropper Modal Component
+const ImageCropperModal: React.FC<{
+  isOpen: boolean;
+  imageSrc: string | null;
+  onCrop: (croppedBase64: string) => void;
+  onClose: () => void;
+}> = ({ isOpen, imageSrc, onCrop, onClose }) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [zoom, setZoom] = useState<number>(1);
+
+  useEffect(() => {
+    if (isOpen && imageSrc && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const size = Math.min(img.width, img.height);
+        const startX = (img.width - size) / 2;
+        const startY = (img.height - size) / 2;
+
+        canvas.width = 400;
+        canvas.height = 400;
+
+        if (ctx) {
+          ctx.clearRect(0, 0, 400, 400);
+          ctx.drawImage(
+            img,
+            startX,
+            startY,
+            size,
+            size,
+            0,
+            0,
+            400,
+            400
+          );
+        }
+      };
+      img.src = imageSrc;
+    }
+  }, [isOpen, imageSrc, zoom]);
+
+  if (!isOpen || !imageSrc) return null;
+
+  const handleConfirmCrop = () => {
+    if (canvasRef.current) {
+      const croppedData = canvasRef.current.toDataURL('image/jpeg', 0.85);
+      onCrop(croppedData);
+      onClose();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="glass-card max-w-md w-full p-6 space-y-6 text-center">
+        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="flex items-center gap-2">
+            <Crop className="w-5 h-5 text-white" />
+            <h3 className="font-heading font-bold text-lg text-white">Rasmni Qirqish (1:1 Format)</h3>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-white text-xs">Bekor qilish</button>
+        </div>
+
+        <div className="relative w-64 h-64 mx-auto rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-black">
+          <canvas ref={canvasRef} className="w-full h-full object-cover" />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-xs text-slate-400">Kattalashtirish (Zoom)</label>
+          <input
+            type="range"
+            min="1"
+            max="2"
+            step="0.1"
+            value={zoom}
+            onChange={(e) => setZoom(parseFloat(e.target.value))}
+            className="w-full accent-white"
+          />
+        </div>
+
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={onClose}
+            className="glass-button flex-1 py-3 text-xs"
+          >
+            <span>Bekor Qilish</span>
+          </button>
+          <button
+            type="button"
+            onClick={handleConfirmCrop}
+            className="glass-button glass-button-primary flex-1 py-3 text-xs"
+          >
+            <span>Qirqish va Saqlash</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => {
   const [mode, setMode] = useState<'selection' | 'team' | 'individual'>('selection');
@@ -36,13 +143,19 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  // Cropper modal state
+  const [cropperOpen, setCropperOpen] = useState<boolean>(false);
+  const [rawImageSrc, setRawImageSrc] = useState<string | null>(null);
+  const [cropTarget, setCropTarget] = useState<{ type: 'logo' | 'player' | 'indPlayer'; playerId?: string } | null>(null);
+
   // Form states for Team Application
   const [selectedLeagueId, setSelectedLeagueId] = useState<string>('');
   const [teamName, setTeamName] = useState<string>('');
+  const [teamLogoUrl, setTeamLogoUrl] = useState<string | undefined>();
   const [captainName, setCaptainName] = useState<string>('');
   const [captainPhone, setCaptainPhone] = useState<string>('');
   const [players, setPlayers] = useState<PlayerInput[]>([
-    { id: '1', name: '', position: 'Yarim himoyachi', number: '10', passport: '' }
+    { id: '1', name: '', surname: '', fatherName: '', position: 'Yarim himoyachi', number: '10', passportSeries: '', passportNumber: '', phone: '' }
   ]);
 
   // Form states for Individual Application
@@ -50,6 +163,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [indPhone, setIndPhone] = useState<string>('');
   const [indPosition, setIndPosition] = useState<string>('Yarim himoyachi');
   const [indAge, setIndAge] = useState<string>('');
+  const [indPhotoUrl, setIndPhotoUrl] = useState<string | undefined>();
   const [indNotes, setIndNotes] = useState<string>('');
 
   useEffect(() => {
@@ -59,7 +173,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const fetchOrgAndLeagues = async () => {
     setLoadingOrg(true);
     try {
-      // 1. Fetch organization by slug
       const { data: orgData } = await supabase
         .from('organizations')
         .select('*')
@@ -68,7 +181,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
       if (orgData) {
         setOrg(orgData);
-        // Fetch leagues for this organization
         const { data: leagueData } = await supabase
           .from('leagues')
           .select('id, name, organization_id')
@@ -80,7 +192,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           setSelectedLeagueId(String(leagueData[0].id));
         }
       } else {
-        // Fallback organization
         setOrg({
           id: 1,
           name: orgSlug.toUpperCase() + ' Tashkiloti',
@@ -99,10 +210,38 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     }
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>, target: { type: 'logo' | 'player' | 'indPlayer'; playerId?: string }) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        setRawImageSrc(reader.result as string);
+        setCropTarget(target);
+        setCropperOpen(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCropComplete = (croppedBase64: string) => {
+    if (!cropTarget) return;
+
+    if (cropTarget.type === 'logo') {
+      setTeamLogoUrl(croppedBase64);
+    } else if (cropTarget.type === 'player' && cropTarget.playerId) {
+      setPlayers((prev) =>
+        prev.map((p) => (p.id === cropTarget.playerId ? { ...p, photoUrl: croppedBase64 } : p))
+      );
+    } else if (cropTarget.type === 'indPlayer') {
+      setIndPhotoUrl(croppedBase64);
+    }
+  };
+
   const handleAddPlayer = () => {
     setPlayers((prev) => [
       ...prev,
-      { id: String(Date.now()), name: '', position: 'Yarim himoyachi', number: String(prev.length + 1), passport: '' }
+      { id: String(Date.now()), name: '', surname: '', fatherName: '', position: 'Yarim himoyachi', number: String(prev.length + 1), passportSeries: '', passportNumber: '', phone: '' }
     ]);
   };
 
@@ -132,9 +271,10 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         organization_id: org?.id || 1,
         league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
         team_name: teamName.trim(),
+        team_logo: teamLogoUrl || null,
         captain_name: captainName.trim(),
         captain_phone: captainPhone.trim(),
-        players_data: players.filter((p) => p.name.trim()),
+        players_data: players.filter((p) => p.name.trim() || p.surname.trim()),
         status: 'pending',
         created_at: new Date().toISOString(),
       };
@@ -142,14 +282,13 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       const { error } = await supabase.from('team_requests').insert([payload]);
 
       if (error) {
-        // Fallback insertion into generic applications or log success for demo
         console.warn('team_requests insertion fallback note:', error);
       }
 
       setSubmitSuccess(true);
     } catch (err: any) {
       console.error('Submit error:', err);
-      setSubmitSuccess(true); // Graceful fallback
+      setSubmitSuccess(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -173,6 +312,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         phone: indPhone.trim(),
         position: indPosition,
         age: indAge,
+        photo_url: indPhotoUrl || null,
         notes: indNotes,
         status: 'pending',
         created_at: new Date().toISOString(),
@@ -219,10 +359,21 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   return (
     <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
       
+      {/* Cropper Modal */}
+      <ImageCropperModal
+        isOpen={cropperOpen}
+        imageSrc={rawImageSrc}
+        onCrop={handleCropComplete}
+        onClose={() => {
+          setCropperOpen(false);
+          setRawImageSrc(null);
+        }}
+      />
+
       {/* Organization Branding Header */}
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
-          <span>{org?.name || orgSlug.toUpperCase() + " Tashkiloti"} • Ro'yxatdan O'tish</span>
+          <span>{org?.name || orgSlug.toUpperCase() + " Tashkiloti"} • Ro'yxatdan O'tish Portali</span>
         </div>
 
         <h1 className="font-heading font-black text-3xl sm:text-5xl text-white">
@@ -237,7 +388,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       {mode === 'selection' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           
-          {/* Team Registration Card */}
           <div
             onClick={() => setMode('team')}
             className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.06] transition-all group"
@@ -248,7 +398,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Jamoaviy Ro'yxatdan O'tish</h2>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Tayyor jamoangiz bormi? Jamoa nomi, kapitan ma'lumotlari hamda o'yinchilar ro'yxatini kiritib ligaga to'liq qatnashish arizasini topshiring.
+                Tayyor jamoangiz bormi? Jamoa logotipi, nomi, kapitan ma'lumotlari hamda o'yinchilar rasmini kiritib ligaga to'liq qatnashish arizasini topshiring.
               </p>
             </div>
             <div className="glass-button glass-button-primary w-full py-3.5 text-center text-xs">
@@ -256,7 +406,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
             </div>
           </div>
 
-          {/* Individual Player Registration Card */}
           <div
             onClick={() => setMode('individual')}
             className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.06] transition-all group"
@@ -267,7 +416,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Yakkaxon Ro'yxatdan O'tish</h2>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Jamoangiz yo'qmi yoki erkin agentmisiz? O'zingiz haqingizda va pozitsiyangiz haqingizda ma'lumot qoldiring, ligadagi jamoalarga taklif oling.
+                Jamoangiz yo'qmi yoki erkin agentmisiz? O'zingiz haqingizda rasmingiz va pozitsiyangiz bilan ma'lumot qoldiring, ligadagi jamoalarga taklif oling.
               </p>
             </div>
             <div className="glass-button w-full py-3.5 text-center text-xs">
@@ -298,16 +447,40 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
             </div>
           )}
 
-          {/* Section 1: Team & Captain Info */}
+          {/* Section 1: Team Info & Logo Upload */}
           <div className="glass-card p-6 sm:p-8 space-y-6">
             <h3 className="font-heading font-bold text-xl text-white border-b border-white/10 pb-4">
-              1. Jamoa va Kapitan Ma'lumotlari
+              1. Jamoa Ma'lumotlari va Logotip (1:1 Cropper)
             </h3>
+
+            {/* Team Logo Dropzone / Picker */}
+            <div className="flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-white/20 rounded-2xl bg-white/[0.02] hover:border-white/40 transition-colors relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileSelect(e, { type: 'logo' })}
+                className="absolute inset-0 opacity-0 cursor-pointer z-10"
+              />
+              {teamLogoUrl ? (
+                <div className="space-y-3">
+                  <img src={teamLogoUrl} alt="Jamoa Logotipi" className="w-24 h-24 rounded-full object-cover border-2 border-white/30 mx-auto shadow-xl" />
+                  <p className="text-xs text-slate-300">Logotip yuklandi (O'zgartirish uchun bosing)</p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mx-auto text-white">
+                    <ImageIcon className="w-6 h-6" />
+                  </div>
+                  <p className="text-xs font-bold text-white">Jamoa Logotipini Yuklash (1x1 format)</p>
+                  <p className="text-[11px] text-slate-400">Bosing va rasmni 1:1 ko'rinishida qirqing</p>
+                </div>
+              )}
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {leagues.length > 0 && (
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="text-xs font-semibold text-slate-300">Ligani Tanlang *</label>
+                  <label className="text-xs font-semibold text-slate-300">Turnir (Liga) *</label>
                   <select
                     value={selectedLeagueId}
                     onChange={(e) => setSelectedLeagueId(e.target.value)}
@@ -326,7 +499,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
                 <label className="text-xs font-semibold text-slate-300">Jamoa Nomi *</label>
                 <input
                   type="text"
-                  placeholder="Masalan: FC Bunyodkor"
+                  placeholder="Masalan: FC Paxtakor"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
                   className="w-full p-3 rounded-xl bg-white/[0.05] border border-white/15 text-white text-xs outline-none placeholder:text-slate-500"
@@ -347,7 +520,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">Kapitan Telefon Raqami *</label>
+                <label className="text-xs font-semibold text-slate-300">Kapitan Telefoni *</label>
                 <input
                   type="tel"
                   placeholder="+998 90 123 45 67"
@@ -360,7 +533,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
             </div>
           </div>
 
-          {/* Section 2: Players Roster */}
+          {/* Section 2: Players Roster with Photo Cropper */}
           <div className="glass-card p-6 sm:p-8 space-y-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <h3 className="font-heading font-bold text-xl text-white">2. O'yinchilar Ro'yxati ({players.length})</h3>
@@ -376,9 +549,29 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
             <div className="space-y-4">
               {players.map((p, idx) => (
-                <div key={p.id} className="p-4 rounded-xl bg-white/[0.03] border border-white/10 relative space-y-3">
+                <div key={p.id} className="p-4 rounded-xl bg-white/[0.03] border border-white/10 relative space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-300">O'yinchi #{idx + 1}</span>
+                    <div className="flex items-center gap-3">
+                      {/* Player photo upload dropzone */}
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20 bg-white/10 flex items-center justify-center shrink-0">
+                        {p.photoUrl ? (
+                          <img src={p.photoUrl} alt={p.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <Camera className="w-5 h-5 text-slate-400" />
+                        )}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileSelect(e, { type: 'player', playerId: p.id })}
+                          className="absolute inset-0 opacity-0 cursor-pointer"
+                        />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-slate-300">O'yinchi #{idx + 1}</span>
+                        <p className="text-[10px] text-slate-400">Rasmni qirqib yuklash uchun bosing</p>
+                      </div>
+                    </div>
+
                     {players.length > 1 && (
                       <button
                         type="button"
@@ -393,9 +586,25 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <input
                       type="text"
-                      placeholder="Ismi va familiyasi"
+                      placeholder="Ismi"
                       value={p.name}
                       onChange={(e) => handlePlayerChange(p.id, 'name', e.target.value)}
+                      className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Familiyasi"
+                      value={p.surname}
+                      onChange={(e) => handlePlayerChange(p.id, 'surname', e.target.value)}
+                      className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Otasining ismi"
+                      value={p.fatherName}
+                      onChange={(e) => handlePlayerChange(p.id, 'fatherName', e.target.value)}
                       className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
                     />
 
@@ -417,6 +626,25 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
                       onChange={(e) => handlePlayerChange(p.id, 'number', e.target.value)}
                       className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
                     />
+
+                    <div className="flex gap-1.5">
+                      <input
+                        type="text"
+                        placeholder="AA"
+                        maxLength={2}
+                        value={p.passportSeries}
+                        onChange={(e) => handlePlayerChange(p.id, 'passportSeries', e.target.value.toUpperCase())}
+                        className="w-14 p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs text-center outline-none placeholder:text-slate-500 uppercase"
+                      />
+                      <input
+                        type="text"
+                        placeholder="1234567"
+                        maxLength={7}
+                        value={p.passportNumber}
+                        onChange={(e) => handlePlayerChange(p.id, 'passportNumber', e.target.value)}
+                        className="flex-1 p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -459,6 +687,30 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
             <h3 className="font-heading font-bold text-xl text-white border-b border-white/10 pb-4">
               Yakkaxon O'yinchi Ma'lumotlari
             </h3>
+
+            {/* Individual Player Photo Upload Dropzone */}
+            <div className="flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-white/20 rounded-2xl bg-white/[0.02] hover:border-white/40 transition-colors relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileSelect(e, { type: 'indPlayer' })}
+                className="absolute inset-0 opacity-0 cursor-pointer z-10"
+              />
+              {indPhotoUrl ? (
+                <div className="space-y-3">
+                  <img src={indPhotoUrl} alt="O'yinchi Rasmi" className="w-24 h-24 rounded-full object-cover border-2 border-white/30 mx-auto shadow-xl" />
+                  <p className="text-xs text-slate-300">Rasm yuklandi (O'zgartirish uchun bosing)</p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mx-auto text-white">
+                    <Camera className="w-6 h-6" />
+                  </div>
+                  <p className="text-xs font-bold text-white">O'yinchi Rasmini Yuklash (1:1 format)</p>
+                  <p className="text-[11px] text-slate-400">Bosing va rasmni qirqing</p>
+                </div>
+              )}
+            </div>
 
             <div className="space-y-4">
               {leagues.length > 0 && (
