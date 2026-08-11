@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
 
 interface HomePageProps {
-  onOpenDownload: () => void;
+  onOpenDownload?: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
+export const HomePage: React.FC<HomePageProps> = () => {
   
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -128,22 +128,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
 
         </section>
 
-        {/* CTA FULL-WIDTH BANNER — no gaps, flush with footer */}
-        <section className="text-center py-20 px-4 border-t border-white/10 reveal-on-scroll delay-2">
-          <div className="space-y-2 max-w-xl mx-auto">
-            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA ni yuklab oling</h2>
-          </div>
-          <div className="pt-6">
-            <button
-              onClick={onOpenDownload}
-              className="glass-button glass-button-primary py-3 px-8 text-sm"
-            >
-              <span>Yuklab Olish</span>
-            </button>
-          </div>
-        </section>
-
       </div>
+
 
     </div>
   );
