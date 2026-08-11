@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { DownloadModal } from './components/DownloadModal';
@@ -11,11 +11,38 @@ import { SecurityPage } from './pages/SecurityPage';
 import logoWhite from './assets/amatora-logo-white.png';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<string>('home');
+  // Synchronize initial activeTab from URL pathname or hash slug
+  const getTabFromPath = (): string => {
+    const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+    const hash = window.location.hash.replace(/^#/, '').toLowerCase();
+    const target = path || hash;
+    if (['apps', 'features', 'about', 'security'].includes(target)) {
+      return target;
+    }
+    return 'home';
+  };
+
+  const [activeTab, setActiveTabState] = useState<string>(getTabFromPath);
   const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
     isOpen: false,
     platform: 'android',
   });
+
+  const setActiveTab = (tab: string) => {
+    setActiveTabState(tab);
+    const newPath = tab === 'home' ? '/' : `/${tab}`;
+    if (window.location.pathname !== newPath) {
+      window.history.pushState({ tab }, '', newPath);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActiveTabState(getTabFromPath());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleOpenDownload = (platform: 'android' | 'ios' = 'android') => {
     setDownloadModalState({ isOpen: true, platform });
