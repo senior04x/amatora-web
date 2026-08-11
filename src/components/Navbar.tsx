@@ -7,13 +7,7 @@ interface NavbarProps {
   onOpenDownload: (platform?: 'android' | 'ios') => void;
 }
 
-const CustomMenuIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 5l4.5 5 10.5 2.5" />
-    <path d="M4 11l4.5 5 10.5 2.5" />
-    <path d="M4 17l4.5 5 10.5 2.5" />
-  </svg>
-);
+
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenDownload }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +35,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
           className="w-12 h-12 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
           aria-label="Toggle Navigation Drawer"
         >
-          {menuOpen ? <X className="w-6 h-6" /> : <CustomMenuIcon className="w-6 h-6" />}
+          {menuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <img src="/burger.png" alt="Menu" className="w-6 h-6 object-contain" />
+          )}
         </button>
       </div>
 
