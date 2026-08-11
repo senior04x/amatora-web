@@ -130,7 +130,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
         </section>
 
         {/* CTA — Logo + AMATORA text + Download button */}
-        <section className="text-center py-20 px-4 border-t border-white/10 reveal-on-scroll delay-2 flex flex-col items-center gap-6">
+        <section className="text-center py-16 px-4 reveal-on-scroll delay-2 flex flex-col items-center gap-6">
           <div className="flex flex-row items-center justify-center gap-2">
             <img
               src={logoWhite}
