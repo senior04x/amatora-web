@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
 
 interface HomePageProps {
@@ -6,6 +6,27 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
+  
+  useEffect(() => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    };
+
+    const observerOptions: IntersectionObserverInit = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="relative">
       
@@ -20,21 +41,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
         </div>
       </div>
 
-      {/* 2. COLORLESS GLASS BACKDROP OVERLAY SHEET */}
-      <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.8)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
+      {/* 2. FULL-WIDTH COLORLESS GLASS OVERLAY SHEET — no side margins, no side padding */}
+      <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full">
         
         {/* Imkoniyatlar Section */}
-        <section className="space-y-8">
-          
-          <div className="text-center space-y-2">
+        <section className="pt-16 pb-0">
+
+          <div className="text-center space-y-2 reveal-on-scroll delay-1 px-4 sm:px-8 mb-10">
             <div className="glass-badge">Imkoniyatlar</div>
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          {/* Cards — full width grid, no side gaps */}
+          <div className="grid grid-cols-1 md:grid-cols-3">
             
             {/* Card 1 */}
-            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-1 border-b md:border-b-0 md:border-r border-white/10">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <BarChart3 className="w-5 h-5 text-white" />
@@ -57,7 +79,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             </div>
 
             {/* Card 2 */}
-            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-2 border-b md:border-b-0 md:border-r border-white/10">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <ImageIcon className="w-5 h-5 text-white" />
@@ -80,7 +102,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             </div>
 
             {/* Card 3 */}
-            <div className="glass-card p-6 space-y-4 flex flex-col justify-between">
+            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-3">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                   <Smartphone className="w-5 h-5 text-white" />
@@ -106,15 +128,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
 
         </section>
 
-        {/* CTA GLASS BANNER */}
-        <section className="glass-card p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
-          <div className="space-y-2 relative z-10 max-w-xl mx-auto">
+        {/* CTA FULL-WIDTH BANNER — no gaps, flush with footer */}
+        <section className="text-center py-20 px-4 border-t border-white/10 reveal-on-scroll delay-2">
+          <div className="space-y-2 max-w-xl mx-auto">
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA Admin Ilovasini Yuklang</h2>
             <p className="text-xs text-slate-400">
               Turnirlaringizni tezkor va qulay boshqaring (amatora.uz).
             </p>
           </div>
-          <div className="pt-2 relative z-10">
+          <div className="pt-6">
             <button
               onClick={onOpenDownload}
               className="glass-button glass-button-primary py-3 px-8 text-sm"
