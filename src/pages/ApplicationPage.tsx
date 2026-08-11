@@ -373,16 +373,16 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         }}
       />
 
-      {/* Organization Header — ONLY Organization Logo and Name */}
-      <div className="text-center space-y-4 max-w-3xl mx-auto relative z-10">
+      {/* Organization Header — ONLY Organization Logo and Name side-by-side */}
+      <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto relative z-10">
         {org?.logo_url ? (
           <img
             src={org.logo_url}
             alt={org.name}
-            className="h-20 sm:h-28 w-auto mx-auto object-contain drop-shadow-2xl"
+            className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto object-contain drop-shadow-2xl shrink-0"
           />
         ) : null}
-        <h1 className="font-heading font-black text-3xl sm:text-5xl text-white tracking-tight">
+        <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-wider text-left">
           {org?.name || orgSlug.toUpperCase()}
         </h1>
       </div>
