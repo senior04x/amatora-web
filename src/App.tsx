@@ -16,10 +16,8 @@ export function App() {
   return (
     <div className="min-h-screen flex flex-col justify-between relative selection:bg-white selection:text-black">
       
-      {/* 1. ANIMATED MONOCHROMATIC DYNAMIC GRADIENT BACKGROUND */}
+      {/* 1. PURE PITCH BLACK DEEP DARK BACKGROUND */}
       <div className="animated-bg-canvas" />
-      <div className="glow-orb-1" />
-      <div className="glow-orb-2" />
 
       {/* 2. TOP GLASS NAVIGATION BAR */}
       <Navbar
