@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, Trophy, Users, Zap, CheckCircle2, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
+import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
@@ -8,52 +8,20 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
-    <div className="space-y-16 sm:space-y-20">
+    <div className="space-y-24">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-6 sm:pt-10 text-center space-y-6 max-w-4xl mx-auto">
-        
-        {/* Official AMATORA Logo + AMATORA Text */}
-        <div className="flex items-center justify-center gap-3 sm:gap-5 my-4">
+      {/* 1. HERO SECTION (100vh FULLSCREEN CENTERED BRAND DISPLAY) */}
+      <section className="min-h-[calc(100vh-8rem)] flex items-center justify-center text-center px-4 relative">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto my-auto animate-fade-in">
           <img 
             src={logoWhite} 
             alt="AMATORA Official Logo" 
-            className="h-12 sm:h-18 md:h-22 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,255,255,0.25)]" 
+            className="h-16 sm:h-24 md:h-32 w-auto object-contain drop-shadow-[0_10px_35px_rgba(255,255,255,0.3)]" 
           />
-          <h1 className="font-heading font-black text-4xl sm:text-7xl md:text-8xl tracking-wider text-white">
-            AMATORA <span className="text-sm sm:text-2xl font-bold px-2.5 py-0.5 rounded-lg bg-white/10 border border-white/20 text-slate-300 align-middle">.UZ</span>
+          <h1 className="font-heading font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wider text-white">
+            AMATORA <span className="text-base sm:text-2xl font-bold px-3 py-1 rounded-xl bg-white/10 border border-white/20 text-slate-300 align-middle">.UZ</span>
           </h1>
         </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4">
-          
-          <div className="glass-card p-4 text-center space-y-1">
-            <Trophy className="w-5 h-5 text-white mx-auto opacity-80" />
-            <div className="font-heading font-black text-xl sm:text-2xl text-white">100+</div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ligalar</div>
-          </div>
-
-          <div className="glass-card p-4 text-center space-y-1">
-            <Users className="w-5 h-5 text-white mx-auto opacity-80" />
-            <div className="font-heading font-black text-xl sm:text-2xl text-white">5,000+</div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">O'yinchilar</div>
-          </div>
-
-          <div className="glass-card p-4 text-center space-y-1">
-            <Zap className="w-5 h-5 text-white mx-auto opacity-80" />
-            <div className="font-heading font-black text-xl sm:text-2xl text-white">0.1s</div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Sinxronizatsiya</div>
-          </div>
-
-          <div className="glass-card p-4 text-center space-y-1">
-            <Lock className="w-5 h-5 text-white mx-auto opacity-80" />
-            <div className="font-heading font-black text-xl sm:text-2xl text-white">amatora.uz</div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Xavfsizlik</div>
-          </div>
-
-        </div>
-
       </section>
 
       {/* 2. ECOSYSTEM CARDS */}
