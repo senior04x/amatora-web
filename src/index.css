@@ -30,7 +30,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* PURE PITCH BLACK DEEP DARK CANVAS */
+/* 100% PURE PITCH BLACK CANVAS - NO LIGHT ANYWHERE ELSE */
 .animated-bg-canvas {
   position: fixed;
   inset: 0;
@@ -41,14 +41,22 @@ html, body {
   background: #000000;
 }
 
-/* SUBTLE ELEGANT LOGO SHADOW (LOW INTENSITY RADIANCE) */
+/* ONLY LOGO RADIATES A SOFT ELEGANT PULSING LIGHT HALO */
 .logo-glow-radiance {
-  filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.2));
-  transition: filter 0.3s ease;
+  filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.45))
+          drop-shadow(0 0 45px rgba(255, 255, 255, 0.2));
+  animation: logoSoftGlow 3s ease-in-out infinite alternate;
 }
 
-.logo-glow-radiance:hover {
-  filter: drop-shadow(0 6px 28px rgba(255, 255, 255, 0.35));
+@keyframes logoSoftGlow {
+  0% {
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.35))
+            drop-shadow(0 0 35px rgba(255, 255, 255, 0.15));
+  }
+  100% {
+    filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.6))
+            drop-shadow(0 0 55px rgba(255, 255, 255, 0.28));
+  }
 }
 
 /* GLASSMORPHISM UTILITIES */
