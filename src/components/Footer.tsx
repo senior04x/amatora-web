@@ -13,9 +13,9 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         
         {/* Column 1: Brand & Domain */}
         <div className="md:col-span-1 space-y-4">
-          <div className="flex items-center gap-2.5">
-            <img src={logoWhite} alt="AMATORA Logo" className="h-8 w-auto object-contain" />
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-slate-300">.UZ</span>
+          <div className="flex items-center gap-2">
+            <img src={logoWhite} alt="AMATORA Logo" className="h-5 w-auto object-contain" />
+            <span className="font-heading font-black text-sm tracking-wider text-white">AMATORA</span>
           </div>
           <p className="text-xs text-slate-400 leading-relaxed">
             Havaskor futbol ligalarini raqamlashtirish va avtomatlashtirilgan professional boshqaruv platformasi.
