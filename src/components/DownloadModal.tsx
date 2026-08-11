@@ -1,8 +1,10 @@
 import React from 'react';
 import { X, Download } from 'lucide-react';
+import logoWhite from '../assets/amatora-logo-white.png';
 
 interface DownloadModalProps {
   isOpen: boolean;
+  platform?: 'android' | 'ios';
   onClose: () => void;
 }
 
@@ -18,12 +20,14 @@ const AppStoreIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose }) => {
+export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, platform = 'android', onClose }) => {
   if (!isOpen) return null;
+
+  const isAndroid = platform === 'android';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="glass-card w-full max-w-lg p-6 sm:p-8 rounded-3xl border border-white/25 relative shadow-2xl space-y-6">
+      <div className="glass-card w-full max-w-md p-6 sm:p-8 rounded-3xl border border-white/25 relative shadow-2xl space-y-6">
         
         {/* Close Button */}
         <button
@@ -33,79 +37,63 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
           <X className="w-4 h-4" />
         </button>
 
-        {/* Modal Title */}
-        <div className="pr-8">
-          <h3 className="font-heading font-black text-xl text-white">AMATORA Ilovalarini Yuklab Olish</h3>
+        {/* Modal Header — AMATORA Logo + Dedicated Platform Badge */}
+        <div className="flex flex-col items-center justify-center space-y-3 pt-2 text-center">
+          <div className="flex items-center gap-2">
+            <img src={logoWhite} alt="AMATORA Logo" className="h-7 w-auto object-contain logo-glow-radiance" />
+            <span className="font-heading font-black text-lg text-white tracking-wider">AMATORA</span>
+          </div>
+          <div className="glass-badge flex items-center gap-2 px-3 py-1">
+            {isAndroid ? (
+              <>
+                <PlayStoreIcon className="w-4 h-4 text-white" />
+                <span>Google Play (Android)</span>
+              </>
+            ) : (
+              <>
+                <AppStoreIcon className="w-4 h-4 text-white" />
+                <span>App Store (iOS)</span>
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Download Options — Categorized by AMATORA App & AMATORA Admin */}
-        <div className="space-y-5">
+        {/* Modal Options — AMATORA App vs AMATORA Admin for the specific platform */}
+        <div className="space-y-3 pt-2">
           
-          {/* Section 1: AMATORA App (O'yinchilar) */}
-          <div className="space-y-2">
-            <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-1">AMATORA App (O'yinchilar & Ishqibozlar)</div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              
-              <a
-                href="https://amatora.uz/downloads/amatora-app.apk"
-                download
-                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <PlayStoreIcon className="w-5 h-5 text-white" />
-                  <span className="font-heading font-bold text-xs text-white">Google Play</span>
-                </div>
-                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </a>
-
-              <a
-                href="https://amatora.uz/ios/app"
-                target="_blank"
-                rel="noreferrer"
-                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <AppStoreIcon className="w-5 h-5 text-white" />
-                  <span className="font-heading font-bold text-xs text-white">App Store</span>
-                </div>
-                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </a>
-
+          {/* Option 1: AMATORA App */}
+          <a
+            href={isAndroid ? "https://amatora.uz/downloads/amatora-app.apk" : "https://amatora.uz/ios/app"}
+            download={isAndroid}
+            target={isAndroid ? undefined : "_blank"}
+            rel="noreferrer"
+            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
+          >
+            <div className="space-y-0.5">
+              <h4 className="font-heading font-bold text-sm text-white group-hover:text-slate-100">AMATORA App</h4>
+              <p className="text-[11px] text-slate-400">O'yinchilar va Ishqibozlar Ilovasi</p>
             </div>
-          </div>
-
-          {/* Section 2: AMATORA Admin (Tashkilotchilar) */}
-          <div className="space-y-2">
-            <div className="text-[11px] font-bold text-slate-400 tracking-wider uppercase px-1">AMATORA Admin (Tashkilotchilar & Hakamlar)</div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              
-              <a
-                href="https://amatora.uz/downloads/amatora-admin.apk"
-                download
-                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <PlayStoreIcon className="w-5 h-5 text-white" />
-                  <span className="font-heading font-bold text-xs text-white">Google Play</span>
-                </div>
-                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </a>
-
-              <a
-                href="https://amatora.uz/ios/admin"
-                target="_blank"
-                rel="noreferrer"
-                className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-2 group cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <AppStoreIcon className="w-5 h-5 text-white" />
-                  <span className="font-heading font-bold text-xs text-white">App Store</span>
-                </div>
-                <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </a>
-
+            <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform shrink-0">
+              <Download className="w-4 h-4 text-white" />
             </div>
-          </div>
+          </a>
+
+          {/* Option 2: AMATORA Admin */}
+          <a
+            href={isAndroid ? "https://amatora.uz/downloads/amatora-admin.apk" : "https://amatora.uz/ios/admin"}
+            download={isAndroid}
+            target={isAndroid ? undefined : "_blank"}
+            rel="noreferrer"
+            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
+          >
+            <div className="space-y-0.5">
+              <h4 className="font-heading font-bold text-sm text-white group-hover:text-slate-100">AMATORA Admin</h4>
+              <p className="text-[11px] text-slate-400">Tashkilotchilar va Hakamlar Ilovasi</p>
+            </div>
+            <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform shrink-0">
+              <Download className="w-4 h-4 text-white" />
+            </div>
+          </a>
 
         </div>
 

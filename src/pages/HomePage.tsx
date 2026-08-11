@@ -3,7 +3,7 @@ import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } fr
 import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
-  onOpenDownload: () => void;
+  onOpenDownload: (platform?: 'android' | 'ios') => void;
 }
 
 const PlayStoreIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -163,14 +163,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
-              onClick={onOpenDownload}
+              onClick={() => onOpenDownload('android')}
               className="glass-button glass-button-primary py-3 px-6 text-sm flex items-center gap-2.5"
             >
               <PlayStoreIcon className="w-5 h-5 text-black" />
               <span>Google Play</span>
             </button>
             <button
-              onClick={onOpenDownload}
+              onClick={() => onOpenDownload('ios')}
               className="glass-button py-3 px-6 text-sm flex items-center gap-2.5"
             >
               <AppStoreIcon className="w-5 h-5 text-white" />

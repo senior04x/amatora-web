@@ -4,7 +4,7 @@ import { Menu, X, Download } from 'lucide-react';
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  onOpenDownload: () => void;
+  onOpenDownload: (platform?: 'android' | 'ios') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenDownload }) => {

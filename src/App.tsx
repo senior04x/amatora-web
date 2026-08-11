@@ -12,7 +12,14 @@ import logoWhite from './assets/amatora-logo-white.png';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
-  const [downloadModalOpen, setDownloadModalOpen] = useState<boolean>(false);
+  const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
+    isOpen: false,
+    platform: 'android',
+  });
+
+  const handleOpenDownload = (platform: 'android' | 'ios' = 'android') => {
+    setDownloadModalState({ isOpen: true, platform });
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-between relative selection:bg-white selection:text-black">
@@ -38,14 +45,14 @@ export function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenDownload={() => setDownloadModalOpen(true)}
+        onOpenDownload={(platform) => handleOpenDownload(platform)}
       />
 
       {/* 3. MAIN PAGE CONTENT */}
       <main className="flex-1 w-full mx-auto relative z-10">
         {activeTab === 'home' && (
           <HomePage
-            onOpenDownload={() => setDownloadModalOpen(true)}
+            onOpenDownload={(platform) => handleOpenDownload(platform)}
           />
         )}
 
@@ -71,8 +78,9 @@ export function App() {
 
       {/* 5. DOWNLOAD POPUP MODAL */}
       <DownloadModal
-        isOpen={downloadModalOpen}
-        onClose={() => setDownloadModalOpen(false)}
+        isOpen={downloadModalState.isOpen}
+        platform={downloadModalState.platform}
+        onClose={() => setDownloadModalState((prev) => ({ ...prev, isOpen: false }))}
       />
 
     </div>
