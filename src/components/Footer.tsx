@@ -1,0 +1,100 @@
+import React from 'react';
+import { Shield, Lock, Globe, ArrowUpRight } from 'lucide-react';
+
+interface FooterProps {
+  setActiveTab: (tab: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
+  return (
+    <footer className="mt-32 border-t border-white/10 bg-black/60 backdrop-blur-xl text-slate-400 py-16 px-4 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        
+        {/* Column 1: Brand & Domain */}
+        <div className="md:col-span-1 space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <span className="font-heading font-black text-xl text-white tracking-wider">AMATORA</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 ml-1.5 rounded-full bg-white/10 border border-white/20 text-slate-300">.UZ</span>
+            </div>
+          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Havaskor futbol ligalarini raqamlashtirish va avtomatlashtirilgan professional boshqaruv platformasi.
+          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300">
+            <Globe className="w-3.5 h-3.5 text-white" />
+            <span>Rasmiy Domen: <strong>amatora.uz</strong></span>
+          </div>
+        </div>
+
+        {/* Column 2: Quick Links */}
+        <div className="space-y-3">
+          <h4 className="font-heading font-bold text-sm text-white tracking-wider uppercase">Platforma</h4>
+          <ul className="space-y-2 text-xs font-medium">
+            <li>
+              <button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Bosh Sahifa</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setActiveTab('apps')} className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Mobil Ilovalarni Yuklash</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setActiveTab('features')} className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Ligalar va Turnirlar</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 3: Architecture & Security */}
+        <div className="space-y-3">
+          <h4 className="font-heading font-bold text-sm text-white tracking-wider uppercase">Tizim va Xavfsizlik</h4>
+          <ul className="space-y-2 text-xs font-medium">
+            <li>
+              <button onClick={() => setActiveTab('about')} className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Ekotizim Haqida</span>
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setActiveTab('security')} className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Xavfsizlik Standartlari</span>
+              </button>
+            </li>
+            <li>
+              <a href="https://amatora.uz/manifest.json" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Manifest Specification</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-500" />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 4: Security Shield Badge */}
+        <div className="space-y-3 glass-card p-5 border border-white/10 rounded-2xl">
+          <div className="flex items-center gap-2 text-white font-bold text-xs">
+            <Lock className="w-4 h-4 text-white" />
+            <span>Zero-Trust Security</span>
+          </div>
+          <p className="text-[11px] text-slate-400 leading-normal">
+            Barcha ma'lumotlar shifrlangan va SSL/TLS protokoli ostida amatora.uz domeni orqali himoyalanadi.
+          </p>
+        </div>
+
+      </div>
+
+      <div className="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 AMATORA (amatora.uz). Barcha huquqlar himoyalangan.</p>
+        <div className="flex items-center gap-6">
+          <span>Domen: amatora.uz</span>
+          <span>Versiya: 2.4.0 Static</span>
+        </div>
+      </div>
+    </footer>
+  );
+};

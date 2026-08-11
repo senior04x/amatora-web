@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://amatora.uz/sitemap.xml

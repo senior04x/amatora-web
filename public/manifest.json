@@ -1,0 +1,17 @@
+{
+  "short_name": "AMATORA",
+  "name": "AMATORA Ecosystem - amatora.uz",
+  "description": "Havaskor futbol ligalarini raqamlashtirish va professional darajada boshqarish platformasi",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "https://amatora.uz/",
+  "background_color": "#050608",
+  "theme_color": "#050608",
+  "display": "standalone",
+  "orientation": "portrait"
+}
