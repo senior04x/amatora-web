@@ -1,6 +1,5 @@
 import React from 'react';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon } from 'lucide-react';
-import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
   onOpenDownload: () => void;
@@ -10,21 +9,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
     <div className="relative">
       
-      {/* 1. STICKY HERO SECTION (Pinned logo and text during scroll) */}
-      <section className="sticky top-0 h-[85vh] sm:h-screen flex items-center justify-center text-center px-4 z-0 pointer-events-none">
-        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto animate-fade-in pointer-events-auto">
-          <img 
-            src={logoWhite} 
-            alt="AMATORA Official Logo" 
-            className="h-20 sm:h-32 md:h-40 lg:h-44 w-auto object-contain logo-glow-radiance" 
-          />
-          <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white">
-            AMATORA
-          </h1>
-        </div>
-      </section>
+      {/* 1. EMPTY HERO SPACE (Initially reveals fixed body logo) */}
+      <div className="h-[85vh] sm:h-screen pointer-events-none" />
 
-      {/* 2. GLASS BACKDROP OVERLAY SHEET (Scrolls OVER the sticky logo with blur effect) */}
+      {/* 2. GLASS BACKDROP OVERLAY SHEET (Scrolls OVER fixed body logo with blur effect) */}
       <div className="relative z-10 bg-black/85 backdrop-blur-3xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.98)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
         
         {/* Imkoniyatlar Section */}

@@ -8,6 +8,7 @@ import { AppsPage } from './pages/AppsPage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { AboutPage } from './pages/AboutPage';
 import { SecurityPage } from './pages/SecurityPage';
+import logoWhite from './assets/amatora-logo-white.png';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
@@ -16,8 +17,22 @@ export function App() {
   return (
     <div className="min-h-screen flex flex-col justify-between relative selection:bg-white selection:text-black">
       
-      {/* 1. PURE PITCH BLACK DEEP DARK BACKGROUND */}
+      {/* 1. PURE PITCH BLACK CANVAS WITH FIXED CENTERED LOGO */}
       <div className="animated-bg-canvas" />
+      
+      {/* FIXED CENTERED AMATORA BRAND DISPLAY (PERMANENT BODY BACKGROUND) */}
+      <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none px-4">
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto">
+          <img 
+            src={logoWhite} 
+            alt="AMATORA Official Logo" 
+            className="h-20 sm:h-32 md:h-40 lg:h-44 w-auto object-contain logo-glow-radiance" 
+          />
+          <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white">
+            AMATORA
+          </h1>
+        </div>
+      </div>
 
       {/* 2. TOP GLASS NAVIGATION BAR */}
       <Navbar
@@ -26,7 +41,7 @@ export function App() {
         onOpenDownload={() => setDownloadModalOpen(true)}
       />
 
-      {/* 3. MAIN PAGE CONTENT (PARALLAX HERO FOR HOME PAGE) */}
+      {/* 3. MAIN PAGE CONTENT */}
       <main className="flex-1 w-full mx-auto relative z-10">
         {activeTab === 'home' && (
           <HomePage
