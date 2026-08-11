@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
       <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="w-12 h-12 rounded-2xl bg-black/70 backdrop-blur-xl flex items-center justify-center text-white shadow-2xl hover:scale-105 active:scale-95 transition-all outline-none"
+          className="w-12 h-12 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
           aria-label="Toggle Navigation Drawer"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
