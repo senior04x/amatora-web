@@ -131,10 +131,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
         {/* CTA FULL-WIDTH BANNER — no gaps, flush with footer */}
         <section className="text-center py-20 px-4 border-t border-white/10 reveal-on-scroll delay-2">
           <div className="space-y-2 max-w-xl mx-auto">
-            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA Admin Ilovasini Yuklang</h2>
-            <p className="text-xs text-slate-400">
-              Turnirlaringizni tezkor va qulay boshqaring (amatora.uz).
-            </p>
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">AMATORA ni yuklab oling</h2>
           </div>
           <div className="pt-6">
             <button
