@@ -17,17 +17,7 @@ export const AppsPage: React.FC = () => {
   return (
     <div className="space-y-16 py-6">
       
-      {/* Header */}
-      <div className="text-center space-y-4 max-w-3xl mx-auto">
-        <div className="glass-badge">
-          <PlayStoreIcon className="w-3.5 h-3.5 text-white" />
-          <span>Rasmiy Yuklab Olish Markazi (amatora.uz)</span>
-        </div>
-        <h1 className="font-heading font-black text-4xl sm:text-5xl text-white">AMATORA Mobile & Web Distributsiya</h1>
-        <p className="text-sm sm:text-base text-slate-400">
-          Adminlar va o'yinchilar uchun ishlab chiqilgan mobil va veb platformalar to'plami.
-        </p>
-      </div>
+
 
       {/* Primary Download Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
