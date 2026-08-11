@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Globe, ArrowUpRight } from 'lucide-react';
+import { Lock, ArrowUpRight } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
 
 interface FooterProps {
@@ -20,10 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
           <p className="text-xs text-slate-400 leading-relaxed">
             Havaskor futbol ligalarini raqamlashtirish va avtomatlashtirilgan professional boshqaruv platformasi.
           </p>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300">
-            <Globe className="w-3.5 h-3.5 text-white" />
-            <span>Rasmiy Domen: <strong>amatora.uz</strong></span>
-          </div>
+
         </div>
 
         {/* Column 2: Quick Links */}
