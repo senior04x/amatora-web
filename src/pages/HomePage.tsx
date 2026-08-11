@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
+import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
-  onOpenDownload?: () => void;
+  onOpenDownload: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = () => {
+export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -126,6 +127,24 @@ export const HomePage: React.FC<HomePageProps> = () => {
 
           </div>
 
+        </section>
+
+        {/* CTA — Logo + AMATORA text + Download button */}
+        <section className="text-center py-20 px-4 border-t border-white/10 reveal-on-scroll delay-2 flex flex-col items-center gap-6">
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+            <img
+              src={logoWhite}
+              alt="AMATORA Logo"
+              className="h-14 sm:h-20 w-auto object-contain logo-glow-radiance"
+            />
+            <span className="font-heading font-black text-2xl sm:text-4xl tracking-wider text-white">AMATORA</span>
+          </div>
+          <button
+            onClick={onOpenDownload}
+            className="glass-button glass-button-primary py-3 px-10 text-sm"
+          >
+            <span>Yuklab Olish</span>
+          </button>
         </section>
 
       </div>
