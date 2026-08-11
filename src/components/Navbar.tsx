@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Menu, X, Download } from 'lucide-react';
+import { X, Download } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenDownload: (platform?: 'android' | 'ios') => void;
 }
+
+const CustomMenuIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 5l5 9 10 3" />
+    <path d="M4 11l5 9 10 3" />
+  </svg>
+);
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenDownload }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,14 +33,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
 
   return (
     <>
-      {/* 1. Floating Right Corner Borderless Burger Button */}
+      {/* 1. Floating Right Corner Borderless Custom Burger Button */}
       <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="w-12 h-12 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
           aria-label="Toggle Navigation Drawer"
         >
-          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {menuOpen ? <X className="w-6 h-6" /> : <CustomMenuIcon className="w-6 h-6" />}
         </button>
       </div>
 
