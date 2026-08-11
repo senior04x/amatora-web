@@ -354,7 +354,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   }
 
   return (
-    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
+    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-4 sm:pt-6 pb-12 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center">
       
       {/* Dynamic Background Brand Glow for this Organization */}
       <div
