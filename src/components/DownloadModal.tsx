@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Smartphone, Globe, Download } from 'lucide-react';
+import { X, Smartphone, Download } from 'lucide-react';
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -69,26 +69,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
             </a>
           </div>
 
-          {/* Web Access */}
-          <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/30 transition-all flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                <Globe className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h4 className="font-heading font-bold text-sm text-white">Veb Platforma (amatora.uz)</h4>
-                <p className="text-[11px] text-slate-400">Brauzer orqali darhol kirish</p>
-              </div>
-            </div>
-            <a
-              href="https://amatora.uz"
-              target="_blank"
-              rel="noreferrer"
-              className="glass-button glass-button-primary text-xs py-2 px-3.5 whitespace-nowrap"
-            >
-              <span>Kirish</span>
-            </a>
-          </div>
+
 
         </div>
 
