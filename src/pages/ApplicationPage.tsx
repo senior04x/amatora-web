@@ -17,6 +17,7 @@ interface Organization {
   name: string;
   slug: string;
   logo_url?: string;
+  brand_colors?: string[];
 }
 
 interface PlayerInput {
@@ -32,7 +33,7 @@ interface PlayerInput {
   photoUrl?: string;
 }
 
-// Interactive 1:1 Image Cropper Modal Component
+// Clean 1:1 Image Cropper Modal (Zoom Removed)
 const ImageCropperModal: React.FC<{
   isOpen: boolean;
   imageSrc: string | null;
@@ -40,7 +41,6 @@ const ImageCropperModal: React.FC<{
   onClose: () => void;
 }> = ({ isOpen, imageSrc, onCrop, onClose }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [zoom, setZoom] = useState<number>(1);
 
   useEffect(() => {
     if (isOpen && imageSrc && canvasRef.current) {
@@ -73,7 +73,7 @@ const ImageCropperModal: React.FC<{
       };
       img.src = imageSrc;
     }
-  }, [isOpen, imageSrc, zoom]);
+  }, [isOpen, imageSrc]);
 
   if (!isOpen || !imageSrc) return null;
 
@@ -100,19 +100,6 @@ const ImageCropperModal: React.FC<{
           <canvas ref={canvasRef} className="w-full h-full object-cover" />
         </div>
 
-        <div className="space-y-2">
-          <label className="text-xs text-slate-400">Kattalashtirish (Zoom)</label>
-          <input
-            type="range"
-            min="1"
-            max="2"
-            step="0.1"
-            value={zoom}
-            onChange={(e) => setZoom(parseFloat(e.target.value))}
-            className="w-full accent-white"
-          />
-        </div>
-
         <div className="flex gap-3">
           <button
             type="button"
@@ -124,7 +111,7 @@ const ImageCropperModal: React.FC<{
           <button
             type="button"
             onClick={handleConfirmCrop}
-            className="glass-button glass-button-primary flex-1 py-3 text-xs"
+            className="glass-button glass-button-primary flex-1 py-3 text-xs font-bold"
           >
             <span>Qirqish va Saqlash</span>
           </button>
@@ -173,14 +160,19 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const fetchOrgAndLeagues = async () => {
     setLoadingOrg(true);
     try {
-      const { data: orgData } = await supabase
-        .from('organizations')
-        .select('*')
-        .eq('slug', orgSlug.toLowerCase())
-        .maybeSingle();
+      // 1. Query by slug or by numeric id
+      let query = supabase.from('organizations').select('*');
+      if (!isNaN(Number(orgSlug))) {
+        query = query.eq('id', Number(orgSlug));
+      } else {
+        query = query.eq('slug', orgSlug.toLowerCase());
+      }
+
+      const { data: orgData } = await query.maybeSingle();
 
       if (orgData) {
         setOrg(orgData);
+        // Fetch leagues specifically for this organization
         const { data: leagueData } = await supabase
           .from('leagues')
           .select('id, name, organization_id')
@@ -194,7 +186,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       } else {
         setOrg({
           id: 1,
-          name: orgSlug.toUpperCase() + ' Tashkiloti',
+          name: orgSlug.toUpperCase(),
           slug: orgSlug.toLowerCase(),
         });
       }
@@ -202,7 +194,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       console.warn('Error fetching organization info:', err);
       setOrg({
         id: 1,
-        name: orgSlug.toUpperCase() + ' Tashkiloti',
+        name: orgSlug.toUpperCase(),
         slug: orgSlug.toLowerCase(),
       });
     } finally {
@@ -267,8 +259,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     setSubmitError(null);
 
     try {
+      const targetOrgId = org?.id || 1;
       const payload = {
-        organization_id: org?.id || 1,
+        organization_id: targetOrgId,
         league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
         team_name: teamName.trim(),
         team_logo: teamLogoUrl || null,
@@ -305,8 +298,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     setSubmitError(null);
 
     try {
+      const targetOrgId = org?.id || 1;
       const payload = {
-        organization_id: org?.id || 1,
+        organization_id: targetOrgId,
         league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
         player_name: indName.trim(),
         phone: indPhone.trim(),
@@ -333,6 +327,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     }
   };
 
+  // Determine Organization Brand Color for Dynamic Background Glow
+  const brandColor = (org?.brand_colors && org.brand_colors.length > 0) ? org.brand_colors[0] : '#00FF87';
+
   if (submitSuccess) {
     return (
       <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 text-center space-y-6">
@@ -341,14 +338,14 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         </div>
         <h2 className="font-heading font-black text-3xl text-white">Ariza Muvaffaqiyatli Yuborildi!</h2>
         <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
-          Arizangiz <strong>{org?.name || orgSlug.toUpperCase()}</strong> tashkilotchilari tomonidan ko'rib chiqiladi. Tezkorda ko'rsatilgan telefon raqami orqali bog'laniladi.
+          Arizangiz <strong>{org?.name || orgSlug.toUpperCase()}</strong> tashkilotchilariga yuborildi. Tezkorda ko'rsatilgan telefon raqami orqali bog'laniladi.
         </p>
         <button
           onClick={() => {
             setSubmitSuccess(false);
             setMode('selection');
           }}
-          className="glass-button glass-button-primary py-3 px-8 text-sm"
+          className="glass-button glass-button-primary py-3 px-8 text-sm font-bold"
         >
           <span>Qaytadan Arizalar Yuborish</span>
         </button>
@@ -359,6 +356,12 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   return (
     <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
       
+      {/* Dynamic Background Brand Glow for this Organization */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-[140px] pointer-events-none opacity-20"
+        style={{ backgroundColor: brandColor }}
+      />
+
       {/* Cropper Modal */}
       <ImageCropperModal
         isOpen={cropperOpen}
@@ -370,23 +373,23 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         }}
       />
 
-      {/* Organization Branding Header */}
-      <div className="text-center space-y-3 max-w-3xl mx-auto">
-        <div className="glass-badge">
-          <span>{org?.name || orgSlug.toUpperCase() + " Tashkiloti"} • Ro'yxatdan O'tish Portali</span>
-        </div>
-
-        <h1 className="font-heading font-black text-3xl sm:text-5xl text-white">
-          {org?.name || orgSlug.toUpperCase() + " Turnirlari"}
+      {/* Organization Header — ONLY Organization Logo and Name */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto relative z-10">
+        {org?.logo_url ? (
+          <img
+            src={org.logo_url}
+            alt={org.name}
+            className="h-20 sm:h-28 w-auto mx-auto object-contain drop-shadow-2xl"
+          />
+        ) : null}
+        <h1 className="font-heading font-black text-3xl sm:text-5xl text-white tracking-tight">
+          {org?.name || orgSlug.toUpperCase()}
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400">
-          Turnirlarda ishtirok etish uchun tayyor jamoangizni ro'yxatdan o'tkazing yoki yakkaxon o'yinchi sifatida ariza qoldiring.
-        </p>
       </div>
 
       {/* Mode 1: Selection Screen */}
       {mode === 'selection' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto relative z-10">
           
           <div
             onClick={() => setMode('team')}
@@ -398,10 +401,10 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Jamoaviy Ro'yxatdan O'tish</h2>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Tayyor jamoangiz bormi? Jamoa logotipi, nomi, kapitan ma'lumotlari hamda o'yinchilar rasmini kiritib ligaga to'liq qatnashish arizasini topshiring.
+                Jamoangiz logotipi, nomi, kapitan ma'lumotlari hamda o'yinchilar rasmini kiritib ligaga qatnashish arizasini topshiring.
               </p>
             </div>
-            <div className="glass-button glass-button-primary w-full py-3.5 text-center text-xs">
+            <div className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold">
               <span>Jamoani Ro'yxatdan O'tkazish</span>
             </div>
           </div>
@@ -416,10 +419,10 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Yakkaxon Ro'yxatdan O'tish</h2>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Jamoangiz yo'qmi yoki erkin agentmisiz? O'zingiz haqingizda rasmingiz va pozitsiyangiz bilan ma'lumot qoldiring, ligadagi jamoalarga taklif oling.
+                Erkin agent sifatida rasmingiz va pozitsiyangiz bilan ma'lumot qoldiring, ligadagi jamoalarga taklif oling.
               </p>
             </div>
-            <div className="glass-button w-full py-3.5 text-center text-xs">
+            <div className="glass-button w-full py-3.5 text-center text-xs font-bold">
               <span>O'yinchi Sifatida Ariza Qoldirish</span>
             </div>
           </div>
@@ -429,7 +432,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
       {/* Mode 2: Team Registration Form */}
       {mode === 'team' && (
-        <form onSubmit={handleTeamSubmit} className="max-w-3xl mx-auto space-y-8">
+        <form onSubmit={handleTeamSubmit} className="max-w-3xl mx-auto space-y-8 relative z-10">
           
           <button
             type="button"
@@ -450,7 +453,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           {/* Section 1: Team Info & Logo Upload */}
           <div className="glass-card p-6 sm:p-8 space-y-6">
             <h3 className="font-heading font-bold text-xl text-white border-b border-white/10 pb-4">
-              1. Jamoa Ma'lumotlari va Logotip (1:1 Cropper)
+              1. Jamoa Ma'lumotlari va Logotip (1:1 Format)
             </h3>
 
             {/* Team Logo Dropzone / Picker */}
@@ -552,7 +555,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
                 <div key={p.id} className="p-4 rounded-xl bg-white/[0.03] border border-white/10 relative space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      {/* Player photo upload dropzone */}
                       <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20 bg-white/10 flex items-center justify-center shrink-0">
                         {p.photoUrl ? (
                           <img src={p.photoUrl} alt={p.name} className="w-full h-full object-cover" />
@@ -665,7 +667,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
       {/* Mode 3: Individual Player Form */}
       {mode === 'individual' && (
-        <form onSubmit={handleIndividualSubmit} className="max-w-xl mx-auto space-y-8">
+        <form onSubmit={handleIndividualSubmit} className="max-w-xl mx-auto space-y-8 relative z-10">
           
           <button
             type="button"
