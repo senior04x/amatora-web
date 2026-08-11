@@ -28,6 +28,8 @@ html, body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* 100% PURE PITCH BLACK CANVAS - NO LIGHT ANYWHERE ELSE */
