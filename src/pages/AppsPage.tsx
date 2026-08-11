@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const PlayStoreIcon = ({ className = "w-7 h-7" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M3.609 1.814L13.792 12 3.61 22.186c-.183-.198-.295-.469-.295-.77V2.584c0-.301.112-.572.294-.77zM15.206 13.414l2.766 2.766-12.753 7.363 9.987-10.129zm2.766-5.594L15.206 10.585 5.219.456l12.753 7.364zm1.414 1.414l3.197 1.846c.55.318.55.836 0 1.154l-3.197 1.846-2.92-2.92 2.92-2.926z" />
@@ -15,10 +14,8 @@ const AppStoreIcon = ({ className = "w-7 h-7" }: { className?: string }) => (
 
 export const AppsPage: React.FC = () => {
   return (
-    <div className="space-y-16 py-6">
+    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 py-16 space-y-16">
       
-
-
       {/* Primary Download Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         
@@ -76,8 +73,6 @@ export const AppsPage: React.FC = () => {
         </div>
 
       </div>
-
-
 
       {/* Installation Guide */}
       <div className="max-w-5xl mx-auto space-y-6">
