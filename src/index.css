@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --bg-dark: #040507;
-  --bg-card: rgba(15, 17, 23, 0.65);
+  --bg-dark: #000000;
+  --bg-card: rgba(10, 10, 12, 0.75);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-border-hover: rgba(255, 255, 255, 0.35);
   --font-heading: 'Outfit', sans-serif;
@@ -22,15 +22,15 @@
 html, body {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg-dark);
-  color: #f8fafc;
+  background-color: #000000;
+  color: #ffffff;
   font-family: var(--font-body);
   overflow-x: hidden;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 1. VISIBLE ANIMATED DYNAMIC MONOCHROME GRADIENT BACKGROUND */
+/* 1. DEEP BLACK ANIMATED MONOCHROME CANVAS */
 .animated-bg-canvas {
   position: fixed;
   inset: 0;
@@ -38,36 +38,36 @@ html, body {
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
-              radial-gradient(circle at 85% 75%, rgba(200, 200, 200, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 50% 50%, rgba(20, 24, 33, 0.95) 0%, #040507 100%);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 15% 80%, rgba(150, 150, 150, 0.05) 0%, transparent 45%),
+              #000000;
   animation: moveGradient 18s ease-in-out infinite alternate;
 }
 
 @keyframes moveGradient {
   0% {
     transform: scale(1) translate(0, 0);
-    filter: brightness(100%) contrast(100%);
+    filter: brightness(100%);
   }
   50% {
-    transform: scale(1.12) translate(-3%, 2%);
-    filter: brightness(130%) contrast(115%);
+    transform: scale(1.1) translate(-2%, 2%);
+    filter: brightness(125%);
   }
   100% {
-    transform: scale(1.05) translate(3%, -2%);
-    filter: brightness(110%) contrast(105%);
+    transform: scale(1.03) translate(2%, -2%);
+    filter: brightness(110%);
   }
 }
 
 /* Floating Monochromatic Ambient Glowing Glass Orbs */
 .glow-orb-1 {
   position: fixed;
-  top: 10%;
-  left: 20%;
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.09) 0%, rgba(0, 0, 0, 0) 70%);
-  filter: blur(60px);
+  top: 15%;
+  left: 30%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(80px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
@@ -76,12 +76,12 @@ html, body {
 
 .glow-orb-2 {
   position: fixed;
-  bottom: 15%;
-  right: 15%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(180, 180, 180, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
-  filter: blur(75px);
+  bottom: 20%;
+  right: 20%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(200, 200, 200, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(90px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
@@ -90,12 +90,33 @@ html, body {
 
 @keyframes floatOrb1 {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(60px, -40px); }
+  100% { transform: translate(50px, -30px); }
 }
 
 @keyframes floatOrb2 {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(-50px, 40px); }
+  100% { transform: translate(-40px, 30px); }
+}
+
+/* HERO LOGO INTENSE LIGHT RADIANCE DROP-SHADOW */
+.logo-glow-radiance {
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.85))
+          drop-shadow(0 0 65px rgba(255, 255, 255, 0.5))
+          drop-shadow(0 0 110px rgba(255, 255, 255, 0.25));
+  animation: logoPulseRadiance 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes logoPulseRadiance {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.65))
+            drop-shadow(0 0 50px rgba(255, 255, 255, 0.35))
+            drop-shadow(0 0 90px rgba(255, 255, 255, 0.18));
+  }
+  100% {
+    filter: drop-shadow(0 0 45px rgba(255, 255, 255, 1))
+            drop-shadow(0 0 95px rgba(255, 255, 255, 0.75))
+            drop-shadow(0 0 150px rgba(255, 255, 255, 0.45));
+  }
 }
 
 /* 2. GLASSMORPHISM UTILITIES */
@@ -105,21 +126,14 @@ html, body {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
   border-color: var(--glass-border-hover);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
-}
-
-.glass-nav {
-  background: rgba(4, 5, 7, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
 }
 
 .glass-button {
@@ -143,21 +157,21 @@ html, body {
 }
 
 .glass-button:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.7);
   transform: translateY(-1px);
 }
 
 .glass-button-primary {
   background: #ffffff;
-  color: #040507;
+  color: #000000;
   border: 1px solid #ffffff;
 }
 
 .glass-button-primary:hover {
   background: #e2e8f0;
   color: #000000;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.35);
 }
 
 .glass-badge {
@@ -181,9 +195,9 @@ html, body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #040507;
+  background: #000000;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 4px;
 }

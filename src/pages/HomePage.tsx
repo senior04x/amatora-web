@@ -16,7 +16,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
           <img 
             src={logoWhite} 
             alt="AMATORA Official Logo" 
-            className="h-20 sm:h-32 md:h-40 lg:h-44 w-auto object-contain drop-shadow-[0_12px_40px_rgba(255,255,255,0.35)]" 
+            className="h-20 sm:h-32 md:h-40 lg:h-44 w-auto object-contain logo-glow-radiance" 
           />
           <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white">
             AMATORA
