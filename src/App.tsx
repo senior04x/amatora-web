@@ -8,28 +8,36 @@ import { AppsPage } from './pages/AppsPage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { AboutPage } from './pages/AboutPage';
 import { SecurityPage } from './pages/SecurityPage';
+import { ApplicationPage } from './pages/ApplicationPage';
 import logoWhite from './assets/amatora-logo-white.png';
 
+const RESERVED_TABS = ['home', 'apps', 'features', 'about', 'security'];
+
 export function App() {
-  // Synchronize initial activeTab from URL pathname or hash slug
-  const getTabFromPath = (): string => {
+  // Synchronize initial activeTab and orgSlug from URL pathname or hash slug
+  const getRouteFromUrl = (): { tab: string; orgSlug?: string } => {
     const path = window.location.pathname.replace(/^\//, '').toLowerCase();
     const hash = window.location.hash.replace(/^#/, '').toLowerCase();
     const target = path || hash;
-    if (['apps', 'features', 'about', 'security'].includes(target)) {
-      return target;
+
+    if (!target || target === 'home') {
+      return { tab: 'home' };
     }
-    return 'home';
+    if (RESERVED_TABS.includes(target)) {
+      return { tab: target };
+    }
+    // Any custom slug (e.g. /llf, /hfl, /tashkilot) triggers the Organization Application Page
+    return { tab: 'application', orgSlug: target };
   };
 
-  const [activeTab, setActiveTabState] = useState<string>(getTabFromPath);
+  const [route, setRoute] = useState<{ tab: string; orgSlug?: string }>(getRouteFromUrl);
   const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
     isOpen: false,
     platform: 'android',
   });
 
   const setActiveTab = (tab: string) => {
-    setActiveTabState(tab);
+    setRoute({ tab });
     const newPath = tab === 'home' ? '/' : `/${tab}`;
     if (window.location.pathname !== newPath) {
       window.history.pushState({ tab }, '', newPath);
@@ -38,7 +46,7 @@ export function App() {
 
   useEffect(() => {
     const handlePopState = () => {
-      setActiveTabState(getTabFromPath());
+      setRoute(getRouteFromUrl());
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -47,6 +55,8 @@ export function App() {
   const handleOpenDownload = (platform: 'android' | 'ios' = 'android') => {
     setDownloadModalState({ isOpen: true, platform });
   };
+
+  const activeTab = route.tab;
 
   return (
     <div className="min-h-screen flex flex-col justify-between relative selection:bg-white selection:text-black">
@@ -89,6 +99,7 @@ export function App() {
             {activeTab === 'features' && <FeaturesPage />}
             {activeTab === 'about' && <AboutPage />}
             {activeTab === 'security' && <SecurityPage />}
+            {activeTab === 'application' && <ApplicationPage orgSlug={route.orgSlug || 'llf'} />}
           </div>
         )}
       </main>
