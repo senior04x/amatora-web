@@ -14,7 +14,7 @@ const AppStoreIcon = ({ className = "w-7 h-7" }: { className?: string }) => (
 
 export const AppsPage: React.FC = () => {
   return (
-    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 py-16 space-y-16">
+    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-16">
       
       {/* Primary Download Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
