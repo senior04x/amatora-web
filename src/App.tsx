@@ -50,13 +50,13 @@ export function App() {
         )}
 
         {activeTab === 'apps' && (
-          <div className="w-full pt-[40vh] sm:pt-[50vh]">
+          <div className="w-full pt-20 sm:pt-24">
             <AppsPage />
           </div>
         )}
 
         {activeTab !== 'home' && activeTab !== 'apps' && (
-          <div className="w-full pt-[20vh] sm:pt-[30vh] pb-16">
+          <div className="w-full pt-20 sm:pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {activeTab === 'features' && <FeaturesPage />}
               {activeTab === 'about' && <AboutPage />}
