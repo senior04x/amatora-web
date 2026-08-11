@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, User, Plus, Trash2, CheckCircle2, AlertCircle, Send, ArrowLeft, Camera, Image as ImageIcon, Crop } from 'lucide-react';
+import { Shield, User, Plus, Trash2, CheckCircle2, AlertCircle, Send, ArrowLeft, Camera, Image as ImageIcon, Crop, Lock, Phone, Home } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface ApplicationPageProps {
@@ -24,6 +24,7 @@ interface Organization {
   slug: string;
   logo_url?: string;
   brand_colors?: any;
+  contact_phone?: string;
 }
 
 interface PlayerInput {
@@ -161,6 +162,8 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [indPhotoUrl, setIndPhotoUrl] = useState<string | undefined>();
   const [indNotes, setIndNotes] = useState<string>('');
 
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(true);
+
   useEffect(() => {
     fetchOrgAndLeagues();
   }, [orgSlug]);
@@ -200,6 +203,30 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
       if (orgData) {
         setOrg(orgData);
+
+        // Fetch registration status from sponsors KV table (REGISTRATION_OPEN_{orgId})
+        try {
+          const { data: spReg } = await supabase
+            .from('sponsors')
+            .select('logo_url')
+            .in('name', [`REGISTRATION_OPEN_${orgData.id}`, 'REGISTRATION_OPEN_1', 'REGISTRATION_OPEN'])
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+          if (spReg && spReg.logo_url !== null && spReg.logo_url !== undefined) {
+            setIsRegistrationOpen(spReg.logo_url === 'true');
+          } else if ((orgData as any).is_registration_open !== undefined && (orgData as any).is_registration_open !== null) {
+            setIsRegistrationOpen(!!(orgData as any).is_registration_open);
+          } else if ((orgData as any).registration_open !== undefined && (orgData as any).registration_open !== null) {
+            setIsRegistrationOpen(!!(orgData as any).registration_open);
+          } else {
+            setIsRegistrationOpen(true);
+          }
+        } catch (e) {
+          setIsRegistrationOpen(true);
+        }
+
         const { data: leagueData } = await supabase
           .from('leagues')
           .select('id, name, organization_id')
@@ -442,6 +469,74 @@ setIsSubmitting(true);
         >
           <span>Qaytadan Arizalar Yuborish</span>
         </button>
+      </div>
+    );
+  }
+
+  if (isRegistrationOpen === false) {
+    const contactPhone = org?.contact_phone || (org as any)?.phone || '+998 90 903 58 08';
+    return (
+      <div 
+        style={{ background: backgroundGradient }}
+        className="relative z-10 border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center items-center shadow-2xl transition-all duration-500 overflow-hidden"
+      >
+        {/* Soft overlay for contrast */}
+        <div className="absolute inset-0 bg-black/40 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
+
+        {/* Dynamic Background Brand Glow */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none opacity-30"
+          style={{ backgroundColor: c1 }}
+        />
+
+        {/* Organization Header — ONLY Organization Logo and Name side-by-side */}
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto relative z-10">
+          {org?.logo_url ? (
+            <img
+              src={org.logo_url}
+              alt={org.name}
+              className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto object-contain drop-shadow-2xl shrink-0"
+            />
+          ) : null}
+          <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-wider text-left">
+            {org?.name || orgSlug.toUpperCase()}
+          </h1>
+        </div>
+
+        {/* Lock Notice Box */}
+        <div className="glass-card max-w-md w-full p-8 space-y-6 text-center border border-white/20 relative z-10">
+          <div className="w-16 h-16 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center mx-auto text-red-400">
+            <Lock className="w-8 h-8" />
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="font-heading font-black text-2xl text-white">Ro'yxatdan O'tish Yopilgan</h2>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Tashkilot ro'yxatdan o'tishni yopib qo'ygan. Ma'lumot uchun tashkilotchi bilan bog'lanishingiz mumkin:
+            </p>
+          </div>
+
+          {/* Contact Phone Number */}
+          <a
+            href={`tel:${contactPhone.replace(/\s+/g, '')}`}
+            className="flex items-center justify-center gap-2.5 p-3.5 px-6 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-sm hover:bg-white/20 transition-all w-full text-decoration-none"
+          >
+            <Phone className="w-4 h-4 text-emerald-400" />
+            <span>{contactPhone}</span>
+          </a>
+
+          {/* Go to Home Page Button */}
+          <button
+            onClick={() => {
+              window.location.href = '/';
+            }}
+            className="glass-button glass-button-primary w-full py-3.5 text-xs font-bold flex items-center justify-center gap-2"
+          >
+            <Home className="w-4 h-4 text-black" />
+            <span>Bosh Sahifaga O'tish</span>
+          </button>
+        </div>
+
       </div>
     );
   }
