@@ -45,27 +45,43 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
         }`}
       />
 
-      {/* 3. Smooth Animated Glass Side-Drawer (No Logo, No Link Icons) */}
+      {/* 3. Smooth Animated Glass Side-Drawer */}
       <aside
         className={`fixed top-0 right-0 bottom-0 z-50 w-72 sm:w-80 bg-black/90 backdrop-blur-2xl border-l border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${
           menuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Drawer Header (Close Button Only, No Logo) */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-end border-b border-white/10 pb-4">
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Navigation Links List (Clean Text Only, No Icons) */}
+        <div className="space-y-3 pt-1">
+          
+          {/* Navigation Links List — Bosh Sahifa parallel with X button */}
           <nav className="space-y-2">
-            {navItems.map((item) => {
+            {navItems.map((item, index) => {
               const isActive = activeTab === item.id;
+              
+              if (index === 0) {
+                return (
+                  <div key={item.id} className="flex items-center gap-3">
+                    <button
+                      onClick={() => handleNavClick(item.id)}
+                      className={`flex-1 p-3.5 rounded-2xl text-left text-sm font-semibold transition-all ${
+                        isActive
+                          ? 'bg-white text-black font-bold shadow-lg shadow-white/10'
+                          : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                    </button>
+                    <button
+                      onClick={() => setMenuOpen(false)}
+                      className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/20 transition-all shrink-0"
+                      aria-label="Close navigation menu"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                );
+              }
+
               return (
                 <button
                   key={item.id}
