@@ -33,49 +33,39 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
           <X className="w-4 h-4" />
         </button>
 
-        {/* Download Options */}
-        <div className="space-y-4 pt-4">
+        {/* Download Options — Unified Clickable Cards */}
+        <div className="space-y-3 pt-4">
           
-          {/* Google Play / Android */}
-          <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/30 transition-all flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+          {/* Google Play / Android — Whole Card Clickable */}
+          <a
+            href="https://amatora.uz/downloads/amatora-admin.apk"
+            download
+            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
+          >
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
                 <PlayStoreIcon className="w-6 h-6" />
               </div>
-              <div>
-                <h4 className="font-heading font-bold text-sm text-white">Google Play</h4>
-              </div>
+              <h4 className="font-heading font-bold text-base text-white">Google Play</h4>
             </div>
-            <a
-              href="https://amatora.uz/downloads/amatora-admin.apk"
-              download
-              className="glass-button text-xs py-2 px-3.5 whitespace-nowrap gap-2"
-            >
-              <Download className="w-3.5 h-3.5 text-white" />
-              <span>APK</span>
-            </a>
-          </div>
+            <Download className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors shrink-0" />
+          </a>
 
-          {/* App Store / iOS */}
-          <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/30 transition-all flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+          {/* App Store / iOS — Whole Card Clickable */}
+          <a
+            href="https://amatora.uz/ios"
+            target="_blank"
+            rel="noreferrer"
+            className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
+          >
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
                 <AppStoreIcon className="w-6 h-6" />
               </div>
-              <div>
-                <h4 className="font-heading font-bold text-sm text-white">App Store</h4>
-              </div>
+              <h4 className="font-heading font-bold text-base text-white">App Store</h4>
             </div>
-            <a
-              href="https://amatora.uz/ios"
-              target="_blank"
-              rel="noreferrer"
-              className="glass-button text-xs py-2 px-3.5 whitespace-nowrap gap-2"
-            >
-              <Download className="w-3.5 h-3.5 text-white" />
-              <span>iOS App</span>
-            </a>
-          </div>
+            <Download className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors shrink-0" />
+          </a>
 
         </div>
 
