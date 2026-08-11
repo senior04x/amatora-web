@@ -83,19 +83,12 @@ export function App() {
           />
         )}
 
-        {activeTab === 'apps' && (
+        {activeTab !== 'home' && (
           <div className="w-full pt-20 sm:pt-24">
-            <AppsPage />
-          </div>
-        )}
-
-        {activeTab !== 'home' && activeTab !== 'apps' && (
-          <div className="w-full pt-20 sm:pt-24 pb-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {activeTab === 'features' && <FeaturesPage />}
-              {activeTab === 'about' && <AboutPage />}
-              {activeTab === 'security' && <SecurityPage />}
-            </div>
+            {activeTab === 'apps' && <AppsPage />}
+            {activeTab === 'features' && <FeaturesPage />}
+            {activeTab === 'about' && <AboutPage />}
+            {activeTab === 'security' && <SecurityPage />}
           </div>
         )}
       </main>

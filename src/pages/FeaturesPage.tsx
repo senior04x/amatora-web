@@ -58,22 +58,22 @@ export const FeaturesPage: React.FC = () => {
   const filtered = features.filter(f => activeCategory === 'all' || f.category === activeCategory);
 
   return (
-    <div className="space-y-16 py-6">
+    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
       
       {/* Header */}
-      <div className="text-center space-y-4 max-w-3xl mx-auto">
+      <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
           <Layers className="w-3.5 h-3.5 text-white" />
           <span>Platforma Imkoniyatlari Katalogi</span>
         </div>
-        <h1 className="font-heading font-black text-4xl sm:text-5xl text-white">Turnirlarni Boshqarishning Har Bir Tizim Moduli</h1>
-        <p className="text-sm sm:text-base text-slate-400">
+        <h1 className="font-heading font-black text-3xl sm:text-4xl text-white">Turnirlarni Boshqarishning Har Bir Tizim Moduli</h1>
+        <p className="text-xs sm:text-sm text-slate-400">
           AMATORA platformasida har bir funksiya tezkor va aniq ishlash uchun modulli arxitektura asosida tayyorlangan.
         </p>
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-auto bg-white/[0.03] border border-white/10 p-1.5 rounded-2xl">
+      <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-auto bg-white/[0.04] border border-white/10 p-1.5 rounded-2xl">
         {[
           { id: 'all', label: 'Barcha Modullar' },
           { id: 'tournaments', label: 'Turnirlar va O\'yinchilar' },
@@ -95,24 +95,24 @@ export const FeaturesPage: React.FC = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {filtered.map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.id} className="glass-card p-8 space-y-5 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-white" />
+            <div key={item.id} className="glass-card p-6 space-y-4 flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
 
-                <h3 className="font-heading font-bold text-xl text-white">{item.title}</h3>
+                <h3 className="font-heading font-bold text-lg text-white">{item.title}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">{item.description}</p>
               </div>
 
-              <div className="pt-4 border-t border-white/10 space-y-2">
+              <div className="pt-3 border-t border-white/10 space-y-1.5">
                 {item.specs.map((spec, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-xs text-slate-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />
                     <span>{spec}</span>
                   </div>
                 ))}
