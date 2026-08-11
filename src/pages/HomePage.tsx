@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon } from 'lucide-react';
+import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronDown } from 'lucide-react';
 
 interface HomePageProps {
   onOpenDownload: () => void;
@@ -9,8 +9,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
   return (
     <div className="relative">
       
-      {/* 1. EMPTY HERO SPACE (Initially reveals fixed body logo) */}
-      <div className="h-[85vh] sm:h-screen pointer-events-none" />
+      {/* 1. HERO VIEWPORT SPACE WITH ANIMATED DOWN ARROW INDICATOR */}
+      <div className="h-[100dvh] flex flex-col justify-end items-center pb-8 sm:pb-12 pointer-events-none relative z-10">
+        <div 
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+          className="flex flex-col items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity animate-bounce pointer-events-auto cursor-pointer"
+        >
+          <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Pastga Scroll</span>
+          <ChevronDown className="w-5 h-5 text-white" />
+        </div>
+      </div>
 
       {/* 2. COLORLESS GLASS BACKDROP OVERLAY SHEET */}
       <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_90px_rgba(0,0,0,0.8)] px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-20 sm:space-y-24 max-w-7xl mx-auto">
