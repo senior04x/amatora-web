@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
                     </button>
                     <button
                       onClick={() => setMenuOpen(false)}
-                      className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/20 transition-all shrink-0"
+                      className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white transition-colors shrink-0 outline-none"
                       aria-label="Close navigation menu"
                     >
                       <X className="w-5 h-5" />
