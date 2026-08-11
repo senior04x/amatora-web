@@ -23,7 +23,7 @@ interface Organization {
   name: string;
   slug: string;
   logo_url?: string;
-  brand_colors?: string[];
+  brand_colors?: any;
 }
 
 interface PlayerInput {
@@ -356,17 +356,39 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     }
   };
 
-  // Determine Organization Brand Color for Dynamic Background Glow
-  const brandColor = (org?.brand_colors && org.brand_colors.length > 0) ? org.brand_colors[0] : '#00FF87';
+  // Extract Brand Colors Array safely from Supabase jsonb
+  const getBrandColors = (): string[] => {
+    if (!org || !org.brand_colors) return ['#3b2626', '#00d2fc'];
+    let colors = org.brand_colors;
+    if (typeof colors === 'string') {
+      try {
+        colors = JSON.parse(colors);
+      } catch (e) {
+        colors = [colors];
+      }
+    }
+    if (Array.isArray(colors) && colors.length > 0) {
+      return colors;
+    }
+    return ['#3b2626', '#00d2fc'];
+  };
+
+  const parsedColors = getBrandColors();
+  const c1 = parsedColors[0] || '#3b2626';
+  const c2 = parsedColors[1] || parsedColors[0] || '#00d2fc';
+  const backgroundGradient = `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`;
 
   if (submitSuccess) {
     return (
-      <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 text-center space-y-6">
+      <div 
+        style={{ background: backgroundGradient }}
+        className="relative z-10 border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 text-center space-y-6 min-h-[calc(100vh-2rem)] flex flex-col justify-center items-center shadow-2xl"
+      >
         <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto text-white">
           <CheckCircle2 className="w-8 h-8" />
         </div>
         <h2 className="font-heading font-black text-3xl text-white">Ariza Muvaffaqiyatli Yuborildi!</h2>
-        <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+        <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
           Arizangiz <strong>{org?.name || orgSlug.toUpperCase()}</strong> tashkilotchilariga yuborildi. Tezkorda ko'rsatilgan telefon raqami orqali bog'laniladi.
         </p>
         <button
@@ -383,12 +405,17 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   }
 
   return (
-    <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-4 sm:pt-6 pb-12 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center">
-      
-      {/* Dynamic Background Brand Glow for this Organization */}
+    <div
+      style={{ background: backgroundGradient }}
+      className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 transition-all duration-500 shadow-2xl overflow-hidden"
+    >
+      {/* Soft overlay for contrast */}
+      <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
+
+      {/* Dynamic Background Brand Glow */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-[140px] pointer-events-none opacity-20"
-        style={{ backgroundColor: brandColor }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none opacity-40"
+        style={{ backgroundColor: c1 }}
       />
 
       {/* Cropper Modal */}
@@ -422,14 +449,14 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           
           <div
             onClick={() => setMode('team')}
-            className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.06] transition-all group"
+            className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.08] transition-all group"
           >
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
                 <Shield className="w-7 h-7" />
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Jamoaviy Ro'yxatdan O'tish</h2>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 Jamoangiz logotipi, nomi, kapitan ma'lumotlari hamda o'yinchilar rasmini kiritib ligaga qatnashish arizasini topshiring.
               </p>
             </div>
@@ -440,14 +467,14 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
           <div
             onClick={() => setMode('individual')}
-            className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.06] transition-all group"
+            className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.08] transition-all group"
           >
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
                 <User className="w-7 h-7" />
               </div>
               <h2 className="font-heading font-black text-2xl text-white">Yakkaxon Ro'yxatdan O'tish</h2>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-300 leading-relaxed">
                 Erkin agent sifatida rasmingiz va pozitsiyangiz bilan ma'lumot qoldiring, ligadagi jamoalarga taklif oling.
               </p>
             </div>
@@ -466,7 +493,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           <button
             type="button"
             onClick={() => setMode('selection')}
-            className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Orqaga qaytish</span>
@@ -701,7 +728,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           <button
             type="button"
             onClick={() => setMode('selection')}
-            className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Orqaga qaytish</span>
