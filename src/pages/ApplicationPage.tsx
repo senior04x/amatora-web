@@ -282,23 +282,25 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       return;
     }
 
-    setIsSubmitting(true);
+setIsSubmitting(true);
     setSubmitError(null);
 
     try {
       const targetOrgId = org?.id || 1;
+      const selectedLeague = leagues.find((l) => String(l.id) === String(selectedLeagueId));
       
       // 1. Insert team record into 'teams' table
-      const teamPayload = {
+      const teamPayload: any = {
         organization_id: targetOrgId,
-        league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
         name: teamName.trim(),
-        logo_url: teamLogoUrl || null,
-        captain_name: captainName.trim(),
+        logo_url: teamLogoUrl || 'https://amatora.uz/favicon.png',
         captain_phone: captainPhone.trim(),
         status: 'pending',
         created_at: new Date().toISOString(),
       };
+      if (selectedLeague?.name) {
+        teamPayload.league = selectedLeague.name;
+      }
 
       const { data: teamData, error: teamErr } = await supabase
         .from('teams')
@@ -307,7 +309,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         .single();
 
       if (teamErr) {
-        console.warn('Teams table insertion note:', teamErr);
+        console.error('Teams table insertion error:', teamErr);
       }
 
       // 2. Insert players into 'applications' table
@@ -324,13 +326,16 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           passport_series: p.passportSeries || '',
           passport_number: p.passportNumber || '',
           phone: p.phone || captainPhone.trim(),
-          photo_url: p.photoUrl || null,
+          photo_url: p.photoUrl || 'https://amatora.uz/favicon.png',
           status: 'pending',
           comment: `Jamoa: ${teamName.trim()}`,
           created_at: new Date().toISOString(),
         }));
 
-        await supabase.from('applications').insert(playerRows);
+        const { error: playersErr } = await supabase.from('applications').insert(playerRows);
+        if (playersErr) {
+          console.error('Players insertion error:', playersErr);
+        }
       }
 
       setSubmitSuccess(true);
@@ -358,24 +363,30 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       const firstName = nameParts[0] || indName.trim();
       const lastName = nameParts.slice(1).join(' ') || '';
 
-      const playerPayload = {
+      const playerPayload: any = {
         organization_id: targetOrgId,
-        team_id: selectedTeamId ? Number(selectedTeamId) : null,
         first_name: firstName,
         last_name: lastName,
+        father_name: '',
+        passport_series: '',
+        passport_number: '',
+        player_number: '',
         phone: indPhone.trim(),
         position: indPosition,
         birth_date: indAge ? `${indAge} yosh` : '',
-        photo_url: indPhotoUrl || null,
+        photo_url: indPhotoUrl || 'https://amatora.uz/favicon.png',
         comment: indNotes ? `[INDIVIDUAL] ${indNotes}` : '[INDIVIDUAL]',
         status: 'pending',
         created_at: new Date().toISOString(),
       };
+      if (selectedTeamId) {
+        playerPayload.team_id = selectedTeamId;
+      }
 
       const { error: appErr } = await supabase.from('applications').insert([playerPayload]);
 
       if (appErr) {
-        console.warn('Applications table insertion note:', appErr);
+        console.error('Applications table insertion error:', appErr);
       }
 
       setSubmitSuccess(true);
