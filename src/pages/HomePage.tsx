@@ -12,14 +12,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
       
       {/* 1. HERO SECTION (100vh FULLSCREEN CENTERED BRAND DISPLAY) */}
       <section className="min-h-[calc(100vh-8rem)] flex items-center justify-center text-center px-4 relative">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto my-auto animate-fade-in">
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto my-auto animate-fade-in">
           <img 
             src={logoWhite} 
             alt="AMATORA Official Logo" 
-            className="h-16 sm:h-24 md:h-32 w-auto object-contain drop-shadow-[0_10px_35px_rgba(255,255,255,0.3)]" 
+            className="h-20 sm:h-32 md:h-40 lg:h-44 w-auto object-contain drop-shadow-[0_12px_40px_rgba(255,255,255,0.35)]" 
           />
-          <h1 className="font-heading font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wider text-white">
-            AMATORA <span className="text-base sm:text-2xl font-bold px-3 py-1 rounded-xl bg-white/10 border border-white/20 text-slate-300 align-middle">.UZ</span>
+          <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white">
+            AMATORA
           </h1>
         </div>
       </section>
