@@ -43,8 +43,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <PlayStoreIcon className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-heading font-bold text-sm text-white">Google Play (Android APK)</h4>
-                <p className="text-[11px] text-slate-400">Versiya 1.0.0 • 42 MB • Android 8.0+</p>
+                <h4 className="font-heading font-bold text-sm text-white">Google Play</h4>
               </div>
             </div>
             <a
@@ -64,8 +63,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                 <AppStoreIcon className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-heading font-bold text-sm text-white">App Store (iOS / TestFlight)</h4>
-                <p className="text-[11px] text-slate-400">Versiya 1.0.0 • iOS 14.0+</p>
+                <h4 className="font-heading font-bold text-sm text-white">App Store</h4>
               </div>
             </div>
             <a

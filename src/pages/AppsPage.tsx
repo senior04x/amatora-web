@@ -39,28 +39,13 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
                 <PlayStoreIcon className="w-7 h-7" />
               </div>
-              <span className="glass-badge text-[10px]">Google Play / Android</span>
+              <span className="glass-badge text-[10px]">Google Play</span>
             </div>
             
             <h2 className="font-heading font-black text-2xl text-white">AMATORA Admin for Android</h2>
             <p className="text-xs text-slate-400 leading-relaxed">
               Turnirlar, o'yinchilar, match taymerlari, hakamlik paneli hamda grafikalar eksportini bevosita mobil qurilmangizdan boshqaring.
             </p>
-
-            <div className="space-y-2 pt-2 border-t border-white/10 text-xs text-slate-300">
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Versiya:</span>
-                <span className="font-bold text-white">1.0.0 Stable</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Fayl hajmi:</span>
-                <span className="font-bold text-white">42.8 MB</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Tizim talabi:</span>
-                <span className="font-bold text-white">Android 8.0 (Oreo) va undan yuqori</span>
-              </div>
-            </div>
           </div>
 
           <a
@@ -69,7 +54,7 @@ export const AppsPage: React.FC = () => {
             className="glass-button glass-button-primary w-full py-3.5 text-center gap-2"
           >
             <PlayStoreIcon className="w-4 h-4 text-black" />
-            <span>Android APK (Google Play) Yuklab Olish</span>
+            <span>Google Play Orqali Olish</span>
           </a>
         </div>
 
@@ -80,28 +65,13 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
                 <AppStoreIcon className="w-7 h-7" />
               </div>
-              <span className="glass-badge text-[10px]">App Store / iOS</span>
+              <span className="glass-badge text-[10px]">App Store</span>
             </div>
 
             <h2 className="font-heading font-black text-2xl text-white">AMATORA Admin for iPhone & iPad</h2>
             <p className="text-xs text-slate-400 leading-relaxed">
               Apple iOS va iPadOS apparatlari uchun maxsus moslashtirilgan shisha dizaynli admin ilovasi.
             </p>
-
-            <div className="space-y-2 pt-2 border-t border-white/10 text-xs text-slate-300">
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Versiya:</span>
-                <span className="font-bold text-white">1.0.0 (Build 14)</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Fayl hajmi:</span>
-                <span className="font-bold text-white">38.2 MB</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">Tizim talabi:</span>
-                <span className="font-bold text-white">iOS 14.0 va undan yuqori</span>
-              </div>
-            </div>
           </div>
 
           <a
@@ -111,7 +81,7 @@ export const AppsPage: React.FC = () => {
             className="glass-button w-full py-3.5 text-center gap-2"
           >
             <AppStoreIcon className="w-4 h-4 text-white" />
-            <span>App Store (TestFlight) Orqali Olish</span>
+            <span>App Store Orqali Olish</span>
           </a>
         </div>
 
