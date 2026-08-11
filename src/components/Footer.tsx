@@ -81,12 +81,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
 
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div className="max-w-7xl mx-auto border-t border-white/10 pt-8 text-center text-xs text-slate-500">
         <p>© 2026 AMATORA (amatora.uz). Barcha huquqlar himoyalangan.</p>
-        <div className="flex items-center gap-6">
-          <span>Domen: amatora.uz</span>
-          <span>Versiya: 2.4.0 Static</span>
-        </div>
       </div>
     </footer>
   );
