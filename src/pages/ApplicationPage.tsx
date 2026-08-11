@@ -727,6 +727,14 @@ setIsSubmitting(true);
                       className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
                     />
 
+                    <input
+                      type="tel"
+                      placeholder="Tel: +998 90 123 45 67"
+                      value={p.phone}
+                      onChange={(e) => handlePlayerChange(p.id, 'phone', e.target.value)}
+                      className="w-full p-2.5 rounded-lg bg-white/[0.05] border border-white/10 text-white text-xs outline-none placeholder:text-slate-500"
+                    />
+
                     <div className="flex gap-1.5">
                       <input
                         type="text"
