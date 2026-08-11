@@ -1,5 +1,6 @@
 import React from 'react';
-import { Shield, Smartphone, Trophy, Users, Zap, CheckCircle2, ArrowRight, Download, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
+import { Smartphone, Trophy, Users, Zap, CheckCircle2, ArrowRight, Download, BarChart3, Image as ImageIcon, Lock } from 'lucide-react';
+import logoWhite from '../assets/amatora-logo-white.png';
 
 interface HomePageProps {
   onOpenDownload: () => void;
@@ -13,14 +14,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload, setActiveTab
       {/* 1. HERO SECTION */}
       <section className="relative pt-6 sm:pt-10 text-center space-y-6 max-w-4xl mx-auto">
         
-        {/* AMATORA Logo + Title */}
-        <div className="flex items-center justify-center gap-3 sm:gap-5 my-2">
-          <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-white/10 border border-white/25 flex items-center justify-center shadow-2xl backdrop-blur-md">
-            <Shield className="w-8 h-8 sm:w-11 sm:h-11 text-white" />
-          </div>
-          <h1 className="font-heading font-black text-4xl sm:text-7xl md:text-8xl tracking-wider text-white">
-            AMATORA <span className="text-sm sm:text-2xl font-bold px-2.5 py-0.5 rounded-lg bg-white/10 border border-white/20 text-slate-300 align-middle">.UZ</span>
-          </h1>
+        {/* Official AMATORA White Logo Hero Headline */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 my-4">
+          <img 
+            src={logoWhite} 
+            alt="AMATORA Official Logo" 
+            className="h-16 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_10px_30px_rgba(255,255,255,0.25)]" 
+          />
         </div>
 
         {/* CTAs */}

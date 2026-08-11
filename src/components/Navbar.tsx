@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, Smartphone, Layers, Info, Lock, Menu, X, Download } from 'lucide-react';
+import logoWhite from '../assets/amatora-logo-white.png';
 
 interface NavbarProps {
   activeTab: string;
@@ -25,24 +26,20 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-nav px-4 lg:px-8 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 glass-nav px-4 lg:px-8 py-3.5">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
-        {/* Brand Logo */}
+        {/* Official AMATORA Logo */}
         <div 
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-2.5 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/50 transition-all shadow-inner">
-            <Shield className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-heading font-black text-xl tracking-wider text-white">AMATORA</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-slate-300">.UZ</span>
-            </div>
-            <p className="text-[10px] text-slate-400 font-medium tracking-wide">Ekotizim Platformasi</p>
-          </div>
+          <img 
+            src={logoWhite} 
+            alt="AMATORA Logo" 
+            className="h-8 sm:h-9 w-auto object-contain group-hover:scale-105 transition-transform" 
+          />
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 border border-white/20 text-slate-300">.UZ</span>
         </div>
 
         {/* Desktop Navigation Items */}
@@ -71,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={onOpenDownload}
-            className="glass-button glass-button-primary text-sm py-2.5 px-5"
+            className="glass-button glass-button-primary text-sm py-2 px-4"
           >
             <Download className="w-4 h-4 text-black" />
             <span>Yuklab Olish</span>
@@ -81,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white"
+          className="md:hidden w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white"
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -89,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="md:hidden mt-4 p-4 glass-card rounded-2xl border border-white/20 flex flex-col gap-2">
+        <div className="md:hidden mt-3 p-4 glass-card rounded-2xl border border-white/20 flex flex-col gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
