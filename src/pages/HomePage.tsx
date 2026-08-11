@@ -53,18 +53,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
             <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
           </div>
 
-          {/* Cards — with gap and padding */}
+          {/* Cards — tailored for amatora-app & amatora-admin-app */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             
-            {/* Card 1 */}
+            {/* Card 1: amatora-app (Player / Public app) */}
             <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-1">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5 text-white" />
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">AMATORA App</span>
                 </div>
-                <h3 className="font-heading font-bold text-lg text-white">Turnir Jadvali</h3>
+                <h3 className="font-heading font-bold text-lg text-white">Turnir Jadvali va Statistika</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Ochko, to'purarlar va kartochkalar avtomatik hisoblanadi.
+                  O'yinchilar va ishqibozlar uchun real-vaqt rejimida yangilanuvchi ligalar statistikasi.
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
@@ -74,43 +77,49 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>To'purarlar reytingi</span>
+                  <span>To'purarlar va kartochkalar reytingi</span>
                 </li>
               </ul>
             </div>
 
-            {/* Card 2 */}
+            {/* Card 2: amatora-admin-app (Organizers app) */}
             <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-2">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                  <ImageIcon className="w-5 h-5 text-white" />
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                    <ImageIcon className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">AMATORA Admin</span>
                 </div>
                 <h3 className="font-heading font-bold text-lg text-white">PNG Grafika Eksport</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Jadvallar va o'yinlar 1080x1080 rasmlarga 1 soniyada eksport qilinadi.
+                  Turnir jadvallari va match natijalarini 1080x1080 rasmlarga 1 soniyada eksport qiling.
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Avtomatik brending</span>
+                  <span>Avtomatik brending va rasmlar</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Homiylar logotiplari</span>
+                  <span>Homiylar logotiplari eksporti</span>
                 </li>
               </ul>
             </div>
 
-            {/* Card 3 */}
+            {/* Card 3: amatora-admin-app & amatora-app ecosystem */}
             <div className="glass-card p-6 space-y-4 flex flex-col justify-between reveal-on-scroll delay-3">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-                  <Smartphone className="w-5 h-5 text-white" />
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                    <Smartphone className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">Ekotizim</span>
                 </div>
                 <h3 className="font-heading font-bold text-lg text-white">Arizalar va Transferlar</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  O'yinchilar pasporti hamda transfer arizalarini bir bosishda tasdiqlang.
+                  O'yinchilar pasporti hamda komandalar transfer arizalarini bir bosishda tasdiqlang.
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
@@ -120,7 +129,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Transfer oynalari</span>
+                  <span>Transfer oynalari boshqaruvi</span>
                 </li>
               </ul>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Smartphone, Globe, Download, CheckCircle, ShieldCheck } from 'lucide-react';
+import { X, Smartphone, Globe, Download } from 'lucide-react';
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -21,17 +21,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
           <X className="w-4 h-4" />
         </button>
 
-        {/* Header */}
-        <div className="space-y-2">
-          <div className="glass-badge">
-            <ShieldCheck className="w-3.5 h-3.5 text-white" />
-            <span>Rasmiy Distributsiya (amatora.uz)</span>
-          </div>
-          <h3 className="font-heading font-black text-2xl text-white">AMATORA Ilovalarini Yuklab Olish</h3>
-          <p className="text-xs text-slate-400">
-            Tizim ilovalarini Android, iOS hamda Veb versiyalari uchun yuklab oling.
-          </p>
-        </div>
+
 
         {/* Download Options */}
         <div className="space-y-3">
@@ -102,11 +92,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
 
         </div>
 
-        {/* Security Note */}
-        <div className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/10 text-[11px] text-slate-400">
-          <CheckCircle className="w-4 h-4 text-white shrink-0" />
-          <span>Faqat rasmiy <strong>amatora.uz</strong> manbasidan yuklab oling. Fayllar raqamli imzo bilan tayyorlangan.</span>
-        </div>
+
 
       </div>
     </div>
