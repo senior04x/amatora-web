@@ -12,6 +12,12 @@ interface League {
   organization_id: number;
 }
 
+interface Team {
+  id: number;
+  name: string;
+  league_id: number;
+}
+
 interface Organization {
   id: number;
   name: string;
@@ -126,6 +132,8 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [, setLoadingOrg] = useState<boolean>(true);
   const [org, setOrg] = useState<Organization | null>(null);
   const [leagues, setLeagues] = useState<League[]>([]);
+  const [leagueTeams, setLeagueTeams] = useState<Team[]>([]);
+  const [selectedTeamId, setSelectedTeamId] = useState<string>('');
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -157,10 +165,30 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
     fetchOrgAndLeagues();
   }, [orgSlug]);
 
+  useEffect(() => {
+    if (selectedLeagueId) {
+      fetchTeamsForLeague(Number(selectedLeagueId));
+    }
+  }, [selectedLeagueId]);
+
+  const fetchTeamsForLeague = async (leagueId: number) => {
+    try {
+      const { data } = await supabase
+        .from('teams')
+        .select('id, name, league_id')
+        .eq('league_id', leagueId)
+        .order('name');
+      setLeagueTeams(data || []);
+      setSelectedTeamId('');
+    } catch (err) {
+      console.warn('Error fetching teams for league:', err);
+      setLeagueTeams([]);
+    }
+  };
+
   const fetchOrgAndLeagues = async () => {
     setLoadingOrg(true);
     try {
-      // 1. Query by slug or by numeric id
       let query = supabase.from('organizations').select('*');
       if (!isNaN(Number(orgSlug))) {
         query = query.eq('id', Number(orgSlug));
@@ -172,7 +200,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
       if (orgData) {
         setOrg(orgData);
-        // Fetch leagues specifically for this organization
         const { data: leagueData } = await supabase
           .from('leagues')
           .select('id, name, organization_id')
@@ -302,6 +329,8 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       const payload = {
         organization_id: targetOrgId,
         league_id: selectedLeagueId ? Number(selectedLeagueId) : null,
+        target_team_id: selectedTeamId ? Number(selectedTeamId) : null,
+        team_id: selectedTeamId ? Number(selectedTeamId) : null,
         player_name: indName.trim(),
         phone: indPhone.trim(),
         position: indPosition,
@@ -731,6 +760,25 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
                   </select>
                 </div>
               )}
+
+              {/* Target Team Selection Dropdown */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300">Maqsadli Jamoa (Ixtiyoriy)</label>
+                <select
+                  value={selectedTeamId}
+                  onChange={(e) => setSelectedTeamId(e.target.value)}
+                  className="w-full p-3 rounded-xl bg-white/[0.05] border border-white/15 text-white text-xs outline-none"
+                >
+                  <option value="" className="bg-slate-900 text-white">
+                    -- Erkin agent (Barcha jamoalarga ochiq) --
+                  </option>
+                  {leagueTeams.map((t) => (
+                    <option key={t.id} value={t.id} className="bg-slate-900 text-white">
+                      {t.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">Ism va Familiyangiz *</label>
