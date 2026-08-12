@@ -496,10 +496,10 @@ setIsSubmitting(true);
     return (
       <div 
         style={{ background: backgroundGradient }}
-        className="relative z-10 border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center items-center shadow-2xl transition-all duration-500 overflow-hidden"
+        className="relative z-10 w-full px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 pb-16 space-y-8 min-h-screen flex flex-col justify-center items-center shadow-2xl transition-all duration-500 overflow-hidden"
       >
         {/* Soft overlay for contrast */}
-        <div className="absolute inset-0 bg-black/40 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
         {/* Dynamic Background Brand Glow */}
         <div
@@ -522,7 +522,7 @@ setIsSubmitting(true);
         </div>
 
         {/* Lock Notice Box */}
-        <div className="glass-card max-w-md w-full p-8 space-y-6 text-center border border-white/20 relative z-10">
+        <div className="glass-card max-w-md w-full p-8 space-y-6 text-center relative z-10 border border-white/20">
           <div className="w-16 h-16 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center mx-auto text-red-400">
             <Lock className="w-8 h-8" />
           </div>
@@ -597,20 +597,20 @@ setIsSubmitting(true);
         </div>
       </div>
 
-      {/* MAIN APPLICATION CONTAINER */}
+      {/* MAIN APPLICATION CONTAINER (Edge-to-Edge 100% Full Viewport) */}
       <div
-        className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 shadow-2xl overflow-hidden"
+        className="relative z-10 w-full min-h-screen px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 pb-16 space-y-8 flex flex-col justify-center overflow-hidden"
       >
         {/* Smooth Background Gradient Fade-In Overlay (amatora-admin-app style) */}
         <div
-          className={`absolute inset-0 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px] transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ease-in-out ${
             isScreenReady ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ background: backgroundGradient }}
         />
 
         {/* Soft overlay for contrast */}
-        <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
 
         {/* Dynamic Background Brand Glow */}
         <div

@@ -96,7 +96,7 @@ export function App() {
         )}
 
         {activeTab !== 'home' && (
-          <div className={`w-full ${activeTab === 'application' ? 'pt-6 sm:pt-8' : 'pt-20 sm:pt-24'}`}>
+          <div className={`w-full ${activeTab === 'application' ? 'pt-0' : 'pt-20 sm:pt-24'}`}>
             {activeTab === 'apps' && <AppsPage />}
             {activeTab === 'features' && <FeaturesPage />}
             {activeTab === 'about' && <AboutPage />}
