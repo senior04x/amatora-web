@@ -219,9 +219,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
           const { data: spReg } = await supabase
             .from('sponsors')
             .select('logo_url')
-            .in('name', [`REGISTRATION_OPEN_${orgData.id}`, 'REGISTRATION_OPEN_1', 'REGISTRATION_OPEN'])
-            .order('created_at', { ascending: false })
-            .limit(1)
+            .eq('name', `REGISTRATION_OPEN_${orgData.id}`)
             .maybeSingle();
 
           if (spReg && spReg.logo_url !== null && spReg.logo_url !== undefined) {
