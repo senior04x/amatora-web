@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, User, Plus, Trash2, CheckCircle2, AlertCircle, Send, ArrowLeft, Camera, Image as ImageIcon, Crop, Lock, Phone, Home } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import logoWhite from '../assets/amatora-logo-white.png';
 
 interface ApplicationPageProps {
   orgSlug: string;
@@ -139,6 +140,11 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  // Smooth Loading & Screen Reveal Animation State
+  const [loadingProgress, setLoadingProgress] = useState<number>(0);
+  const [isScreenReady, setIsScreenReady] = useState<boolean>(false);
+  const isDataLoadedRef = useRef<boolean>(false);
+
   // Cropper modal state
   const [cropperOpen, setCropperOpen] = useState<boolean>(false);
   const [rawImageSrc, setRawImageSrc] = useState<string | null>(null);
@@ -163,6 +169,34 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [indNotes, setIndNotes] = useState<string>('');
 
   const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(true);
+
+  // Progress Counter Timer
+  useEffect(() => {
+    isDataLoadedRef.current = false;
+    setLoadingProgress(0);
+    setIsScreenReady(false);
+
+    let current = 0;
+    const timer = setInterval(() => {
+      if (isDataLoadedRef.current) {
+        current = 100;
+      } else {
+        current += Math.floor(Math.random() * 10 + 6);
+        if (current > 88) current = 88;
+      }
+
+      setLoadingProgress(current);
+
+      if (current >= 100) {
+        clearInterval(timer);
+        setTimeout(() => {
+          setIsScreenReady(true);
+        }, 350);
+      }
+    }, 65);
+
+    return () => clearInterval(timer);
+  }, [orgSlug]);
 
   useEffect(() => {
     fetchOrgAndLeagues();
@@ -253,6 +287,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       });
     } finally {
       setLoadingOrg(false);
+      isDataLoadedRef.current = true;
     }
   };
 
@@ -542,52 +577,94 @@ setIsSubmitting(true);
   }
 
   return (
-    <div
-      style={{ background: backgroundGradient }}
-      className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 transition-all duration-500 shadow-2xl overflow-hidden"
-    >
-      {/* Soft overlay for contrast */}
-      <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
-
-      {/* Dynamic Background Brand Glow */}
+    <>
+      {/* 100% PURE PITCH BLACK INITIAL LOADING OVERLAY WITH AMATORA LOGO & PERCENTAGE COUNTER */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none opacity-40"
-        style={{ backgroundColor: c1 }}
-      />
+        className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center transition-opacity duration-700 ease-in-out ${
+          isScreenReady ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+        }`}
+      >
+        <div className="flex flex-col items-center justify-center gap-6 px-4">
+          {/* Amatora Logo + AMATORA text side-by-side */}
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+            <img
+              src={logoWhite}
+              alt="AMATORA Logo"
+              className="h-16 sm:h-24 md:h-28 w-auto object-contain logo-glow-radiance"
+            />
+            <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl tracking-wider text-white">
+              AMATORA
+            </h1>
+          </div>
 
-      {/* Cropper Modal */}
-      <ImageCropperModal
-        isOpen={cropperOpen}
-        imageSrc={rawImageSrc}
-        onCrop={handleCropComplete}
-        onClose={() => {
-          setCropperOpen(false);
-          setRawImageSrc(null);
-        }}
-      />
+          {/* Percentage Counter & Progress Bar */}
+          <div className="flex flex-col items-center gap-3 mt-4">
+            <div className="flex items-baseline gap-1">
+              <span className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
+                {loadingProgress}
+              </span>
+              <span className="font-heading font-bold text-lg text-emerald-400">%</span>
+            </div>
 
-      {/* Organization Header — ONLY Organization Logo and Name side-by-side */}
-      <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto relative z-10">
-        {org?.logo_url ? (
-          <img
-            src={org.logo_url}
-            alt={org.name}
-            className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto object-contain drop-shadow-2xl shrink-0"
-          />
-        ) : null}
-        <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-wider text-left">
-          {org?.name || orgSlug.toUpperCase()}
-        </h1>
+            <div className="w-52 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden border border-white/20 p-[1px]">
+              <div
+                className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-150 ease-out shadow-[0_0_12px_rgba(16,185,129,0.8)]"
+                style={{ width: `${loadingProgress}%` }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Mode 1: Selection Screen */}
-      {mode === 'selection' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto relative z-10">
-          
-          <div
-            onClick={() => setMode('team')}
-            className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.08] transition-all group"
-          >
+      {/* MAIN APPLICATION CONTAINER WITH TWO-SIDED EXPANDING GRADIENT & STAGGER REVEAL */}
+      <div
+        style={{ background: backgroundGradient }}
+        className={`relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 shadow-2xl overflow-hidden ${
+          isScreenReady ? 'animate-expand-gradient' : 'opacity-0'
+        }`}
+      >
+        {/* Soft overlay for contrast */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
+
+        {/* Dynamic Background Brand Glow */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none opacity-40"
+          style={{ backgroundColor: c1 }}
+        />
+
+        {/* Cropper Modal */}
+        <ImageCropperModal
+          isOpen={cropperOpen}
+          imageSrc={rawImageSrc}
+          onCrop={handleCropComplete}
+          onClose={() => {
+            setCropperOpen(false);
+            setRawImageSrc(null);
+          }}
+        />
+
+        {/* Organization Header — ONLY Organization Logo and Name side-by-side */}
+        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto relative z-10 anim-org-header">
+          {org?.logo_url ? (
+            <img
+              src={org.logo_url}
+              alt={org.name}
+              className="h-24 sm:h-32 md:h-36 lg:h-40 w-auto object-contain drop-shadow-2xl shrink-0"
+            />
+          ) : null}
+          <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-wider text-left">
+            {org?.name || orgSlug.toUpperCase()}
+          </h1>
+        </div>
+
+        {/* Mode 1: Selection Screen */}
+        {mode === 'selection' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto relative z-10">
+            
+            <div
+              onClick={() => setMode('team')}
+              className="glass-card p-8 space-y-6 flex flex-col justify-between cursor-pointer hover:border-white/40 hover:bg-white/[0.08] transition-all group anim-card-team"
+            >
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
                 <Shield className="w-7 h-7" />
@@ -1030,5 +1107,6 @@ setIsSubmitting(true);
       )}
 
     </div>
-  );
+  </>
+);
 };

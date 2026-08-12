@@ -61,6 +61,66 @@ html, body {
   }
 }
 
+/* TWO-SIDED EXPANDING GRADIENT OVERLAY (Expanding from left & right sides) */
+@keyframes expandFromSides {
+  0% {
+    clip-path: inset(0 50% 0 50%);
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  60% {
+    clip-path: inset(0 10% 0 10%);
+    opacity: 0.85;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-expand-gradient {
+  animation: expandFromSides 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* STAGGERED FADE-IN & SLIDE ANIMATIONS FOR ORG LOGO, NAME, CARDS */
+@keyframes fadeInDownStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInUpStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.anim-org-header {
+  animation: fadeInDownStagger 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  opacity: 0;
+}
+
+.anim-card-team {
+  animation: fadeInUpStagger 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+  opacity: 0;
+}
+
+.anim-card-ind {
+  animation: fadeInUpStagger 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
+  opacity: 0;
+}
+
 /* SCROLL REVEAL STAGGER ANIMATIONS */
 .reveal-on-scroll {
   opacity: 0;
