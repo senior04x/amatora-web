@@ -214,25 +214,25 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
       if (orgData) {
         setOrg(orgData);
 
-        // Fetch registration status from sponsors KV table (REGISTRATION_OPEN_{orgId})
-        try {
-          const { data: spReg } = await supabase
-            .from('sponsors')
-            .select('logo_url')
-            .eq('name', `REGISTRATION_OPEN_${orgData.id}`)
-            .maybeSingle();
+        // Check registration status from primary orgData.is_registration_open column
+        if ((orgData as any).is_registration_open !== undefined && (orgData as any).is_registration_open !== null) {
+          setIsRegistrationOpen(!!(orgData as any).is_registration_open);
+        } else {
+          try {
+            const { data: spReg } = await supabase
+              .from('sponsors')
+              .select('logo_url')
+              .eq('name', `REGISTRATION_OPEN_${orgData.id}`)
+              .maybeSingle();
 
-          if (spReg && spReg.logo_url !== null && spReg.logo_url !== undefined) {
-            setIsRegistrationOpen(spReg.logo_url === 'true');
-          } else if ((orgData as any).is_registration_open !== undefined && (orgData as any).is_registration_open !== null) {
-            setIsRegistrationOpen(!!(orgData as any).is_registration_open);
-          } else if ((orgData as any).registration_open !== undefined && (orgData as any).registration_open !== null) {
-            setIsRegistrationOpen(!!(orgData as any).registration_open);
-          } else {
+            if (spReg && spReg.logo_url !== null && spReg.logo_url !== undefined) {
+              setIsRegistrationOpen(spReg.logo_url === 'true');
+            } else {
+              setIsRegistrationOpen(true);
+            }
+          } catch (e) {
             setIsRegistrationOpen(true);
           }
-        } catch (e) {
-          setIsRegistrationOpen(true);
         }
         setLoadingProgress(70); // 70%: Registration status verified
 
