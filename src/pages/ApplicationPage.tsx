@@ -140,10 +140,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  // Smooth Loading & Screen Reveal Animation State
+  // Real Database Loading Progress & Screen Reveal State
   const [loadingProgress, setLoadingProgress] = useState<number>(0);
   const [isScreenReady, setIsScreenReady] = useState<boolean>(false);
-  const isDataLoadedRef = useRef<boolean>(false);
 
   // Cropper modal state
   const [cropperOpen, setCropperOpen] = useState<boolean>(false);
@@ -169,34 +168,6 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
   const [indNotes, setIndNotes] = useState<string>('');
 
   const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(true);
-
-  // Progress Counter Timer
-  useEffect(() => {
-    isDataLoadedRef.current = false;
-    setLoadingProgress(0);
-    setIsScreenReady(false);
-
-    let current = 0;
-    const timer = setInterval(() => {
-      if (isDataLoadedRef.current) {
-        current = 100;
-      } else {
-        current += Math.floor(Math.random() * 10 + 6);
-        if (current > 88) current = 88;
-      }
-
-      setLoadingProgress(current);
-
-      if (current >= 100) {
-        clearInterval(timer);
-        setTimeout(() => {
-          setIsScreenReady(true);
-        }, 350);
-      }
-    }, 65);
-
-    return () => clearInterval(timer);
-  }, [orgSlug]);
 
   useEffect(() => {
     fetchOrgAndLeagues();
@@ -225,6 +196,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
   const fetchOrgAndLeagues = async () => {
     setLoadingOrg(true);
+    setIsScreenReady(false);
+    setLoadingProgress(10); // 10%: Connecting & Initializing
+
     try {
       let query = supabase.from('organizations').select('*');
       if (!isNaN(Number(orgSlug))) {
@@ -233,7 +207,9 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         query = query.eq('slug', orgSlug.toLowerCase());
       }
 
+      setLoadingProgress(25);
       const { data: orgData } = await query.maybeSingle();
+      setLoadingProgress(45); // 45%: Organization query completed
 
       if (orgData) {
         setOrg(orgData);
@@ -260,6 +236,7 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         } catch (e) {
           setIsRegistrationOpen(true);
         }
+        setLoadingProgress(70); // 70%: Registration status verified
 
         const { data: leagueData } = await supabase
           .from('leagues')
@@ -271,12 +248,14 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         if (leagueData && leagueData.length > 0) {
           setSelectedLeagueId(String(leagueData[0].id));
         }
+        setLoadingProgress(95); // 95%: Leagues fetched
       } else {
         setOrg({
           id: 1,
           name: orgSlug.toUpperCase(),
           slug: orgSlug.toLowerCase(),
         });
+        setLoadingProgress(95);
       }
     } catch (err) {
       console.warn('Error fetching organization info:', err);
@@ -285,9 +264,13 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         name: orgSlug.toUpperCase(),
         slug: orgSlug.toLowerCase(),
       });
+      setLoadingProgress(95);
     } finally {
       setLoadingOrg(false);
-      isDataLoadedRef.current = true;
+      setLoadingProgress(100); // 100%: All data ready
+      setTimeout(() => {
+        setIsScreenReady(true);
+      }, 250);
     }
   };
 
@@ -584,31 +567,29 @@ setIsSubmitting(true);
           isScreenReady ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
         }`}
       >
-        <div className="flex flex-col items-center justify-center gap-6 px-4">
+        <div className="flex flex-col items-center justify-center gap-5 px-4">
           {/* Amatora Logo + AMATORA text side-by-side */}
-          <div className="flex flex-row items-center justify-center gap-4 sm:gap-6">
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-4">
             <img
               src={logoWhite}
               alt="AMATORA Logo"
-              className="h-16 sm:h-24 md:h-28 w-auto object-contain logo-glow-radiance"
+              className="h-12 sm:h-16 md:h-20 w-auto object-contain logo-glow-radiance"
             />
-            <h1 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl tracking-wider text-white">
+            <h1 className="font-heading font-black text-2xl sm:text-4xl tracking-wider text-white">
               AMATORA
             </h1>
           </div>
 
-          {/* Percentage Counter & Progress Bar */}
-          <div className="flex flex-col items-center gap-3 mt-4">
-            <div className="flex items-baseline gap-1">
-              <span className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
-                {loadingProgress}
-              </span>
-              <span className="font-heading font-bold text-lg text-emerald-400">%</span>
-            </div>
+          {/* Small, Clean Pure White Percentage Counter & Progress Bar */}
+          <div className="flex flex-col items-center gap-2 mt-2">
+            <span className="font-heading font-semibold text-xs sm:text-sm text-white/90 tracking-wide">
+              {loadingProgress}%
+            </span>
 
-            <div className="w-52 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden border border-white/20 p-[1px]">
+            {/* Pure White Thin Progress Bar */}
+            <div className="w-36 sm:w-44 h-1 bg-white/10 rounded-full overflow-hidden border border-white/15">
               <div
-                className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-150 ease-out shadow-[0_0_12px_rgba(16,185,129,0.8)]"
+                className="h-full bg-white rounded-full transition-all duration-200 ease-out"
                 style={{ width: `${loadingProgress}%` }}
               />
             </div>
@@ -616,19 +597,26 @@ setIsSubmitting(true);
         </div>
       </div>
 
-      {/* MAIN APPLICATION CONTAINER WITH TWO-SIDED EXPANDING GRADIENT & STAGGER REVEAL */}
+      {/* MAIN APPLICATION CONTAINER */}
       <div
-        style={{ background: backgroundGradient }}
-        className={`relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 shadow-2xl overflow-hidden ${
-          isScreenReady ? 'animate-expand-gradient' : 'opacity-0'
-        }`}
+        className="relative z-10 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-16 space-y-8 min-h-[calc(100vh-2rem)] flex flex-col justify-center border-t border-white/15 shadow-2xl overflow-hidden"
       >
+        {/* Smooth Background Gradient Fade-In Overlay (amatora-admin-app style) */}
+        <div
+          className={`absolute inset-0 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px] transition-opacity duration-1000 ease-in-out ${
+            isScreenReady ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ background: backgroundGradient }}
+        />
+
         {/* Soft overlay for contrast */}
         <div className="absolute inset-0 bg-black/30 pointer-events-none rounded-t-[36px] sm:rounded-t-[48px]" />
 
         {/* Dynamic Background Brand Glow */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none opacity-40"
+          className={`absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] pointer-events-none transition-opacity duration-1000 ease-in-out ${
+            isScreenReady ? 'opacity-40' : 'opacity-0'
+          }`}
           style={{ backgroundColor: c1 }}
         />
 
