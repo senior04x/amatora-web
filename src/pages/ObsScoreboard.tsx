@@ -451,18 +451,41 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
     }
   };
 
-  if (!activeMatchId || !match || !['first_half', 'second_half'].includes(match.status)) {
-    return null; // Empty transparent background during half time, finished, or scheduled
+  const isPlayingStatus = match && ['first_half', 'second_half'].includes(match.status);
+
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+  const [renderMatch, setRenderMatch] = useState<any>(null);
+
+  useEffect(() => {
+    if (isPlayingStatus) {
+      setRenderMatch(match);
+      setShouldRender(true);
+      setIsExiting(false);
+    } else if (shouldRender && !isExiting) {
+      setIsExiting(true);
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setIsExiting(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isPlayingStatus, match]);
+
+  if (!activeMatchId || !renderMatch || !shouldRender) {
+    return null; // Empty transparent background when not rendering
   }
+
+  const displayMatch = isExiting ? renderMatch : match;
 
   // Determine gradient based on league
   let gradientClass = 'theme-default';
-  if (match.league === '3-liga') gradientClass = 'theme-3liga';
-  else if (match.league === 'Pro liga') gradientClass = 'theme-pro';
-  else if (match.league === 'Super liga') gradientClass = 'theme-super';
-  else if (match.league === 'Europa ligasi') gradientClass = 'theme-europa';
-  else if (match.league === 'Chempionlar ligasi') gradientClass = 'theme-chemp';
-  else if (match.league === '7x7 liga') gradientClass = 'theme-7x7';
+  if (displayMatch.league === '3-liga') gradientClass = 'theme-3liga';
+  else if (displayMatch.league === 'Pro liga') gradientClass = 'theme-pro';
+  else if (displayMatch.league === 'Super liga') gradientClass = 'theme-super';
+  else if (displayMatch.league === 'Europa ligasi') gradientClass = 'theme-europa';
+  else if (displayMatch.league === 'Chempionlar ligasi') gradientClass = 'theme-chemp';
+  else if (displayMatch.league === '7x7 liga') gradientClass = 'theme-7x7';
 
   const leagueBgUrl =
     leagueData?.export_bg_url ||
@@ -488,10 +511,8 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const statusText = formatStatus(match.status);
-
-  const isHidden = match.status === 'finished';
-  const visibilityClass = isHidden ? 'transformer-exit' : 'transformer-enter';
+  const statusText = formatStatus(displayMatch.status);
+  const visibilityClass = isExiting ? 'transformer-exit' : 'transformer-enter';
 
   return (
     <div className={`obs-container ${gradientClass}`}>
@@ -512,7 +533,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
               </>
             )}
             <div className="obs-score-content">
-              {match.home_score ?? 0} - {match.away_score ?? 0}
+              {displayMatch.home_score ?? 0} - {displayMatch.away_score ?? 0}
             </div>
           </div>
 
@@ -533,7 +554,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         <div className="obs-bottom-row">
           <div className="obs-league-name">
             <div className="obs-league-content">
-              {match.league ? match.league.toUpperCase() : 'HFL'}
+              {displayMatch.league ? displayMatch.league.toUpperCase() : 'HFL'}
               {statusText && <span className="obs-status-text"> • {statusText} ({formatTimer(timerSeconds)})</span>}
             </div>
           </div>
