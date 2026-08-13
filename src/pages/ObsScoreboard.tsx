@@ -84,8 +84,15 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         }
       }
 
-      // If id is not stream1 and not stream2, treat it directly as a Match ID
-      if (id !== 'stream1' && id !== 'stream2') {
+      // If id is stream1 or stream2, require a valid Organization Slug or Org ID!
+      if (id === 'stream1' || id === 'stream2') {
+        if (!resolvedOrgId) {
+          setActiveMatchId(null);
+          setMatch(null);
+          return;
+        }
+      } else {
+        // Direct Match ID
         setActiveMatchId(id);
         return;
       }
