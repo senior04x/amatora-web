@@ -9,16 +9,25 @@ import { FeaturesPage } from './pages/FeaturesPage';
 import { AboutPage } from './pages/AboutPage';
 import { SecurityPage } from './pages/SecurityPage';
 import { ApplicationPage } from './pages/ApplicationPage';
+import { ObsScoreboard } from './pages/ObsScoreboard';
 import logoWhite from './assets/amatora-logo-white.png';
 
 const RESERVED_TABS = ['home', 'apps', 'features', 'about', 'security'];
 
 export function App() {
   // Synchronize initial activeTab and orgSlug from URL pathname or hash slug
-  const getRouteFromUrl = (): { tab: string; orgSlug?: string } => {
-    const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+  const getRouteFromUrl = (): { tab: string; orgSlug?: string; streamId?: string } => {
+    const rawPath = window.location.pathname.replace(/^\//, '');
+    const path = rawPath.toLowerCase();
     const hash = window.location.hash.replace(/^#/, '').toLowerCase();
     const target = path || hash;
+
+    // Check if URL is OBS Scoreboard overlay route (e.g. /obs/scoreboard/stream1)
+    if (path.startsWith('obs/scoreboard')) {
+      const parts = rawPath.split('/');
+      const streamId = parts[2] || 'stream1';
+      return { tab: 'obs_scoreboard', streamId };
+    }
 
     if (!target || target === 'home') {
       return { tab: 'home' };
@@ -30,7 +39,7 @@ export function App() {
     return { tab: 'application', orgSlug: target };
   };
 
-  const [route, setRoute] = useState<{ tab: string; orgSlug?: string }>(getRouteFromUrl);
+  const [route, setRoute] = useState<{ tab: string; orgSlug?: string; streamId?: string }>(getRouteFromUrl);
   const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
     isOpen: false,
     platform: 'android',
@@ -57,6 +66,11 @@ export function App() {
   };
 
   const activeTab = route.tab;
+
+  // Render OBS Scoreboard Overlay completely standalone (no navbar/footer/canvas)
+  if (activeTab === 'obs_scoreboard') {
+    return <ObsScoreboard streamId={route.streamId} />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between relative selection:bg-white selection:text-black">
