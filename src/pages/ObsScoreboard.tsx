@@ -136,7 +136,17 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
           const newMatch = payload.new;
           if (newMatch) {
             if (!resolvedOrgId || String(newMatch.organization_id) === String(resolvedOrgId)) {
-              setActiveMatchId(newMatch.id);
+              const isStream1 = id === 'stream1';
+              const isStream2 = id === 'stream2';
+              const loc = String(newMatch.location || '').toLowerCase();
+
+              const isMatchForThisStream =
+                (isStream1 && (loc.includes('1') || loc.includes('stream1') || !loc)) ||
+                (isStream2 && (loc.includes('2') || loc.includes('stream2')));
+
+              if (isMatchForThisStream && ['first_half', 'half_time', 'second_half'].includes(newMatch.status)) {
+                setActiveMatchId(newMatch.id);
+              }
             }
           }
         })
