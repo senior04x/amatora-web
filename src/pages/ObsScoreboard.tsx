@@ -511,14 +511,6 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   return (
     <div className={`obs-container ${gradientClass}`}>
       <div className={`obs-scoreboard transformer-wrapper ${visibilityClass}`}>
-        
-        {/* Top League Emblem Logo Header */}
-        {leagueLogoUrl && (
-          <div className="obs-league-logo-top-container">
-            <img src={leagueLogoUrl} className="obs-league-logo-top-img" alt={match.league || 'Liga'} />
-          </div>
-        )}
-
         <div className="obs-top-row">
           <div className="obs-team obs-home-team">
             <div className="obs-team-content" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
