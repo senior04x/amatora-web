@@ -118,19 +118,20 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
           const fieldMatches = data.filter(isMatchForThisStream);
           const candidateList = fieldMatches.length > 0 ? fieldMatches : data;
 
-          // 1. Prefer currently active live match on this field
+          // ONLY pick currently active live match on this field ('first_half', 'half_time', 'second_half')
           let selectedMatch = candidateList.find((m: any) =>
             ['first_half', 'half_time', 'second_half'].includes(m.status)
           );
 
-          // 2. Fallback to latest match on this field
-          if (!selectedMatch) {
-            selectedMatch = candidateList[0];
-          }
-
           if (selectedMatch) {
             setActiveMatchId(selectedMatch.id);
+          } else {
+            setActiveMatchId(null);
+            setMatch(null);
           }
+        } else {
+          setActiveMatchId(null);
+          setMatch(null);
         }
       };
 
@@ -151,7 +152,11 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
                 (isStream1 && (loc.includes('1') || loc.includes('stream1') || (!loc.includes('2') && !loc.includes('stream2'))));
 
               if (isMatchForThisStream) {
-                setActiveMatchId(newMatch.id);
+                if (['first_half', 'half_time', 'second_half'].includes(newMatch.status)) {
+                  setActiveMatchId(newMatch.id);
+                } else {
+                  findLiveMatch();
+                }
               }
             }
           }
@@ -448,8 +453,8 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
     }
   };
 
-  if (!activeMatchId || !match) {
-    return null; // Empty transparent background until a match is loaded
+  if (!activeMatchId || !match || !['first_half', 'half_time', 'second_half'].includes(match.status)) {
+    return null; // Empty transparent background when no match is live
   }
 
   // Determine gradient based on league
