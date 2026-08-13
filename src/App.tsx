@@ -22,11 +22,12 @@ export function App() {
     const hash = window.location.hash.replace(/^#/, '').toLowerCase();
     const target = path || hash;
 
-    // Check if URL is OBS Scoreboard overlay route (e.g. /obs/scoreboard/stream1)
+    // Check if URL is OBS Scoreboard overlay route (e.g. /obs/scoreboard/stream1/hfl or /obs/scoreboard/stream1)
     if (path.startsWith('obs/scoreboard')) {
       const parts = rawPath.split('/');
       const streamId = parts[2] || 'stream1';
-      return { tab: 'obs_scoreboard', streamId };
+      const pathOrgSlug = parts[3] || undefined;
+      return { tab: 'obs_scoreboard', streamId, orgSlug: pathOrgSlug };
     }
 
     if (!target || target === 'home') {
@@ -69,7 +70,7 @@ export function App() {
 
   // Render OBS Scoreboard Overlay completely standalone (no navbar/footer/canvas)
   if (activeTab === 'obs_scoreboard') {
-    return <ObsScoreboard streamId={route.streamId} />;
+    return <ObsScoreboard streamId={route.streamId} pathOrgSlug={route.orgSlug} />;
   }
 
   return (

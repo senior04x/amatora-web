@@ -4,21 +4,30 @@ import './ObsScoreboard.css';
 
 interface ObsScoreboardProps {
   streamId?: string;
+  pathOrgSlug?: string;
 }
 
-export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({ streamId: propStreamId }) => {
-  // Extract streamId or match ID from prop or URL path
-  const getStreamIdFromUrl = (): string => {
-    if (propStreamId) return propStreamId;
-    const path = window.location.pathname.replace(/^\//, '');
-    const parts = path.split('/');
+export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
+  streamId: propStreamId,
+  pathOrgSlug: propPathOrgSlug,
+}) => {
+  // Extract streamId and pathOrgSlug from props or URL path (/obs/scoreboard/stream1/hfl)
+  const getRouteInfoFromUrl = () => {
+    const rawPath = window.location.pathname.replace(/^\//, '');
+    const parts = rawPath.split('/');
+    let sId = propStreamId;
+    let pSlug = propPathOrgSlug;
     if (parts[0] === 'obs' && parts[1] === 'scoreboard') {
-      return parts[2] || 'stream1';
+      if (!sId) sId = parts[2] || 'stream1';
+      if (!pSlug) pSlug = parts[3] || undefined;
     }
-    return 'stream1';
+    return { streamId: sId || 'stream1', pathOrgSlug: pSlug };
   };
 
-  const id = getStreamIdFromUrl();
+  const routeInfo = getRouteInfoFromUrl();
+  const id = routeInfo.streamId;
+  const pathOrgSlug = routeInfo.pathOrgSlug;
+
   const [activeMatchId, setActiveMatchId] = useState<string | number | null>(null);
   const [match, setMatch] = useState<any>(null);
   const [homeTeam, setHomeTeam] = useState<any>(null);
@@ -39,24 +48,30 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({ streamId: propStre
 
     const resolveMatch = async () => {
       const queryParams = new URLSearchParams(window.location.search);
-      const targetOrgIdParam = queryParams.get('org_id');
-      const targetOrgSlugParam = queryParams.get('org_slug') || queryParams.get('org') || queryParams.get('slug');
+      const targetOrgIdParam = queryParams.get('org_id') || queryParams.get('id');
+      const targetOrgSlugParam =
+        queryParams.get('org_slug') || queryParams.get('org') || queryParams.get('slug') || pathOrgSlug;
 
       let resolvedOrgId: string | number | null = targetOrgIdParam ? targetOrgIdParam : null;
 
-      // If org_slug is provided, resolve organization_id from database
+      // If slug (query or path parameter) is provided, resolve organization_id
       if (!resolvedOrgId && targetOrgSlugParam) {
-        try {
-          const { data: orgData } = await supabaseAdmin
-            .from('organizations')
-            .select('id')
-            .ilike('slug', targetOrgSlugParam)
-            .maybeSingle();
+        if (/^\d+$/.test(targetOrgSlugParam)) {
+          // Numeric slug in path (e.g. /obs/scoreboard/stream1/1)
+          resolvedOrgId = targetOrgSlugParam;
+        } else {
+          try {
+            const { data: orgData } = await supabaseAdmin
+              .from('organizations')
+              .select('id')
+              .ilike('slug', targetOrgSlugParam)
+              .maybeSingle();
 
-          if (orgData) {
-            resolvedOrgId = orgData.id;
-          }
-        } catch (e) {}
+            if (orgData) {
+              resolvedOrgId = orgData.id;
+            }
+          } catch (e) {}
+        }
       }
 
       // If id is not stream1 and not stream2, treat it directly as a Match ID
@@ -66,10 +81,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({ streamId: propStre
       }
 
       const findLiveMatch = async () => {
-        let query = supabaseAdmin
-          .from('matches')
-          .select('*')
-          .order('id', { ascending: false });
+        let query = supabaseAdmin.from('matches').select('*').order('id', { ascending: false });
 
         if (resolvedOrgId) {
           query = query.eq('organization_id', resolvedOrgId);
@@ -118,7 +130,8 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({ streamId: propStre
 
       await findLiveMatch();
 
-      const streamChannel = supabase.channel(`global-matches-web-${id}`)
+      const streamChannel = supabase
+        .channel(`global-matches-web-${id}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, (payload: any) => {
           const newMatch = payload.new;
           if (newMatch) {
@@ -135,7 +148,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({ streamId: propStre
     };
 
     resolveMatch();
-  }, [id]);
+  }, [id, pathOrgSlug]);
 
   // Helper to apply persistent timer payload in OBS
   const applyTimerPayload = (payload: any) => {
