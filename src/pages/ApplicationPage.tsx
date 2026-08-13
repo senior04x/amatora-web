@@ -379,6 +379,18 @@ setIsSubmitting(true);
         if (playersErr) {
           console.error('Players insertion error:', playersErr);
         }
+
+        // Notify Admin
+        fetch('https://web-production-eaa31.up.railway.app/api/notifications/notify-admin-application', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'team',
+            name: teamName.trim(),
+            phone: captainPhone.trim(),
+            organizationId: targetOrgId || 1,
+          }),
+        }).catch(() => {});
       }
 
       setSubmitSuccess(true);
@@ -431,6 +443,19 @@ setIsSubmitting(true);
       if (appErr) {
         console.error('Applications table insertion error:', appErr);
       }
+
+      // Notify Admin
+      fetch('https://web-production-eaa31.up.railway.app/api/notifications/notify-admin-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'player',
+          name: indName.trim(),
+          phone: indPhone.trim(),
+          teamName: selectedTeamId ? 'Jamoaga' : undefined,
+          organizationId: targetOrgId || 1,
+        }),
+      }).catch(() => {});
 
       setSubmitSuccess(true);
     } catch (err: any) {
