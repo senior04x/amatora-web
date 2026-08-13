@@ -7,15 +7,6 @@ interface ObsScoreboardProps {
   pathOrgSlug?: string;
 }
 
-const DEFAULT_LEAGUE_LOGOS: Record<string, string> = {
-  'Super liga': 'https://hfl-forma-admin.vercel.app/super-liga.PNG',
-  'Pro liga': 'https://hfl-forma-admin.vercel.app/Pro-liga.PNG',
-  '3-liga': 'https://hfl-forma-admin.vercel.app/3-liga.PNG',
-  'Europa ligasi': 'https://hfl-forma-admin.vercel.app/europen-liga.PNG',
-  'Chempionlar ligasi': 'https://hfl-forma-admin.vercel.app/chemp-liga.PNG',
-  '7x7 liga': 'https://hfl-forma-admin.vercel.app/7x7-liga.png',
-};
-
 export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   streamId: propStreamId,
   pathOrgSlug: propPathOrgSlug,
@@ -341,7 +332,6 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
       supabase.removeChannel(matchSubscription);
       supabase.removeChannel(timerSubscription);
       supabase.removeChannel(eventsSubscription);
-      supabase.removeChannel(leaguesSubscription);
     };
   }, [activeMatchId]);
 
@@ -472,12 +462,6 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   else if (match.league === 'Europa ligasi') gradientClass = 'theme-europa';
   else if (match.league === 'Chempionlar ligasi') gradientClass = 'theme-chemp';
   else if (match.league === '7x7 liga') gradientClass = 'theme-7x7';
-
-  const leagueLogoUrl =
-    leagueData?.logo_url ||
-    (match.league ? DEFAULT_LEAGUE_LOGOS[match.league] : null) ||
-    match.league_logo ||
-    null;
 
   const leagueBgUrl =
     leagueData?.export_bg_url ||
