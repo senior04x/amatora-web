@@ -7,6 +7,15 @@ interface ObsScoreboardProps {
   pathOrgSlug?: string;
 }
 
+const DEFAULT_LEAGUE_LOGOS: Record<string, string> = {
+  'Super liga': 'https://hfl-forma-admin.vercel.app/super-liga.PNG',
+  'Pro liga': 'https://hfl-forma-admin.vercel.app/Pro-liga.PNG',
+  '3-liga': 'https://hfl-forma-admin.vercel.app/3-liga.PNG',
+  'Europa ligasi': 'https://hfl-forma-admin.vercel.app/europen-liga.PNG',
+  'Chempionlar ligasi': 'https://hfl-forma-admin.vercel.app/chemp-liga.PNG',
+  '7x7 liga': 'https://hfl-forma-admin.vercel.app/7x7-liga.png',
+};
+
 export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   streamId: propStreamId,
   pathOrgSlug: propPathOrgSlug,
@@ -30,6 +39,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
 
   const [activeMatchId, setActiveMatchId] = useState<string | number | null>(null);
   const [match, setMatch] = useState<any>(null);
+  const [leagueData, setLeagueData] = useState<any>(null);
   const [homeTeam, setHomeTeam] = useState<any>(null);
   const [awayTeam, setAwayTeam] = useState<any>(null);
   const [activeEvent, setActiveEvent] = useState<any>(null);
@@ -333,6 +343,23 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
       if (matchData) {
         setMatch(matchData);
 
+        // Fetch League Data (logo & background image)
+        if (matchData.league) {
+          try {
+            let lQuery = supabaseAdmin.from('leagues').select('*');
+            if (matchData.organization_id) {
+              lQuery = lQuery.eq('organization_id', matchData.organization_id);
+            }
+            const { data: lDataList } = await lQuery;
+            if (lDataList && lDataList.length > 0) {
+              const matchedL = lDataList.find(
+                (l: any) => l.name?.toLowerCase() === matchData.league?.toLowerCase()
+              );
+              setLeagueData(matchedL || lDataList[0]);
+            }
+          } catch (e) {}
+        }
+
         let homeObj: any = null;
         let awayObj: any = null;
 
@@ -409,6 +436,19 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   else if (match.league === 'Chempionlar ligasi') gradientClass = 'theme-chemp';
   else if (match.league === '7x7 liga') gradientClass = 'theme-7x7';
 
+  const leagueLogoUrl =
+    leagueData?.logo_url ||
+    (match.league ? DEFAULT_LEAGUE_LOGOS[match.league] : null) ||
+    match.league_logo ||
+    null;
+
+  const leagueBgUrl =
+    leagueData?.export_bg_url ||
+    leagueData?.background_url ||
+    leagueData?.bg_url ||
+    leagueData?.banner_url ||
+    null;
+
   // Format status for top bar
   const formatStatus = (status: string) => {
     if (status === 'first_half') return '1-TAYM';
@@ -434,6 +474,14 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
   return (
     <div className={`obs-container ${gradientClass}`}>
       <div className={`obs-scoreboard transformer-wrapper ${visibilityClass}`}>
+        
+        {/* Top League Emblem Logo Header */}
+        {leagueLogoUrl && (
+          <div className="obs-league-logo-top-container">
+            <img src={leagueLogoUrl} className="obs-league-logo-top-img" alt={match.league || 'Liga'} />
+          </div>
+        )}
+
         <div className="obs-top-row">
           <div className="obs-team obs-home-team">
             <div className="obs-team-content" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -443,6 +491,12 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
           </div>
 
           <div className="obs-score">
+            {leagueBgUrl && (
+              <>
+                <div className="obs-score-bg-overlay" style={{ backgroundImage: `url(${leagueBgUrl})` }} />
+                <div className="obs-score-darken-shade" />
+              </>
+            )}
             <div className="obs-score-content">
               {match.home_score ?? 0} - {match.away_score ?? 0}
             </div>
@@ -456,7 +510,11 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
           </div>
         </div>
 
-        <div className="obs-separator"></div>
+        <div className="obs-separator">
+          {leagueBgUrl && (
+            <div className="obs-separator-bg-overlay" style={{ backgroundImage: `url(${leagueBgUrl})` }} />
+          )}
+        </div>
 
         <div className="obs-bottom-row">
           <div className="obs-league-name">
@@ -477,7 +535,12 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         >
           <div style={{ display: 'flex', gap: '6px' }}>
             <div className="obs-lt-top-bar">
-              <div className="obs-lt-content">{activeEvent.teamName?.toUpperCase()}</div>
+              {leagueBgUrl && (
+                <div className="obs-separator-bg-overlay" style={{ backgroundImage: `url(${leagueBgUrl})` }} />
+              )}
+              <div className="obs-lt-content" style={{ position: 'relative', zIndex: 2 }}>
+                {activeEvent.teamName?.toUpperCase()}
+              </div>
             </div>
 
             {activeEvent.eventType === 'goal' && (
@@ -520,3 +583,4 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
     </div>
   );
 };
+
