@@ -12,7 +12,33 @@ import { ApplicationPage } from './pages/ApplicationPage';
 import { ObsScoreboard } from './pages/ObsScoreboard';
 import logoWhite from './assets/amatora-logo-white.png';
 
-const RESERVED_TABS = ['home', 'apps', 'features', 'about', 'security'];
+import { supabase } from './lib/supabase';
+
+const RESERVED_TABS = new Set([
+  'home', 'apps', 'features', 'about', 'security', 
+  'downloads', 'obs', 'api', 'assets', 'favicon', 
+  'manifest', 'robots', 'sitemap', 'terms', 'privacy', 
+  'apply', 'application'
+]);
+
+// In-memory cache for validated organization slugs
+const validatedOrgSlugs = new Map<string, boolean>();
+
+// Strict security regex: Only alphanumeric, hyphens, and underscores between 2 and 50 characters
+const SAFE_SLUG_REGEX = /^[a-zA-Z0-9_-]{2,50}$/;
+
+const sanitizeSlug = (raw: string): string | null => {
+  if (!raw || typeof raw !== 'string') return null;
+  const clean = raw.trim().toLowerCase();
+  // Reject if contains file extensions (.apk, .exe, etc) or path traversal characters
+  if (clean.includes('.') || clean.includes('/') || clean.includes('\\') || clean.includes('%')) {
+    return null;
+  }
+  if (!SAFE_SLUG_REGEX.test(clean)) {
+    return null;
+  }
+  return clean;
+};
 
 export function App() {
   // Synchronize initial activeTab and orgSlug from URL pathname or hash slug
@@ -22,7 +48,7 @@ export function App() {
     const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
     const target = path || hash;
 
-    // Check if URL is OBS Scoreboard overlay route (e.g. /obs/scoreboard/stream1/hfl or /obs/scoreboard/stream1)
+    // 1. Check if URL is OBS Scoreboard overlay route
     if (path.startsWith('obs/scoreboard')) {
       const parts = rawPath.split('/');
       const streamId = parts[2] || 'stream1';
@@ -30,21 +56,40 @@ export function App() {
       return { tab: 'obs_scoreboard', streamId, orgSlug: pathOrgSlug };
     }
 
+    // 2. Default Home Route
     if (!target || target === 'home') {
       return { tab: 'home' };
     }
-    if (RESERVED_TABS.includes(target)) {
+
+    // 3. Known Static Tabs
+    if (RESERVED_TABS.has(target)) {
+      if (target === 'apply' || target === 'application') {
+        return { tab: 'application', orgSlug: 'llf' };
+      }
       return { tab: target };
     }
 
-    // Only route to ApplicationPage if URL explicitly starts with 'apply' or 'application'
-    if (path.startsWith('apply') || path.startsWith('application')) {
+    // 4. Explicit apply routes (e.g. /apply/llf or /application/hfl)
+    if (path.startsWith('apply/') || path.startsWith('application/')) {
       const parts = rawPath.split('/');
-      const orgSlug = parts[1] || 'llf';
+      const orgSlug = sanitizeSlug(parts[1]) || 'llf';
       return { tab: 'application', orgSlug };
     }
 
-    // Any other custom slug, file download path or unknown URL safely defaults to home
+    // 5. Dynamic Organization Slugs (e.g. /llf, /hfl, /superliga)
+    const sanitized = sanitizeSlug(target);
+    if (sanitized && !RESERVED_TABS.has(sanitized)) {
+      // Check cache first for instant 0ms routing
+      if (validatedOrgSlugs.has(sanitized)) {
+        return validatedOrgSlugs.get(sanitized)
+          ? { tab: 'application', orgSlug: sanitized }
+          : { tab: 'home' };
+      }
+      // Trigger async database verification
+      return { tab: 'verifying_slug', orgSlug: sanitized };
+    }
+
+    // 6. Any other unknown route, file download or invalid slug safely falls back to home
     return { tab: 'home' };
   };
 
@@ -58,13 +103,55 @@ export function App() {
     setRoute({ tab, orgSlug });
     let newPath = '/';
     if (tab === 'home') newPath = '/';
-    else if (tab === 'application') newPath = orgSlug ? `/apply/${orgSlug}` : '/apply';
+    else if (tab === 'application') newPath = orgSlug ? `/${orgSlug}` : '/apply';
     else newPath = `/${tab}`;
 
     if (window.location.pathname !== newPath) {
       window.history.pushState({ tab, orgSlug }, '', newPath);
     }
   };
+
+  // Secure asynchronous database verification for custom organization slugs
+  useEffect(() => {
+    if (route.tab === 'verifying_slug' && route.orgSlug) {
+      const slugToVerify = route.orgSlug;
+      let isMounted = true;
+
+      const verifyOrgSlugInDatabase = async () => {
+        try {
+          // Parametrized query to prevent any injection vulnerability
+          const { data, error } = await supabase
+            .from('organizations')
+            .select('id, slug, name')
+            .eq('slug', slugToVerify)
+            .maybeSingle();
+
+          if (!error && data && data.slug) {
+            validatedOrgSlugs.set(slugToVerify, true);
+            if (isMounted) {
+              setRoute({ tab: 'application', orgSlug: data.slug });
+            }
+          } else {
+            validatedOrgSlugs.set(slugToVerify, false);
+            if (isMounted) {
+              setRoute({ tab: 'home' });
+            }
+          }
+        } catch {
+          validatedOrgSlugs.set(slugToVerify, false);
+          if (isMounted) {
+            setRoute({ tab: 'home' });
+          }
+        }
+      };
+
+      verifyOrgSlugInDatabase();
+
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [route]);
 
   useEffect(() => {
     const handlePopState = () => {
