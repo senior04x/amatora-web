@@ -60,8 +60,8 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               </button>
             </li>
             <li>
-              <a href="https://amatora.uz/manifest.json" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-                <span>Manifest Specification</span>
+              <a href="/privacy-policy.html" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                <span>Maxfiylik Siyosati (Privacy Policy)</span>
                 <ArrowUpRight className="w-3 h-3 text-slate-500" />
               </a>
             </li>
@@ -72,10 +72,10 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         <div className="space-y-3 glass-card p-5 border border-white/10 rounded-2xl">
           <div className="flex items-center gap-2 text-white font-bold text-xs">
             <Lock className="w-4 h-4 text-white" />
-            <span>Zero-Trust Security</span>
+            <span>Xavfsiz Infratuzilma</span>
           </div>
           <p className="text-[11px] text-slate-400 leading-normal">
-            Barcha ma'lumotlar shifrlangan va SSL/TLS protokoli ostida amatora.uz domeni orqali himoyalanadi.
+            AMATORA ma'lumotlarni uzatish jarayonida HTTPS/TLS shifrlangan himoyasidan foydalanadi.
           </p>
         </div>
 
