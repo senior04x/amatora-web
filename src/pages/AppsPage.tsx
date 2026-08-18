@@ -37,83 +37,10 @@ export const AppsPage: React.FC = () => {
       </div>
 
       {/* Desktop & Mobile Apps Grid */}
+      {/* Desktop & Mobile Apps Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         
-        {/* Card 1: AMATORA Scoreboard for Windows */}
-        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <WindowsIcon className="w-7 h-7" />
-              </div>
-              <span className="glass-badge text-[10px]">Windows • v2.0.0</span>
-            </div>
-
-            <div className="space-y-1">
-              <h2 className="font-heading font-black text-2xl text-white">
-                AMATORA Scoreboard
-              </h2>
-              <p className="text-xs text-slate-400">Stadion LED va HDMI Monitor Tablosi</p>
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Stadion LED ekranlari, HDMI monitorlar va jonli efir tablolari uchun maxsus Native Desktop ilovasi. 0ms drift-free aniq taymer, avtomatik gol animatsiyalari va internet uzilganda ham mustaqil ishlash tizimi.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <a
-              href="/downloads/AMATORA-Scoreboard-Setup.zip"
-              download="AMATORA-Scoreboard-Setup.zip"
-              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
-            >
-              <WindowsIcon className="w-4 h-4 text-black" />
-              <span>Scoreboard Yuklab Olish (.zip)</span>
-            </a>
-            <span className="block text-[10px] text-center text-slate-500">
-              Windows 10 / 11 (64-bit) • 1.8 MB
-            </span>
-          </div>
-        </div>
-
-        {/* Card 2: AMATORA OBS Controller for Windows */}
-        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <ObsStudioIcon className="w-7 h-7" />
-              </div>
-              <span className="glass-badge text-[10px]">OBS Studio • v2.0.0</span>
-            </div>
-
-            <div className="space-y-1">
-              <h2 className="font-heading font-black text-2xl text-white">
-                AMATORA OBS Controller
-              </h2>
-              <p className="text-xs text-slate-400">OBS Replay va Efir Avtomatizatsiyasi</p>
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed">
-              OBS Studio bilan WebSocket orqali ulanib, takroriy lavhalar (Replay buffer), Stinger o'tish animatsiyalari, kamera almashishlari hamda translyatsiya grafikasini to'liq avtomatik boshqaradi.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <a
-              href="/downloads/AMATORA-OBS-Controller-Setup.zip"
-              download="AMATORA-OBS-Controller-Setup.zip"
-              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
-            >
-              <ObsStudioIcon className="w-4 h-4 text-black" />
-              <span>OBS Controller Yuklab Olish (.zip)</span>
-            </a>
-            <span className="block text-[10px] text-center text-slate-500">
-              Windows 10 / 11 (64-bit) • 2.1 MB
-            </span>
-          </div>
-        </div>
-
-        {/* Card 3: AMATORA App (Players & Fans) */}
+        {/* Card 1: AMATORA App (Players & Fans) */}
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -163,7 +90,7 @@ export const AppsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 4: AMATORA Admin App (Organizers & Referees) */}
+        {/* Card 2: AMATORA Admin App (Organizers & Referees) */}
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -209,6 +136,80 @@ export const AppsPage: React.FC = () => {
             </button>
             <span className="block text-[10px] text-center text-slate-500">
               Qurilmaga qarab avtomatik App Store yoki Google Play
+            </span>
+          </div>
+        </div>
+
+        {/* Card 3: AMATORA Scoreboard for Windows */}
+        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+                <WindowsIcon className="w-7 h-7" />
+              </div>
+              <span className="glass-badge text-[10px]">Windows • v2.0.0</span>
+            </div>
+
+            <div className="space-y-1">
+              <h2 className="font-heading font-black text-2xl text-white">
+                AMATORA Scoreboard
+              </h2>
+              <p className="text-xs text-slate-400">Stadion LED va HDMI Monitor Tablosi</p>
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Stadion LED ekranlari, HDMI monitorlar va jonli efir tablolari uchun maxsus Native Desktop ilovasi. 0ms drift-free aniq taymer, avtomatik gol animatsiyalari va internet uzilganda ham mustaqil ishlash tizimi.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <a
+              href="/downloads/AMATORA-Scoreboard-Setup.zip"
+              download="AMATORA-Scoreboard-Setup.zip"
+              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
+            >
+              <WindowsIcon className="w-4 h-4 text-black" />
+              <span>Scoreboard Yuklab Olish (.zip)</span>
+            </a>
+            <span className="block text-[10px] text-center text-slate-500">
+              Windows 10 / 11 (64-bit) • 1.8 MB
+            </span>
+          </div>
+        </div>
+
+        {/* Card 4: AMATORA OBS Controller for Windows */}
+        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+                <ObsStudioIcon className="w-7 h-7" />
+              </div>
+              <span className="glass-badge text-[10px]">OBS Studio • v2.0.0</span>
+            </div>
+
+            <div className="space-y-1">
+              <h2 className="font-heading font-black text-2xl text-white">
+                AMATORA OBS Controller
+              </h2>
+              <p className="text-xs text-slate-400">OBS Replay va Efir Avtomatizatsiyasi</p>
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              OBS Studio bilan WebSocket orqali ulanib, takroriy lavhalar (Replay buffer), Stinger o'tish animatsiyalari, kamera almashishlari hamda translyatsiya grafikasini to'liq avtomatik boshqaradi.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <a
+              href="/downloads/AMATORA-OBS-Controller-Setup.zip"
+              download="AMATORA-OBS-Controller-Setup.zip"
+              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
+            >
+              <ObsStudioIcon className="w-4 h-4 text-black" />
+              <span>OBS Controller Yuklab Olish (.zip)</span>
+            </a>
+            <span className="block text-[10px] text-center text-slate-500">
+              Windows 10 / 11 (64-bit) • 2.1 MB
             </span>
           </div>
         </div>
