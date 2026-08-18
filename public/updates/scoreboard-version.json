@@ -1,9 +1,9 @@
 {
   "version": "2.2.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "8368EB035931B9BB77AA860BC5C236BF3336C81B689BD63F19E225505319D99A",
-  "signature": "d0e4d4bffdd5f3c7bdf0d662167666b3ffb1950207f7bc6402878da7971149ee",
+  "sha256": "75D680CBAA4B7A3956CE5155D0ABB1271BD0C5C73CC48C25CF89D7932F1D40C9",
+  "signature": "f2b149404fcbd8834f3d3f3e245f5eb4c49a6413de31e02f8ebea46b59bc2645",
   "min_version": "2.0.0",
-  "changelog": "Mukammal doira shaklidagi jamoa logolari va 1:1 HDMI preview",
+  "changelog": "2x Katta va ulkan jamoa nomlari hamda 100% yumaloq logolar",
   "release_date": "2026-08-19"
 }
