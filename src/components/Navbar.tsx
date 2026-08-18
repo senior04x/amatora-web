@@ -35,29 +35,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   return (
     <>
       {/* 1. Floating Right Corner Language Selector & Burger Button */}
-      <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50 flex items-center gap-2.5 sm:gap-3">
-        
-        {/* 3 Inline Language Switcher Buttons (No Modal) */}
-        <div className="flex items-center bg-black/75 backdrop-blur-xl border border-white/20 p-1 rounded-2xl shadow-2xl">
-          {languages.map((item) => (
-            <button
-              key={item.code}
-              onClick={() => setLanguage(item.code)}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                language === item.code
-                  ? 'bg-white text-black font-extrabold shadow-md'
-                  : 'text-slate-400 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Burger Button */}
+      <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
+          className="w-12 h-12 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
           aria-label="Toggle Navigation Drawer"
         >
           {menuOpen ? (
