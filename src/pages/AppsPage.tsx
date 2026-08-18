@@ -183,8 +183,8 @@ export const AppsPage: React.FC = () => {
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <ObsStudioIcon className="w-7 h-7" />
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
+                <img src="/obs-logo.webp" alt="OBS" className="w-9 h-9 object-contain" />
               </div>
               <span className="glass-badge text-[10px]">{t('apps.obs.badge')}</span>
             </div>
@@ -207,7 +207,7 @@ export const AppsPage: React.FC = () => {
               download="AMATORA-OBS-Controller-Setup.exe"
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
-              <ObsStudioIcon className="w-4 h-4 text-black" />
+              <img src="/obs-logo.webp" alt="OBS" className="w-4 h-4 object-contain" />
               <span>{t('apps.obs.btn')}</span>
             </a>
             <span className="block text-[10px] text-center text-slate-500">
