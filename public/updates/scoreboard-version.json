@@ -1,9 +1,9 @@
 {
   "version": "2.2.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "34B157D7CF69664FDA9E0F5BCD2EE29939F38B2A306A37E51575E35E32A4764C",
-  "signature": "a95a367dff0567e0ae126702fba10cd371123301b22afe979f7850a5cfb3ee22",
+  "sha256": "2CFCBC14A37BA0D9397C4CE06A346B33FD59FB946996380CB4ACDEC17E509BF6",
+  "signature": "5f8242d00ae8ca63b531f46d0762a00c4d87a6bb135b1719be09b88559be2381",
   "min_version": "2.0.0",
-  "changelog": "1:1 Real HDMI Mini Stadium Monitor ekrani va mukammal Operator UX",
+  "changelog": "1:1 Real HDMI Mini Stadium Monitor va to'liq Responsive Design System",
   "release_date": "2026-08-19"
 }
