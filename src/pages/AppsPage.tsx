@@ -12,15 +12,10 @@ const ObsStudioIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   </svg>
 );
 
-const PlayStoreIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M3.609 1.814L13.792 12 3.61 22.186c-.183-.198-.295-.469-.295-.77V2.584c0-.301.112-.572.294-.77zM15.206 13.414l2.766 2.766-12.753 7.363 9.987-10.129zm2.766-5.594L15.206 10.585 5.219.456l12.753 7.364zm1.414 1.414l3.197 1.846c.55.318.55.836 0 1.154l-3.197 1.846-2.92-2.92 2.92-2.926z" />
-  </svg>
-);
-
-const AppStoreIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.35c.66-.8 1.11-1.92.99-3.05-.96.04-2.12.64-2.81 1.44-.62.72-1.16 1.86-1.01 2.98 1.07.08 2.17-.57 2.83-1.37z"/>
+const SmartphoneIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+    <path d="M12 18h.01"/>
   </svg>
 );
 
@@ -118,77 +113,103 @@ export const AppsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 3: Android Admin App */}
+        {/* Card 3: AMATORA App (Players & Fans) */}
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <PlayStoreIcon className="w-7 h-7" />
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden p-2">
+                <img 
+                  src="/amatora-logo.PNG" 
+                  alt="AMATORA App Logo" 
+                  className="w-full h-full object-contain" 
+                  onError={(e) => {
+                    // Fallback to SVG if image not loaded
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
               </div>
-              <span className="glass-badge text-[10px]">Google Play</span>
+              <span className="glass-badge text-[10px]">iOS & Android</span>
             </div>
             
             <div className="space-y-1">
               <h2 className="font-heading font-black text-2xl text-white">
-                AMATORA Admin for Android
+                AMATORA App
+              </h2>
+              <p className="text-xs text-slate-400">Ishqibozlar va O'yinchilar Ilovasi</p>
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Turnir jadvallari, match natijalari, to'purarlar reytingi hamda jonli statistikalarni real vaqt rejimida kuzatish uchun maxsus mobil ilova.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <button
+              onClick={() => {
+                const isIOS = /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !('MSStream' in window);
+                if (isIOS) {
+                  window.open('https://amatora.uz/ios/app', '_blank');
+                } else {
+                  window.location.href = 'https://amatora.uz/downloads/amatora-app.apk';
+                }
+              }}
+              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
+            >
+              <SmartphoneIcon className="w-4 h-4 text-black" />
+              <span>AMATORA Ilovasini Olish</span>
+            </button>
+            <span className="block text-[10px] text-center text-slate-500">
+              Qurilmaga qarab avtomatik App Store yoki Google Play
+            </span>
+          </div>
+        </div>
+
+        {/* Card 4: AMATORA Admin App (Organizers & Referees) */}
+        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden p-2">
+                <img 
+                  src="/admin-logo.PNG" 
+                  alt="AMATORA Admin Logo" 
+                  className="w-full h-full object-contain" 
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
+              <span className="glass-badge text-[10px]">iOS & Android</span>
+            </div>
+
+            <div className="space-y-1">
+              <h2 className="font-heading font-black text-2xl text-white">
+                AMATORA Admin
               </h2>
               <p className="text-xs text-slate-400">Tashkilotchilar va Hakamlar Paneli</p>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Turnirlar, o'yinchilar, match taymerlari, hakamlik paneli hamda grafikalar eksportini bevosita Android mobil qurilmangizdan boshqaring.
+              Turnirlar, o'yinchilar ro'yxati, match taymerlari, hakamlik protokollari hamda jamoalar arizalarini bevosita mobil telefondan boshqaring.
             </p>
           </div>
 
           <div className="space-y-2">
-            <a
-              href="https://amatora.uz/downloads/amatora-admin.apk"
-              download
-              className="glass-button w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
+            <button
+              onClick={() => {
+                const isIOS = /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !('MSStream' in window);
+                if (isIOS) {
+                  window.open('https://amatora.uz/ios/admin', '_blank');
+                } else {
+                  window.location.href = 'https://amatora.uz/downloads/amatora-admin.apk';
+                }
+              }}
+              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
-              <PlayStoreIcon className="w-4 h-4 text-white" />
-              <span>Google Play Orqali Olish</span>
-            </a>
+              <SmartphoneIcon className="w-4 h-4 text-black" />
+              <span>Admin Ilovasini Olish</span>
+            </button>
             <span className="block text-[10px] text-center text-slate-500">
-              Android 8.0 va undan yuqori
-            </span>
-          </div>
-        </div>
-
-        {/* Card 4: iOS Admin App */}
-        <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                <AppStoreIcon className="w-7 h-7" />
-              </div>
-              <span className="glass-badge text-[10px]">App Store</span>
-            </div>
-
-            <div className="space-y-1">
-              <h2 className="font-heading font-black text-2xl text-white">
-                AMATORA Admin for iOS
-              </h2>
-              <p className="text-xs text-slate-400">iPhone va iPad Uchun Ilova</p>
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Apple iOS va iPadOS apparatlari uchun maxsus ishlab chiqilgan shisha dizaynli admin ilovasi.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <a
-              href="https://amatora.uz/ios"
-              target="_blank"
-              rel="noreferrer"
-              className="glass-button w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
-            >
-              <AppStoreIcon className="w-4 h-4 text-white" />
-              <span>App Store Orqali Olish</span>
-            </a>
-            <span className="block text-[10px] text-center text-slate-500">
-              iOS 15.0 va undan yuqori
+              Qurilmaga qarab avtomatik App Store yoki Google Play
             </span>
           </div>
         </div>
