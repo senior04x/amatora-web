@@ -1,9 +1,9 @@
 {
-  "version": "2.2.0",
+  "version": "2.2.1",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "75D680CBAA4B7A3956CE5155D0ABB1271BD0C5C73CC48C25CF89D7932F1D40C9",
-  "signature": "f2b149404fcbd8834f3d3f3e245f5eb4c49a6413de31e02f8ebea46b59bc2645",
+  "sha256": "49476307A3599C16AC79DC21EAF4A837B88B89D2E14D304A7637E6EF872C6580",
+  "signature": "2089a486c0f0f01de18159ceef798fb9ec5ea5acb9718df38d6f33f8b6a755fe",
   "min_version": "2.0.0",
-  "changelog": "2x Katta va ulkan jamoa nomlari hamda 100% yumaloq logolar",
+  "changelog": "2x Katta jamoa nomlari, 100% yumaloq logolar va to'liq avto-update",
   "release_date": "2026-08-19"
 }
