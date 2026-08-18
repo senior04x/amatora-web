@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, ShieldCheck, Key, FileJson, EyeOff, CheckCircle } from 'lucide-react';
+import { Lock, ShieldCheck, Key, FileJson, CheckCircle, Mail, FileText } from 'lucide-react';
 
 export const SecurityPage: React.FC = () => {
   return (
@@ -9,80 +9,104 @@ export const SecurityPage: React.FC = () => {
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
           <Lock className="w-3.5 h-3.5 text-white" />
-          <span>Tizim Xavfsizligi va Maxfiylik (amatora.uz)</span>
+          <span>Tizim Xavfsizligi va Maxfiylik</span>
         </div>
-        <h1 className="font-heading font-black text-3xl sm:text-4xl text-white">Xavfsizlik Standartlari hamda Ma'lumotlar Himoyasi</h1>
-        <p className="text-xs sm:text-sm text-slate-400">
-          AMATORA platformasida foydalanuvchilar va o'yinchilarning shaxsiy ma'lumotlari Zero-Trust va shifrlash protokollari bilan himoyalangan.
+        <h1 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
+          Xavfsizlik Standartlari va Ma'lumotlar Himoyasi
+        </h1>
+        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          AMATORA platformasida foydalanuvchilar, jamoalar va turnir tashkilotchilarining ma'lumotlari zamonaviy xavfsizlik standartlari hamda qat'iy ruxsat nazorati orqali himoyalanadi.
         </p>
       </div>
 
       {/* Security Pillars Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         
-        <div className="glass-card p-6 space-y-4">
-          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-            <Key className="w-5 h-5 text-white" />
+        {/* Pillar 1: Access Control */}
+        <div className="glass-card p-6 space-y-4 border-white/20">
+          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+            <Key className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">Supabase RLS Shifrlash</h2>
+          <h2 className="font-heading font-bold text-lg text-white">Rolli Kirish Nazorati (RBAC)</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Ma'lumotlar bazasidagi har bir satr Row-Level Security (RLS) siyosati bilan yopilgan. Har bir tashkilot va admin faqat o'ziga tegishli ma'lumotlarga ruxsat oladi.
+            Ma'lumotlar bazasi Row-Level Security (RLS) va rolli ruxsat tizimi bilan himoyalangan. Tashkilotchilar va adminlar faqat o'zlariga tegishli liga hamda o'yin ma'lumotlarini boshqara oladilar.
           </p>
         </div>
 
-        <div className="glass-card p-6 space-y-4">
-          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-            <ShieldCheck className="w-5 h-5 text-white" />
+        {/* Pillar 2: HTTPS / Encrypted Traffic */}
+        <div className="glass-card p-6 space-y-4 border-white/20">
+          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+            <ShieldCheck className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">SSL / TLS 1.3 Shifrlangan Kanal</h2>
+          <h2 className="font-heading font-bold text-lg text-white">Shifrlangan Aloqa (HTTPS)</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            amatora.uz domeni va ilova o'rtasidagi barcha HTTP so'rovlari 256-bitli TLS shifrlash kanallari orqali uzatiladi. Uchinchi shaxslar ma'lumotni tutib qola olmaydi.
+            Platforma bilan mijoz dasturlari (Veb, Mobil, Desktop) o'rtasidagi barcha tarmoq so'rovlari va API ulanishlari zamonaviy HTTPS shifrlangan protokollari orqali xavfsiz uzatiladi.
           </p>
         </div>
 
-        <div className="glass-card p-6 space-y-4">
-          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
-            <EyeOff className="w-5 h-5 text-white" />
+        {/* Pillar 3: Data Privacy */}
+        <div className="glass-card p-6 space-y-4 border-white/20">
+          <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+            <Lock className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">Pasport va Suratlar Himoyasi</h2>
+          <h2 className="font-heading font-bold text-lg text-white">Ma'lumotlar Maxfiyligi</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            O'yinchilarning pasport seriyalari hamda shaxsiy ma'lumotlari faqat vakolatli ligalar adminlari uchun ochiq va doimiy audit jurnalida qayd etiladi.
+            Foydalanuvchilar va jamoa a'zolarining ma'lumotlari faqat musobaqalarni o'tkazish va rasmiy ro'yxatga olish maqsadlarida foydalaniladi hamda uchinchi tomonlarga sotilmaydi.
           </p>
         </div>
 
       </div>
 
-      {/* JSON Specification Container for amatora.uz */}
-      <div className="glass-card p-6 sm:p-8 max-w-5xl mx-auto space-y-6">
+      {/* Technical Overview & Contact */}
+      <div className="glass-card p-6 sm:p-8 max-w-5xl mx-auto space-y-6 border-white/20">
         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
           <FileJson className="w-6 h-6 text-white" />
           <div>
-            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">Rasmiy Domen JSON Xavfsizlik Deklaratsiyasi</h3>
-            <p className="text-xs text-slate-400">Target Domain: amatora.uz</p>
+            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">Platforma Xavfsizlik Konfiguratsiyasi</h3>
+            <p className="text-xs text-slate-400">Domen: amatora.uz</p>
           </div>
         </div>
 
         <div className="p-4 rounded-xl bg-black/60 border border-white/10 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
           <pre>{`{
   "domain": "amatora.uz",
-  "security_protocol": "HTTPS / TLS 1.3",
-  "data_integrity": "Strict Row-Level Security (RLS)",
-  "api_isolation": "Static Web Client & Isolated Backend",
-  "manifest_url": "https://amatora.uz/manifest.json",
-  "certification": "ISO/IEC 27001 Standard Compliance",
-  "status": "SECURE_ACTIVE"
+  "security_protocol": "HTTPS / TLS",
+  "access_control": "Row-Level Security (RLS) & Role-Based Access",
+  "api_architecture": "Authenticated REST API & WebSocket",
+  "data_protection": "Encrypted Transit & Isolated Backend",
+  "status": "ACTIVE_PROTECTED"
 }`}</pre>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-white shrink-0" />
-            <span>Tizimda hech qanday uchinchi tomon reklama trekerlari yo'q</span>
+            <span>Foydalanuvchi ma'lumotlari tijoriy reklama tarmoqlariga berilmaydi</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-white shrink-0" />
-            <span>Xavfsiz kesh va tezkor statik kontent</span>
+            <span>Xavfsiz kesh va avtomatik zaxiralash tizimi</span>
           </div>
+        </div>
+
+        <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <a
+            href="/privacy-policy.html"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
+          >
+            <FileText className="w-4 h-4" />
+            <span>Maxfiylik Siyosati (Privacy Policy)</span>
+          </a>
+
+          <a
+            href="mailto:security@amatora.uz"
+            className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            <span>Xavfsizlik bo'yicha aloqa: security@amatora.uz</span>
+          </a>
         </div>
 
       </div>
@@ -90,3 +114,4 @@ export const SecurityPage: React.FC = () => {
     </div>
   );
 };
+
