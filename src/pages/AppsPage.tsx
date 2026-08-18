@@ -166,8 +166,8 @@ export const AppsPage: React.FC = () => {
 
           <div className="space-y-2">
             <a
-              href="/downloads/AMATORA-Scoreboard-Setup.zip"
-              download="AMATORA-Scoreboard-Setup.zip"
+              href="/downloads/AMATORA-Scoreboard-Setup.exe"
+              download="AMATORA-Scoreboard-Setup.exe"
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <WindowsIcon className="w-4 h-4 text-black" />
@@ -203,8 +203,8 @@ export const AppsPage: React.FC = () => {
 
           <div className="space-y-2">
             <a
-              href="/downloads/AMATORA-OBS-Controller-Setup.zip"
-              download="AMATORA-OBS-Controller-Setup.zip"
+              href="/downloads/AMATORA-OBS-Controller-Setup.exe"
+              download="AMATORA-OBS-Controller-Setup.exe"
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <ObsStudioIcon className="w-4 h-4 text-black" />
