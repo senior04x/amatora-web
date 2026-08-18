@@ -1,9 +1,9 @@
 {
   "version": "2.2.1",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "10DBF7AB4FD548B8E07D56D1E7A726D3848E9B5F583B5550B71D3B1E71B0BA01",
-  "signature": "c9531e3468466bcd6409962399c48681b811a308bb134090a88a142276af5c01",
+  "sha256": "F526D2F95A405CEEBD41286823715EAB67D0DCC02DAC17DE04ECB4DE51A25D28",
+  "signature": "fe27b53a5290b31c90bd158da48434500d3795f94abb382b5231ce5e44c604d2",
   "min_version": "2.0.0",
-  "changelog": "To'liq va hech kesilmaydigan jamoa nomlari hamda to'liq proporsiyalar",
+  "changelog": "Tezkor 0ms sinxronizatsiya, minimal internet sarfi va optimallashtirilgan match control",
   "release_date": "2026-08-19"
 }
