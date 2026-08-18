@@ -475,6 +475,14 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (saved === 'uz' || saved === 'ru' || saved === 'en') {
       return saved;
     }
+    // Auto-detect from browser/device language on first visit
+    const browserLang = (navigator.language || '').toLowerCase();
+    if (browserLang.startsWith('ru') || browserLang.startsWith('be') || browserLang.startsWith('uk') || browserLang.startsWith('kk')) {
+      return 'ru';
+    }
+    if (browserLang.startsWith('en')) {
+      return 'en';
+    }
     return 'uz';
   });
 
