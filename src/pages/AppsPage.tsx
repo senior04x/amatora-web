@@ -75,18 +75,18 @@ export const AppsPage: React.FC = () => {
 
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400">
                 <span>💻 Windows 10/11 (64-bit)</span>
-                <span>📦 ~2.3 MB (Setup.exe)</span>
+                <span>📦 ~1.8 MB (ZIP Arxiv / Setup.exe)</span>
               </div>
             </div>
 
             <div className="space-y-2 pt-2">
               <a
-                href="/downloads/AMATORA-Scoreboard-Setup.exe"
-                download="AMATORA-Scoreboard-Setup.exe"
+                href="/downloads/AMATORA-Scoreboard-Setup.zip"
+                download="AMATORA-Scoreboard-Setup.zip"
                 className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-black shadow-[0_0_20px_rgba(6,182,212,0.3)] gap-2 flex items-center justify-center"
               >
                 <WindowsIcon className="w-4 h-4 text-black" />
-                <span>Scoreboard Yuklab Olish (.exe)</span>
+                <span>Scoreboard Yuklab Olish (.zip)</span>
               </a>
               <span className="block text-[10px] text-center text-slate-500">
                 1-klikda o'rnatiladi • Avto Desktop Shortcut
@@ -119,18 +119,18 @@ export const AppsPage: React.FC = () => {
 
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400">
                 <span>💻 Windows 10/11 (64-bit)</span>
-                <span>📦 ~2.4 MB (Setup.exe)</span>
+                <span>📦 ~2.1 MB (ZIP Arxiv / Setup.exe)</span>
               </div>
             </div>
 
             <div className="space-y-2 pt-2">
               <a
-                href="/downloads/AMATORA-OBS-Controller-Setup.exe"
-                download="AMATORA-OBS-Controller-Setup.exe"
+                href="/downloads/AMATORA-OBS-Controller-Setup.zip"
+                download="AMATORA-OBS-Controller-Setup.zip"
                 className="glass-button w-full py-3.5 text-center text-xs font-black shadow-[0_0_20px_rgba(99,102,241,0.3)] gap-2 flex items-center justify-center border-indigo-500/40 hover:border-indigo-400 text-indigo-200"
               >
                 <WindowsIcon className="w-4 h-4 text-indigo-300" />
-                <span>OBS Controller Yuklab Olish (.exe)</span>
+                <span>OBS Controller Yuklab Olish (.zip)</span>
               </a>
               <span className="block text-[10px] text-center text-slate-500">
                 OBS Template & Stinger fayllari bilan birga o'rnatiladi
@@ -212,20 +212,20 @@ export const AppsPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="glass-card p-6 space-y-3">
             <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm">1</div>
-            <h4 className="font-bold text-sm text-white">Faylni Yuklang</h4>
-            <p className="text-xs text-slate-400">Kerakli dastur (Scoreboard yoki OBS Controller) Setup faylini kompyuteringizga yuklab oling.</p>
+            <h4 className="font-bold text-sm text-white">ZIP Arxivni Yuklang</h4>
+            <p className="text-xs text-slate-400">Yuqoridagi "Yuklab Olish (.zip)" tugmasini bosing va faylni kompyuteringizga saqlang.</p>
           </div>
 
           <div className="glass-card p-6 space-y-3">
             <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm">2</div>
-            <h4 className="font-bold text-sm text-white">Setup Faylini Ochish</h4>
-            <p className="text-xs text-slate-400">Yuklangan <code className="text-cyan-300">Setup.exe</code> faylini ishga tushiring va "Install" tugmasini bosing.</p>
+            <h4 className="font-bold text-sm text-white">Arxivni Ochib O'rnatish</h4>
+            <p className="text-xs text-slate-400">ZIP arxivni oching va ichidagi <code className="text-cyan-300">Setup.exe</code> faylini ishga tushirib "Install" tugmasini bosing.</p>
           </div>
 
           <div className="glass-card p-6 space-y-3">
             <div className="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm">3</div>
             <h4 className="font-bold text-sm text-white">Ishga Tushiring</h4>
-            <p className="text-xs text-slate-400">Ish stolida paydo bo'lgan rasmiy yorliq orqali dasturga kiring va sozlamalarni tanlang.</p>
+            <p className="text-xs text-slate-400">Ish stolida paydo bo'lgan rasmiy "AMATORA" yorlig'i orqali dasturni ishga tushiring.</p>
           </div>
         </div>
       </div>
