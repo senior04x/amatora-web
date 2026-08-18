@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
 
@@ -19,6 +20,8 @@ const AppStoreIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 );
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
+  const { t } = useLanguage();
+
   
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -50,7 +53,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
           className="flex flex-col items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity animate-bounce pointer-events-auto cursor-pointer"
         >
           <ChevronUp className="w-5 h-5 text-white" />
-          <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Scroll</span>
+          <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">{t('home.scroll')}</span>
         </div>
       </div>
 
@@ -61,8 +64,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
         <section className="pt-16 pb-0 px-4 sm:px-8 lg:px-12">
 
           <div className="text-center space-y-2 reveal-on-scroll delay-1 mb-10">
-            <div className="glass-badge">Imkoniyatlar</div>
-            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">Platforma Tizim Modullari</h2>
+            <div className="glass-badge">{t('home.badge')}</div>
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white">{t('home.title')}</h2>
           </div>
 
           {/* Cards — tailored for amatora-app & amatora-admin-app */}
@@ -75,21 +78,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
                   <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                     <BarChart3 className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">AMATORA App</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">{t('home.card1.badge')}</span>
                 </div>
-                <h3 className="font-heading font-bold text-lg text-white">Turnir Jadvali va Statistika</h3>
+                <h3 className="font-heading font-bold text-lg text-white">{t('home.card1.title')}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  O'yinchilar va ishqibozlar uchun real-vaqt rejimida yangilanuvchi ligalar statistikasi.
+                  {t('home.card1.desc')}
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Real-vaqt ochkolari</span>
+                  <span>{t('home.card1.spec1')}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>To'purarlar va kartochkalar reytingi</span>
+                  <span>{t('home.card1.spec2')}</span>
                 </li>
               </ul>
             </div>
@@ -101,21 +104,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
                   <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                     <ImageIcon className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">AMATORA Admin</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">{t('home.card2.badge')}</span>
                 </div>
-                <h3 className="font-heading font-bold text-lg text-white">PNG Grafika Eksport</h3>
+                <h3 className="font-heading font-bold text-lg text-white">{t('home.card2.title')}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Turnir jadvallari va match natijalarini 1080x1080 rasmlarga 1 soniyada eksport qiling.
+                  {t('home.card2.desc')}
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Avtomatik brending va rasmlar</span>
+                  <span>{t('home.card2.spec1')}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Homiylar logotiplari eksporti</span>
+                  <span>{t('home.card2.spec2')}</span>
                 </li>
               </ul>
             </div>
@@ -127,21 +130,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenDownload }) => {
                   <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
                     <Smartphone className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">Ekotizim</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-slate-300">{t('home.card3.badge')}</span>
                 </div>
-                <h3 className="font-heading font-bold text-lg text-white">Arizalar va Transferlar</h3>
+                <h3 className="font-heading font-bold text-lg text-white">{t('home.card3.title')}</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  O'yinchilar pasporti hamda komandalar transfer arizalarini bir bosishda tasdiqlang.
+                  {t('home.card3.desc')}
                 </p>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Pasport verifikatsiyasi</span>
+                  <span>{t('home.card3.spec1')}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Transfer oynalari boshqaruvi</span>
+                  <span>{t('home.card3.spec2')}</span>
                 </li>
               </ul>
             </div>

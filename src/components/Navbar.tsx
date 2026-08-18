@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { X, Download } from 'lucide-react';
+import { X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import type { Language } from '../context/LanguageContext';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  onOpenDownload: (platform?: 'android' | 'ios') => void;
 }
 
-
-
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenDownload }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const navItems = [
-    { id: 'home', label: 'Bosh Sahifa' },
-    { id: 'apps', label: 'Ilovalar' },
-    { id: 'features', label: 'Xususiyatlar' },
-    { id: 'about', label: 'Haqida' },
-    { id: 'security', label: 'Xavfsizlik' },
+    { id: 'home', label: t('nav.home') },
+    { id: 'apps', label: t('nav.apps') },
+    { id: 'features', label: t('nav.features') },
+    { id: 'about', label: t('nav.about') },
+    { id: 'security', label: t('nav.security') },
+  ];
+
+  const languages: { code: Language; label: string }[] = [
+    { code: 'uz', label: 'UZ' },
+    { code: 'ru', label: 'RU' },
+    { code: 'en', label: 'EN' },
   ];
 
   const handleNavClick = (id: string) => {
@@ -28,11 +34,30 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
 
   return (
     <>
-      {/* 1. Floating Right Corner Borderless Custom Burger Button */}
-      <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50">
+      {/* 1. Floating Right Corner Language Selector & Burger Button */}
+      <div className="fixed top-5 right-5 sm:top-6 sm:right-6 z-50 flex items-center gap-2.5 sm:gap-3">
+        
+        {/* 3 Inline Language Switcher Buttons (No Modal) */}
+        <div className="flex items-center bg-black/75 backdrop-blur-xl border border-white/20 p-1 rounded-2xl shadow-2xl">
+          {languages.map((item) => (
+            <button
+              key={item.code}
+              onClick={() => setLanguage(item.code)}
+              className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                language === item.code
+                  ? 'bg-white text-black font-extrabold shadow-md'
+                  : 'text-slate-400 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Burger Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="w-12 h-12 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
+          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center text-white hover:opacity-80 active:scale-95 transition-all outline-none"
           aria-label="Toggle Navigation Drawer"
         >
           {menuOpen ? (
@@ -53,13 +78,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
 
       {/* 3. Smooth Animated Glass Side-Drawer */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 z-50 w-72 sm:w-80 bg-black/90 backdrop-blur-2xl border-l border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 bottom-0 z-50 w-72 sm:w-80 bg-black/95 backdrop-blur-2xl border-l border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-in-out ${
           menuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="space-y-3 pt-1">
           
-          {/* Navigation Links List — Bosh Sahifa parallel with X button */}
+          {/* Navigation Links List */}
           <nav className="space-y-2">
             {navItems.map((item, index) => {
               const isActive = activeTab === item.id;
@@ -105,18 +130,23 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenD
           </nav>
         </div>
 
-        {/* Drawer Footer Actions */}
+        {/* Drawer Footer Actions — 3 Language Buttons */}
         <div className="space-y-4 pt-6 border-t border-white/10">
-          <button
-            onClick={() => {
-              setMenuOpen(false);
-              onOpenDownload();
-            }}
-            className="glass-button glass-button-primary w-full py-3.5 text-sm"
-          >
-            <Download className="w-4 h-4 text-black" />
-            <span>Ilovani Yuklab Olish</span>
-          </button>
+          <div className="flex items-center bg-white/[0.06] p-1.5 rounded-2xl border border-white/15">
+            {languages.map((item) => (
+              <button
+                key={item.code}
+                onClick={() => setLanguage(item.code)}
+                className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                  language === item.code
+                    ? 'bg-white text-black font-extrabold shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
           <div className="text-center text-[11px] text-slate-500 font-mono">
             amatora.uz
           </div>

@@ -1,57 +1,59 @@
 import React, { useState } from 'react';
 import { Layers, Trophy, Users, BarChart2, ImageIcon, Zap, Award } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const FeaturesPage: React.FC = () => {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<'all' | 'tournaments' | 'matches' | 'graphics'>('all');
 
   const features = [
     {
       id: 1,
       category: 'tournaments',
-      title: 'Avtomatlashtirilgan Liga va Tur Boshqaruvi',
-      description: 'Har bir liga uchun tur o\'yinlarini taqsimlash, o\'yin kunlari hamda stadionlarni belgilash moduli.',
+      title: t('features.f1.title'),
+      description: t('features.f1.desc'),
       icon: Trophy,
-      specs: ['Guruh bosqichi va pley-off tizimi', 'Klublar statistikasi', 'Ochkolarni hisoblash mantig\'i']
+      specs: [t('features.f1.s1'), t('features.f1.s2'), t('features.f1.s3')]
     },
     {
       id: 2,
       category: 'matches',
-      title: 'Real-Vaqt Live Match Taymeri',
-      description: 'Match hakamlari uchun taymer, taymlarni almashtirish, daqiqa va uzaytirilgan daqiqalarni kiritish.',
+      title: t('features.f2.title'),
+      description: t('features.f2.desc'),
       icon: Zap,
-      specs: ['1-Taym / 2-Taym taymerlari', 'Sariq/Qizil kartochkalar', 'Gol mualliflari hamda assistlar']
+      specs: [t('features.f2.s1'), t('features.f2.s2'), t('features.f2.s3')]
     },
     {
       id: 3,
       category: 'graphics',
-      title: '1080×1080 PNG Grafik Eksporti',
-      description: 'Turnir jadvali, to\'purarlar hamda o\'yin natijalarini ijtimoiy tarmoqlar uchun 1080×1080 o\'lchamdagi tayyor rasmlarga eksport qilish.',
+      title: t('features.f3.title'),
+      description: t('features.f3.desc'),
       icon: ImageIcon,
-      specs: ['Futbol shablonlari', 'Homiylar logotiplari', 'Bir zumda yuklab olish']
+      specs: [t('features.f3.s1'), t('features.f3.s2'), t('features.f3.s3')]
     },
     {
       id: 4,
       category: 'tournaments',
-      title: 'O\'yinchilar va Arizalar Verifikatsiyasi',
-      description: 'O\'yinchilar ma\'lumotlari, fotosuratlari hamda jamoaga biriktirish arizalarini ko\'rib chiqish va tasdiqlash.',
+      title: t('features.f4.title'),
+      description: t('features.f4.desc'),
       icon: Users,
-      specs: ['Fotosurat qirqish va ko\'rish', 'Transfer oynalari', 'Takroriy o\'yinchilarni aniqlash']
+      specs: [t('features.f4.s1'), t('features.f4.s2'), t('features.f4.s3')]
     },
     {
       id: 5,
       category: 'matches',
-      title: 'Homiylar Boshqaruvi va Liga Shabloni',
-      description: 'Tashkilotning bosh homiysi va ikkinchi darajali homiylarini har bir liga grafikasiga integratsiya qilish.',
+      title: t('features.f5.title'),
+      description: t('features.f5.desc'),
       icon: Award,
-      specs: ['Bosh Homiy oltin belgisi', 'Homiylar strip paneli', 'Liga bo\'yicha yoqish/o\'chirish']
+      specs: [t('features.f5.s1'), t('features.f5.s2'), t('features.f5.s3')]
     },
     {
       id: 6,
       category: 'graphics',
-      title: 'PDF Hisobotlar va Protokollar',
-      description: 'Barcha o\'yinlar natijalari hamda to\'purarlar jadvalini rasmiy chop etish uchun PDF hujjatlarga o\'tkazish.',
+      title: t('features.f6.title'),
+      description: t('features.f6.desc'),
       icon: BarChart2,
-      specs: ['Rasmiy pechat bloki', 'Chop etish formati', 'Avtomatlashtirilgan hisobotlar']
+      specs: [t('features.f6.s1'), t('features.f6.s2'), t('features.f6.s3')]
     }
   ];
 
@@ -64,21 +66,21 @@ export const FeaturesPage: React.FC = () => {
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
           <Layers className="w-3.5 h-3.5 text-white" />
-          <span>Platforma Imkoniyatlari Katalogi</span>
+          <span>{t('features.badge')}</span>
         </div>
-        <h1 className="font-heading font-black text-3xl sm:text-4xl text-white">Turnirlarni Boshqarishning Har Bir Tizim Moduli</h1>
+        <h1 className="font-heading font-black text-3xl sm:text-4xl text-white">{t('features.title')}</h1>
         <p className="text-xs sm:text-sm text-slate-400">
-          AMATORA platformasida har bir funksiya tezkor va aniq ishlash uchun modulli arxitektura asosida tayyorlangan.
+          {t('features.desc')}
         </p>
       </div>
 
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-auto bg-white/[0.04] border border-white/10 p-1.5 rounded-2xl">
         {[
-          { id: 'all', label: 'Barcha Modullar' },
-          { id: 'tournaments', label: 'Turnirlar va O\'yinchilar' },
-          { id: 'matches', label: 'Match Boshqaruvi' },
-          { id: 'graphics', label: 'Grafika Eksport' },
+          { id: 'all', label: t('features.tab.all') },
+          { id: 'tournaments', label: t('features.tab.tournaments') },
+          { id: 'matches', label: t('features.tab.matches') },
+          { id: 'graphics', label: t('features.tab.graphics') },
         ].map((tab) => (
           <button
             key={tab.id}

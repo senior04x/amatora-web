@@ -198,7 +198,6 @@ export function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        onOpenDownload={(platform) => handleOpenDownload(platform)}
       />
 
       {/* 3. MAIN PAGE CONTENT */}

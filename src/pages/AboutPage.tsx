@@ -1,7 +1,10 @@
 import React from 'react';
 import { Info, Shield, Server, Terminal } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const AboutPage: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
       
@@ -9,13 +12,13 @@ export const AboutPage: React.FC = () => {
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
           <Info className="w-3.5 h-3.5 text-white" />
-          <span>Ekotizim Haqida</span>
+          <span>{t('about.badge')}</span>
         </div>
         <h1 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
-          AMATORA Futbol Boshqaruv Platformasi
+          {t('about.title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-          Havaskor futbol ligalari va turnirlarini raqamlashtirish, boshqarish va avtomatlashtirish uchun yaratilgan platforma.
+          {t('about.desc')}
         </p>
       </div>
 
@@ -26,9 +29,9 @@ export const AboutPage: React.FC = () => {
           <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
             <Shield className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-xl text-white">Bizning Maqsadimiz</h2>
+          <h2 className="font-heading font-bold text-xl text-white">{t('about.mission.title')}</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            O'zbekistondagi havaskor futbol ligalari va mahalla turnirlarini zamonaviy raqamli vositalar bilan ta'minlash. Turnirlarni tashkil etish, jamoalar va o'yinchilarni boshqarish, natijalarni yuritish hamda qog'ozbozlik va murakkab hisob-kitoblarni kamaytirish.
+            {t('about.mission.desc')}
           </p>
         </div>
 
@@ -36,9 +39,9 @@ export const AboutPage: React.FC = () => {
           <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
             <Server className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-xl text-white">Platforma Infratuzilmasi</h2>
+          <h2 className="font-heading font-bold text-xl text-white">{t('about.infra.title')}</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            AMATORA zamonaviy veb va mobil texnologiyalar hamda Supabase PostgreSQL ma'lumotlar bazasi asosida ishlab chiqilgan bo'lib, barqaror va tezkor ishlashni ta'minlaydi.
+            {t('about.infra.desc')}
           </p>
         </div>
 
@@ -49,8 +52,8 @@ export const AboutPage: React.FC = () => {
         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
           <Terminal className="w-6 h-6 text-white" />
           <div>
-            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">Platforma Texnologiyalari</h3>
-            <p className="text-xs text-slate-400">Asosiy texnologik stek</p>
+            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">{t('about.stack.title')}</h3>
+            <p className="text-xs text-slate-400">{t('about.stack.sub')}</p>
           </div>
         </div>
 

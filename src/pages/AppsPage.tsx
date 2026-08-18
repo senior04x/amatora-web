@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const WindowsIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -20,19 +21,20 @@ const SmartphoneIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
 );
 
 export const AppsPage: React.FC = () => {
+  const { t } = useLanguage();
   return (
     <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-16">
       
       {/* Page Heading */}
       <div className="max-w-4xl mx-auto text-center space-y-4">
         <span className="glass-badge text-[10px]">
-          Rasmiy Dasturlar
+          {t('apps.badge')}
         </span>
         <h1 className="font-heading font-black text-3xl sm:text-5xl text-white tracking-tight">
-          Barcha Qurilmalar Uchun Ilovalar
+          {t('apps.title')}
         </h1>
         <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Stadion tablolarini boshqarish, OBS jonli translyatsiyalari, match nazorati hamda turnir statistikasi uchun rasmiy AMATORA ilovalari.
+          {t('apps.desc')}
         </p>
       </div>
 
@@ -54,18 +56,18 @@ export const AppsPage: React.FC = () => {
                   }}
                 />
               </div>
-              <span className="glass-badge text-[10px]">iOS & Android</span>
+              <span className="glass-badge text-[10px]">{t('apps.app.badge')}</span>
             </div>
             
             <div className="space-y-1">
               <h2 className="font-heading font-black text-2xl text-white">
                 AMATORA App
               </h2>
-              <p className="text-xs text-slate-400">Ishqibozlar va O'yinchilar Ilovasi</p>
+              <p className="text-xs text-slate-400">{t('apps.app.subtitle')}</p>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Turnir jadvallari, match natijalari, to'purarlar reytingi hamda jonli statistikalarni real vaqt rejimida kuzatish uchun maxsus mobil ilova.
+              {t('apps.app.desc')}
             </p>
           </div>
 
@@ -82,10 +84,10 @@ export const AppsPage: React.FC = () => {
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <SmartphoneIcon className="w-4 h-4 text-black" />
-              <span>AMATORA Ilovasini Olish</span>
+              <span>{t('apps.app.btn')}</span>
             </button>
             <span className="block text-[10px] text-center text-slate-500">
-              Qurilmaga qarab avtomatik App Store yoki Google Play
+              {t('apps.app.sub')}
             </span>
           </div>
         </div>
@@ -104,18 +106,18 @@ export const AppsPage: React.FC = () => {
                   }}
                 />
               </div>
-              <span className="glass-badge text-[10px]">iOS & Android</span>
+              <span className="glass-badge text-[10px]">{t('apps.admin.badge')}</span>
             </div>
 
             <div className="space-y-1">
               <h2 className="font-heading font-black text-2xl text-white">
                 AMATORA Admin
               </h2>
-              <p className="text-xs text-slate-400">Tashkilotchilar va Hakamlar Paneli</p>
+              <p className="text-xs text-slate-400">{t('apps.admin.subtitle')}</p>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Turnirlar, o'yinchilar ro'yxati, match taymerlari, hakamlik protokollari hamda jamoalar arizalarini bevosita mobil telefondan boshqaring.
+              {t('apps.admin.desc')}
             </p>
           </div>
 
@@ -132,10 +134,10 @@ export const AppsPage: React.FC = () => {
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <SmartphoneIcon className="w-4 h-4 text-black" />
-              <span>Admin Ilovasini Olish</span>
+              <span>{t('apps.admin.btn')}</span>
             </button>
             <span className="block text-[10px] text-center text-slate-500">
-              Qurilmaga qarab avtomatik App Store yoki Google Play
+              {t('apps.admin.sub')}
             </span>
           </div>
         </div>
@@ -147,18 +149,18 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
                 <WindowsIcon className="w-7 h-7" />
               </div>
-              <span className="glass-badge text-[10px]">Windows • v2.0.0</span>
+              <span className="glass-badge text-[10px]">{t('apps.score.badge')}</span>
             </div>
 
             <div className="space-y-1">
               <h2 className="font-heading font-black text-2xl text-white">
                 AMATORA Scoreboard
               </h2>
-              <p className="text-xs text-slate-400">Stadion LED va HDMI Monitor Tablosi</p>
+              <p className="text-xs text-slate-400">{t('apps.score.subtitle')}</p>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Stadion LED ekranlari, HDMI monitorlar va jonli efir tablolari uchun maxsus Native Desktop ilovasi. 0ms drift-free aniq taymer, avtomatik gol animatsiyalari va internet uzilganda ham mustaqil ishlash tizimi.
+              {t('apps.score.desc')}
             </p>
           </div>
 
@@ -169,10 +171,10 @@ export const AppsPage: React.FC = () => {
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <WindowsIcon className="w-4 h-4 text-black" />
-              <span>Scoreboard Yuklab Olish (.zip)</span>
+              <span>{t('apps.score.btn')}</span>
             </a>
             <span className="block text-[10px] text-center text-slate-500">
-              Windows 10 / 11 (64-bit) • 1.8 MB
+              {t('apps.score.sub')}
             </span>
           </div>
         </div>
@@ -184,18 +186,18 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
                 <ObsStudioIcon className="w-7 h-7" />
               </div>
-              <span className="glass-badge text-[10px]">OBS Studio • v2.0.0</span>
+              <span className="glass-badge text-[10px]">{t('apps.obs.badge')}</span>
             </div>
 
             <div className="space-y-1">
               <h2 className="font-heading font-black text-2xl text-white">
                 AMATORA OBS Controller
               </h2>
-              <p className="text-xs text-slate-400">OBS Replay va Efir Avtomatizatsiyasi</p>
+              <p className="text-xs text-slate-400">{t('apps.obs.subtitle')}</p>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              OBS Studio bilan WebSocket orqali ulanib, takroriy lavhalar (Replay buffer), Stinger o'tish animatsiyalari, kamera almashishlari hamda translyatsiya grafikasini to'liq avtomatik boshqaradi.
+              {t('apps.obs.desc')}
             </p>
           </div>
 
@@ -206,10 +208,10 @@ export const AppsPage: React.FC = () => {
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <ObsStudioIcon className="w-4 h-4 text-black" />
-              <span>OBS Controller Yuklab Olish (.zip)</span>
+              <span>{t('apps.obs.btn')}</span>
             </a>
             <span className="block text-[10px] text-center text-slate-500">
-              Windows 10 / 11 (64-bit) • 2.1 MB
+              {t('apps.obs.sub')}
             </span>
           </div>
         </div>
@@ -218,25 +220,25 @@ export const AppsPage: React.FC = () => {
 
       {/* Installation Guide */}
       <div className="max-w-5xl mx-auto space-y-6">
-        <h3 className="font-heading font-black text-2xl text-white text-center">O'rnatish Qo'llanmasi</h3>
+        <h3 className="font-heading font-black text-2xl text-white text-center">{t('apps.guide.title')}</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="glass-card p-6 space-y-3 border-white/20">
             <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-white text-sm">1</div>
-            <h4 className="font-bold text-sm text-white">ZIP Arxivni Yuklang</h4>
-            <p className="text-xs text-slate-400">Kerakli dastur (Scoreboard yoki OBS Controller) ZIP arxivini kompyuteringizga yuklab oling.</p>
+            <h4 className="font-bold text-sm text-white">{t('apps.guide.step1.title')}</h4>
+            <p className="text-xs text-slate-400">{t('apps.guide.step1.desc')}</p>
           </div>
 
           <div className="glass-card p-6 space-y-3 border-white/20">
             <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-white text-sm">2</div>
-            <h4 className="font-bold text-sm text-white">Arxivni Ochib O'rnatish</h4>
-            <p className="text-xs text-slate-400">ZIP arxivni oching va ichidagi <code className="text-slate-200 bg-white/10 px-1.5 py-0.5 rounded text-[11px]">Setup.exe</code> faylini ishga tushirib Install tugmasini bosing.</p>
+            <h4 className="font-bold text-sm text-white">{t('apps.guide.step2.title')}</h4>
+            <p className="text-xs text-slate-400">{t('apps.guide.step2.desc')} <code className="text-slate-200 bg-white/10 px-1.5 py-0.5 rounded text-[11px]">Setup.exe</code></p>
           </div>
 
           <div className="glass-card p-6 space-y-3 border-white/20">
             <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-white text-sm">3</div>
-            <h4 className="font-bold text-sm text-white">Ishga Tushiring</h4>
-            <p className="text-xs text-slate-400">Ish stolida paydo bo'lgan rasmiy AMATORA yorlig'i orqali dasturni ishga tushiring.</p>
+            <h4 className="font-bold text-sm text-white">{t('apps.guide.step3.title')}</h4>
+            <p className="text-xs text-slate-400">{t('apps.guide.step3.desc')}</p>
           </div>
         </div>
       </div>

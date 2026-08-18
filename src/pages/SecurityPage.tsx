@@ -1,7 +1,10 @@
 import React from 'react';
 import { Lock, ShieldCheck, Key, FileJson, CheckCircle, Phone, FileText } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const SecurityPage: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="relative z-10 bg-white/[0.04] backdrop-blur-2xl border-t border-white/15 rounded-t-[36px] sm:rounded-t-[48px] w-full px-4 sm:px-8 lg:px-12 pt-16 pb-20 space-y-12">
       
@@ -9,13 +12,13 @@ export const SecurityPage: React.FC = () => {
       <div className="text-center space-y-3 max-w-3xl mx-auto">
         <div className="glass-badge">
           <Lock className="w-3.5 h-3.5 text-white" />
-          <span>Tizim Xavfsizligi va Maxfiylik</span>
+          <span>{t('security.badge')}</span>
         </div>
         <h1 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
-          Xavfsizlik Standartlari va Ma'lumotlar Himoyasi
+          {t('security.title')}
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-          AMATORA platformasida foydalanuvchilar, jamoalar va turnir tashkilotchilarining ma'lumotlari zamonaviy xavfsizlik standartlari hamda qat'iy ruxsat nazorati orqali himoyalanadi.
+          {t('security.desc')}
         </p>
       </div>
 
@@ -27,9 +30,9 @@ export const SecurityPage: React.FC = () => {
           <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
             <Key className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">Rolli Kirish Nazorati (RBAC)</h2>
+          <h2 className="font-heading font-bold text-lg text-white">{t('security.p1.title')}</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Ma'lumotlar bazasi Row-Level Security (RLS) va rolli ruxsat tizimi bilan himoyalangan. Tashkilotchilar va adminlar faqat o'zlariga tegishli liga hamda o'yin ma'lumotlarini boshqara oladilar.
+            {t('security.p1.desc')}
           </p>
         </div>
 
@@ -38,9 +41,9 @@ export const SecurityPage: React.FC = () => {
           <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
             <ShieldCheck className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">Shifrlangan Aloqa (HTTPS)</h2>
+          <h2 className="font-heading font-bold text-lg text-white">{t('security.p2.title')}</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Platforma bilan mijoz dasturlari (Veb, Mobil, Desktop) o'rtasidagi barcha tarmoq so'rovlari va API ulanishlari zamonaviy HTTPS shifrlangan protokollari orqali xavfsiz uzatiladi.
+            {t('security.p2.desc')}
           </p>
         </div>
 
@@ -49,9 +52,9 @@ export const SecurityPage: React.FC = () => {
           <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
             <Lock className="w-5 h-5" />
           </div>
-          <h2 className="font-heading font-bold text-lg text-white">Ma'lumotlar Maxfiyligi</h2>
+          <h2 className="font-heading font-bold text-lg text-white">{t('security.p3.title')}</h2>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Foydalanuvchilar va jamoa a'zolarining ma'lumotlari faqat musobaqalarni o'tkazish va rasmiy ro'yxatga olish maqsadlarida foydalaniladi hamda uchinchi tomonlarga sotilmaydi.
+            {t('security.p3.desc')}
           </p>
         </div>
 
@@ -62,7 +65,7 @@ export const SecurityPage: React.FC = () => {
         <div className="flex items-center gap-3 border-b border-white/10 pb-4">
           <FileJson className="w-6 h-6 text-white" />
           <div>
-            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">Platforma Xavfsizlik Konfiguratsiyasi</h3>
+            <h3 className="font-heading font-bold text-lg sm:text-xl text-white">{t('security.tech.title')}</h3>
             <p className="text-xs text-slate-400">Domen: amatora.uz</p>
           </div>
         </div>
@@ -81,11 +84,11 @@ export const SecurityPage: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-white shrink-0" />
-            <span>Foydalanuvchi ma'lumotlari tijoriy reklama tarmoqlariga berilmaydi</span>
+            <span>{t('security.check1')}</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-white shrink-0" />
-            <span>Xavfsiz kesh va avtomatik zaxiralash tizimi</span>
+            <span>{t('security.check2')}</span>
           </div>
         </div>
 
@@ -97,7 +100,7 @@ export const SecurityPage: React.FC = () => {
             className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
           >
             <FileText className="w-4 h-4" />
-            <span>Maxfiylik Siyosati (Privacy Policy)</span>
+            <span>{t('security.privacy')}</span>
           </a>
 
           <a
@@ -105,7 +108,7 @@ export const SecurityPage: React.FC = () => {
             className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
           >
             <Phone className="w-4 h-4 text-white" />
-            <span>Xavfsizlik bo'yicha aloqa: +998 93 378 68 86</span>
+            <span>{t('security.contact')}</span>
           </a>
         </div>
 
