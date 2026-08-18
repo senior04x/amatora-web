@@ -117,13 +117,12 @@ export const AppsPage: React.FC = () => {
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden p-2">
+              <div className="w-14 h-14 rounded-2xl border border-white/25 overflow-hidden shadow-lg bg-black/40 flex-shrink-0">
                 <img 
                   src="/amatora-logo.PNG" 
                   alt="AMATORA App Logo" 
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-cover" 
                   onError={(e) => {
-                    // Fallback to SVG if image not loaded
                     (e.target as HTMLElement).style.display = 'none';
                   }}
                 />
@@ -168,11 +167,11 @@ export const AppsPage: React.FC = () => {
         <div className="glass-card p-8 space-y-6 flex flex-col justify-between border-white/20">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden p-2">
+              <div className="w-14 h-14 rounded-2xl border border-white/25 overflow-hidden shadow-lg bg-black/40 flex-shrink-0">
                 <img 
                   src="/admin-logo.PNG" 
                   alt="AMATORA Admin Logo" 
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-cover" 
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
                   }}
