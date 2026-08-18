@@ -1,7 +1,8 @@
 {
   "version": "2.2.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "changelog": "1:1 Real HDMI Mini Stadium Monitor ekrani, dinamik liga gradienti va avtomatik tema yangilanishi",
+  "sha256": "3B5CE9AB888C43D252B243E3BA499B0B6E0364335D1256922A9F139B1F4FBCAD",
   "min_version": "2.0.0",
+  "changelog": "1:1 Real HDMI Mini Stadium Monitor ekrani va professional 1-Click Auto-Updater",
   "release_date": "2026-08-19"
 }
