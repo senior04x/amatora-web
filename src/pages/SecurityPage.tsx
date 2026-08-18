@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, ShieldCheck, Key, FileJson, CheckCircle, Mail, FileText } from 'lucide-react';
+import { Lock, ShieldCheck, Key, FileJson, CheckCircle, Phone, FileText } from 'lucide-react';
 
 export const SecurityPage: React.FC = () => {
   return (
@@ -101,11 +101,11 @@ export const SecurityPage: React.FC = () => {
           </a>
 
           <a
-            href="mailto:security@amatora.uz"
+            href="tel:+998933786886"
             className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors"
           >
-            <Mail className="w-4 h-4" />
-            <span>Xavfsizlik bo'yicha aloqa: security@amatora.uz</span>
+            <Phone className="w-4 h-4 text-white" />
+            <span>Xavfsizlik bo'yicha aloqa: +998 93 378 68 86</span>
           </a>
         </div>
 
