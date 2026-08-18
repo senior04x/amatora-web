@@ -17,9 +17,9 @@ const RESERVED_TABS = ['home', 'apps', 'features', 'about', 'security'];
 export function App() {
   // Synchronize initial activeTab and orgSlug from URL pathname or hash slug
   const getRouteFromUrl = (): { tab: string; orgSlug?: string; streamId?: string } => {
-    const rawPath = window.location.pathname.replace(/^\//, '');
+    const rawPath = window.location.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
     const path = rawPath.toLowerCase();
-    const hash = window.location.hash.replace(/^#/, '').toLowerCase();
+    const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
     const target = path || hash;
 
     // Check if URL is OBS Scoreboard overlay route (e.g. /obs/scoreboard/stream1/hfl or /obs/scoreboard/stream1)
@@ -36,8 +36,16 @@ export function App() {
     if (RESERVED_TABS.includes(target)) {
       return { tab: target };
     }
-    // Any custom slug (e.g. /llf, /hfl, /tashkilot) triggers the Organization Application Page
-    return { tab: 'application', orgSlug: target };
+
+    // Only route to ApplicationPage if URL explicitly starts with 'apply' or 'application'
+    if (path.startsWith('apply') || path.startsWith('application')) {
+      const parts = rawPath.split('/');
+      const orgSlug = parts[1] || 'llf';
+      return { tab: 'application', orgSlug };
+    }
+
+    // Any other custom slug, file download path or unknown URL safely defaults to home
+    return { tab: 'home' };
   };
 
   const [route, setRoute] = useState<{ tab: string; orgSlug?: string; streamId?: string }>(getRouteFromUrl);
@@ -46,11 +54,15 @@ export function App() {
     platform: 'android',
   });
 
-  const setActiveTab = (tab: string) => {
-    setRoute({ tab });
-    const newPath = tab === 'home' ? '/' : `/${tab}`;
+  const setActiveTab = (tab: string, orgSlug?: string) => {
+    setRoute({ tab, orgSlug });
+    let newPath = '/';
+    if (tab === 'home') newPath = '/';
+    else if (tab === 'application') newPath = orgSlug ? `/apply/${orgSlug}` : '/apply';
+    else newPath = `/${tab}`;
+
     if (window.location.pathname !== newPath) {
-      window.history.pushState({ tab }, '', newPath);
+      window.history.pushState({ tab, orgSlug }, '', newPath);
     }
   };
 
