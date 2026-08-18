@@ -11,7 +11,7 @@ export const FeaturesPage: React.FC = () => {
       title: 'Avtomatlashtirilgan Liga va Tur Boshqaruvi',
       description: 'Har bir liga uchun tur o\'yinlarini taqsimlash, o\'yin kunlari hamda stadionlarni belgilash moduli.',
       icon: Trophy,
-      specs: ['Chortakiy va davriy sistema', 'Klublar statistikasi', 'Ochkolarni hisoblash mantig\'i']
+      specs: ['Guruh bosqichi va pley-off tizimi', 'Klublar statistikasi', 'Ochkolarni hisoblash mantig\'i']
     },
     {
       id: 2,
@@ -24,8 +24,8 @@ export const FeaturesPage: React.FC = () => {
     {
       id: 3,
       category: 'graphics',
-      title: '1:1 PNG Graphic Canvas Export Engine',
-      description: 'Turnir jadvali, to\'purarlar hamda o\'yinlar jadvalini 1080x1080 o\'lchamdagi professional tayyor rasmlarga eksport qilish.',
+      title: '1080×1080 PNG Grafik Eksporti',
+      description: 'Turnir jadvali, to\'purarlar hamda o\'yin natijalarini ijtimoiy tarmoqlar uchun 1080×1080 o\'lchamdagi tayyor rasmlarga eksport qilish.',
       icon: ImageIcon,
       specs: ['Futbol shablonlari', 'Homiylar logotiplari', 'Bir zumda yuklab olish']
     },
@@ -33,9 +33,9 @@ export const FeaturesPage: React.FC = () => {
       id: 4,
       category: 'tournaments',
       title: 'O\'yinchilar va Arizalar Verifikatsiyasi',
-      description: 'O\'yinchi suratlari, pasport seriyasi, otasining ismi hamda jamoaga biriktirish arizalarini ko\'rib chiqish.',
+      description: 'O\'yinchilar ma\'lumotlari, fotosuratlari hamda jamoaga biriktirish arizalarini ko\'rib chiqish va tasdiqlash.',
       icon: Users,
-      specs: ['Fotosurat qirqish va ko\'rish', 'Transfer oynalari', 'Birxillikni aniqlash']
+      specs: ['Fotosurat qirqish va ko\'rish', 'Transfer oynalari', 'Takroriy o\'yinchilarni aniqlash']
     },
     {
       id: 5,
@@ -48,10 +48,10 @@ export const FeaturesPage: React.FC = () => {
     {
       id: 6,
       category: 'graphics',
-      title: 'PDF Hisobotlar va Eksport Hujjatlari',
-      description: 'Barcha o\'yinlar natijalari hamda to\'purarlar jadvalini rasmiy chop etish uchun PDF fayllarga o\'tkazish.',
+      title: 'PDF Hisobotlar va Protokollar',
+      description: 'Barcha o\'yinlar natijalari hamda to\'purarlar jadvalini rasmiy chop etish uchun PDF hujjatlarga o\'tkazish.',
       icon: BarChart2,
-      specs: ['Rasmiy pechat bloki', 'Chop etish formati', 'Ekotizim raqamli kaliti (amatora.uz)']
+      specs: ['Rasmiy pechat bloki', 'Chop etish formati', 'Avtomatlashtirilgan hisobotlar']
     }
   ];
 
