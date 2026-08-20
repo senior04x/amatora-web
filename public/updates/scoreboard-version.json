@@ -1,9 +1,9 @@
 {
-  "version": "2.2.1",
+  "version": "2.3.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "F526D2F95A405CEEBD41286823715EAB67D0DCC02DAC17DE04ECB4DE51A25D28",
-  "signature": "fe27b53a5290b31c90bd158da48434500d3795f94abb382b5231ce5e44c604d2",
+  "sha256": "AD77D1AC3218E0324B7BB2D0E1DE2602EF79BA50D7CF2D9C351F05DAD616717C",
+  "signature": "b0e5c6be0ec9435aa2e05fe2aebf73f9cf3e194d74a9eb926e212ef0aacb782d",
   "min_version": "2.0.0",
-  "changelog": "Tezkor 0ms sinxronizatsiya, minimal internet sarfi va optimallashtirilgan match control",
-  "release_date": "2026-08-19"
+  "changelog": "Stadion tablosi, HDMI monitor va jonli efir taymerlari uchun barqarorlik yangilanishi",
+  "release_date": "2026-08-21"
 }
