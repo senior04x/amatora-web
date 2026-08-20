@@ -79,14 +79,7 @@ export function App() {
     // 5. Dynamic Organization Slugs (e.g. /llf, /hfl, /superliga)
     const sanitized = sanitizeSlug(target);
     if (sanitized && !RESERVED_TABS.has(sanitized)) {
-      // Check cache first for instant 0ms routing
-      if (validatedOrgSlugs.has(sanitized)) {
-        return validatedOrgSlugs.get(sanitized)
-          ? { tab: 'application', orgSlug: sanitized }
-          : { tab: 'home' };
-      }
-      // Trigger async database verification
-      return { tab: 'verifying_slug', orgSlug: sanitized };
+      return { tab: 'application', orgSlug: sanitized };
     }
 
     // 6. Any other unknown route, file download or invalid slug safely falls back to home
