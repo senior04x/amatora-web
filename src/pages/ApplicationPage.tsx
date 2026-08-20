@@ -181,11 +181,19 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
 
   const fetchTeamsForLeague = async (leagueId: number) => {
     try {
-      const { data } = await supabase
+      const selectedLeague = leagues.find((l) => String(l.id) === String(leagueId));
+      let query = supabase
         .from('teams')
-        .select('id, name, league_id')
-        .eq('league_id', leagueId)
-        .order('name');
+        .select('id, name, league_id, league, status')
+        .in('status', ['approved', 'tasdiqlangan', 'partially_approved']);
+
+      if (selectedLeague?.name) {
+        query = query.or(`league_id.eq.${leagueId},league.ilike.%${selectedLeague.name}%`);
+      } else {
+        query = query.eq('league_id', leagueId);
+      }
+
+      const { data } = await query.order('name');
       setLeagueTeams(data || []);
       setSelectedTeamId('');
     } catch (err) {
@@ -236,11 +244,34 @@ export const ApplicationPage: React.FC<ApplicationPageProps> = ({ orgSlug }) => 
         }
         setLoadingProgress(70); // 70%: Registration status verified
 
-        const { data: leagueData } = await supabase
+        // 4. Fetch Collab / Co-hosted leagues for this organization
+        let collabLeagueIds: number[] = [];
+        try {
+          const { data: myCollabs } = await supabase
+            .from('league_collabs')
+            .select('league_id')
+            .eq('status', 'accepted')
+            .or(`sender_org_id.eq.${orgData.id},receiver_org_id.eq.${orgData.id}`);
+
+          if (myCollabs && myCollabs.length > 0) {
+            collabLeagueIds = myCollabs.map((c: any) => c.league_id).filter(Boolean);
+          }
+        } catch (e) {
+          console.warn('Error fetching collab leagues:', e);
+        }
+
+        let leagueQuery = supabase
           .from('leagues')
           .select('id, name, organization_id')
-          .eq('organization_id', orgData.id)
           .order('name');
+
+        if (collabLeagueIds.length > 0) {
+          leagueQuery = leagueQuery.or(`organization_id.eq.${orgData.id},id.in.(${collabLeagueIds.join(',')})`);
+        } else {
+          leagueQuery = leagueQuery.eq('organization_id', orgData.id);
+        }
+
+        const { data: leagueData } = await leagueQuery;
         
         setLeagues(leagueData || []);
         if (leagueData && leagueData.length > 0) {
