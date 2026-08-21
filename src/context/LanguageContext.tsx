@@ -57,12 +57,12 @@ export const translations = {
     'apps.admin.btn': 'Admin Ilovasini Olish',
     'apps.admin.sub': 'Qurilmaga qarab avtomatik App Store yoki Google Play',
 
-    'apps.score.badge': 'Windows • v2.3.0',
+    'apps.score.badge': 'Windows • v2.3.1',
     'apps.score.title': 'AMATORA Scoreboard',
     'apps.score.subtitle': 'Stadion LED va HDMI Monitor Tablosi',
     'apps.score.desc': 'Stadion LED ekranlari, HDMI monitorlar va jonli efir tablolari uchun maxsus Native Desktop ilovasi. 0ms drift-free aniq taymer, avtomatik gol animatsiyalari va internet uzilganda ham mustaqil ishlash tizimi.',
     'apps.score.btn': 'Scoreboard Yuklab Olish (.exe)',
-    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.4 MB',
+    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.2 MB',
 
     'apps.obs.badge': 'OBS Studio • v3.5.0',
     'apps.obs.title': 'AMATORA OBS Controller',
@@ -208,12 +208,12 @@ export const translations = {
     'apps.admin.btn': 'Скачать Admin App',
     'apps.admin.sub': 'Автоматический переход в App Store или Google Play',
 
-    'apps.score.badge': 'Windows • v2.3.0',
+    'apps.score.badge': 'Windows • v2.3.1',
     'apps.score.title': 'AMATORA Scoreboard',
     'apps.score.subtitle': 'Табло для LED Экранов и HDMI Мониторов',
     'apps.score.desc': 'Нативное Windows-приложение для LED экранов стадиона и трансляций. Точный таймер без задержек (0ms), авто-анимации голов и автономная работа без интернета.',
     'apps.score.btn': 'Скачать Scoreboard (.exe)',
-    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.4 MB',
+    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.2 MB',
 
     'apps.obs.badge': 'OBS Studio • v3.5.0',
     'apps.obs.title': 'AMATORA OBS Controller',
@@ -359,12 +359,12 @@ export const translations = {
     'apps.admin.btn': 'Get Admin App',
     'apps.admin.sub': 'Auto-redirect to App Store or Google Play based on device',
 
-    'apps.score.badge': 'Windows • v2.3.0',
+    'apps.score.badge': 'Windows • v2.3.1',
     'apps.score.title': 'AMATORA Scoreboard',
     'apps.score.subtitle': 'Stadium LED & HDMI Scoreboard Display',
     'apps.score.desc': 'Native Windows desktop app built for stadium LED screens and HDMI displays. 0ms drift-free precise timer, automatic goal animations, and full offline resilience.',
     'apps.score.btn': 'Download Scoreboard (.exe)',
-    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.4 MB',
+    'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.2 MB',
 
     'apps.obs.badge': 'OBS Studio • v3.5.0',
     'apps.obs.title': 'AMATORA OBS Controller',
