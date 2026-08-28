@@ -1,9 +1,8 @@
 {
-  "version": "2.3.2",
+  "version": "2.4.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "2ee84b798af49b0f07cc4bdb3c032d66ce1aa3dff44002b2de77928e06ca3c7d",
-  "signature": "92217a5c65e90fba02619e499f931d478cd554d63f10e50322aa34e1983aeb00",
+  "sha256": "d5c1cf18d2661a393dbb8276a188c31477f9009ecbf8d63f5af4fc438a7136bd",
   "min_version": "2.0.0",
-  "changelog": "Backend orqali tezkor taymer integratsiyasi va barqarorlik yangilanishi",
-  "release_date": "2026-08-27"
+  "changelog": "Multi-tenant maydonlar bilan sinxronizatsiya va yangilangan xavfsizlik arxitekturasi",
+  "release_date": "2026-08-28"
 }

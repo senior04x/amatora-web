@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { supabase, supabaseAdmin } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 import './ObsScoreboard.css';
 
 interface ObsScoreboardProps {
@@ -62,7 +62,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
           resolvedOrgId = targetOrgSlugParam;
         } else {
           try {
-            const { data: orgData } = await supabaseAdmin
+            const { data: orgData } = await supabase
               .from('organizations')
               .select('id')
               .ilike('slug', targetOrgSlugParam)
@@ -89,7 +89,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
       }
 
       const findLiveMatch = async () => {
-        let query = supabaseAdmin.from('matches').select('*').order('id', { ascending: false });
+        let query = supabase.from('matches').select('*').order('id', { ascending: false });
 
         if (resolvedOrgId) {
           query = query.eq('organization_id', resolvedOrgId);
@@ -280,7 +280,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
             let pName = newEvent.event_type === 'goal' ? 'GOOOL' : "O'YINCHI";
             let pPhoto = null;
             if (newEvent.player_id) {
-              const { data: player } = await supabaseAdmin
+              const { data: player } = await supabase
                 .from('applications')
                 .select('first_name, last_name, photo_url')
                 .eq('id', newEvent.player_id)
@@ -291,7 +291,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
                 pPhoto = player.photo_url;
               }
             }
-            const { data: tData } = await supabaseAdmin
+            const { data: tData } = await supabase
               .from('teams')
               .select('name, logo_url')
               .eq('id', newEvent.team_id)
@@ -358,7 +358,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
 
   const fetchData = async (matchId: string | number) => {
     try {
-      const { data: matchData } = await supabaseAdmin
+      const { data: matchData } = await supabase
         .from('matches')
         .select('*')
         .eq('id', matchId)
@@ -370,7 +370,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         // Fetch League Data (logo & background image) for THIS specific organization
         if (matchData.league || matchData.organization_id) {
           try {
-            let lQuery = supabaseAdmin.from('leagues').select('*');
+            let lQuery = supabase.from('leagues').select('*');
             if (matchData.organization_id) {
               lQuery = lQuery.eq('organization_id', matchData.organization_id);
             }
@@ -388,7 +388,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         let awayObj: any = null;
 
         if (matchData.home_team_id) {
-          const { data: h } = await supabaseAdmin
+          const { data: h } = await supabase
             .from('teams')
             .select('*')
             .eq('id', matchData.home_team_id)
@@ -405,7 +405,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         }
 
         if (matchData.away_team_id) {
-          const { data: a } = await supabaseAdmin
+          const { data: a } = await supabase
             .from('teams')
             .select('*')
             .eq('id', matchData.away_team_id)
@@ -425,7 +425,7 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         setAwayTeam(awayObj);
 
         // Fetch timer state
-        const { data: timerSp } = await supabaseAdmin
+        const { data: timerSp } = await supabase
           .from('sponsors')
           .select('logo_url')
           .eq('name', `MATCH_TIMER_${matchId}`)
