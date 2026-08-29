@@ -1,8 +1,8 @@
 {
   "version": "3.7.2",
   "download_url": "https://amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "e975bd8847ce975ecf410e907f7af83e63b011f325cbd2290d2844b425e608d9",
+  "sha256": "b81156b4ebfb870aea1a12b31838c12f99eb059bebb49446d7dbf578c150659e",
   "min_version": "3.0.0",
-  "changelog": "Ko'p maydonli (1-maydon, 2-maydon...) parallel o'yinlarda gol mualliflarini 100% alohida ajratish, maydon tanlash dropdown paneli va xavfsiz JWT autentifikatsiyasi.",
+  "changelog": "Ko'p maydonli (1-maydon, 2-maydon...) parallel o'yinlarda gol mualliflarini 100% alohida ajratish, maydon tanlash dropdown paneli va ochilganda 1 marta tekshiruvchi OTA tizimi.",
   "release_date": "2026-08-30"
 }
