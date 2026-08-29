@@ -64,7 +64,7 @@ export const translations = {
     'apps.score.btn': 'Scoreboard Yuklab Olish (.exe)',
     'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.3 MB',
 
-    'apps.obs.badge': 'OBS Studio • v3.7.0',
+    'apps.obs.badge': 'OBS Studio • v3.7.2',
     'apps.obs.title': 'AMATORA OBS Controller',
     'apps.obs.subtitle': 'OBS Replay va Efir Avtomatizatsiyasi',
     'apps.obs.desc': 'OBS Studio bilan WebSocket orqali ulanib, takroriy lavhalar (Replay buffer), Stinger o\'tish animatsiyalari, kamera almashishlari hamda translyatsiya grafikasini to\'liq avtomatik boshqaradi.',
@@ -215,7 +215,7 @@ export const translations = {
     'apps.score.btn': 'Скачать Scoreboard (.exe)',
     'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.3 MB',
 
-    'apps.obs.badge': 'OBS Studio • v3.7.0',
+    'apps.obs.badge': 'OBS Studio • v3.7.2',
     'apps.obs.title': 'AMATORA OBS Controller',
     'apps.obs.subtitle': 'Автоматизация Replay и Эфира OBS',
     'apps.obs.desc': 'Подключается к OBS Studio по WebSocket и полностью автоматически управляет буфером повторов (Replay), стингерами, сменой камер и графикой трансляции.',
@@ -366,7 +366,7 @@ export const translations = {
     'apps.score.btn': 'Download Scoreboard (.exe)',
     'apps.score.sub': 'Windows 10 / 11 (64-bit) • 2.3 MB',
 
-    'apps.obs.badge': 'OBS Studio • v3.7.0',
+    'apps.obs.badge': 'OBS Studio • v3.7.2',
     'apps.obs.title': 'AMATORA OBS Controller',
     'apps.obs.subtitle': 'OBS Replay & Broadcast Automation',
     'apps.obs.desc': 'Connects to OBS Studio via WebSocket to seamlessly automate replay buffers, stinger transitions, camera switching, and live broadcast overlays.',
