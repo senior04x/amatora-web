@@ -1,8 +1,8 @@
 {
-  "version": "3.7.3",
-  "download_url": "https://amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "0bee8994f9d2aa5333ff21311a8fe8eefbe49a178b170fa94cc5932a83509db9",
+  "version": "3.7.4",
+  "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
+  "sha256": "ac7dae6fe2ee76ee0a4783f92d63dd9b11cfa2dfb5724bf04ca26ecfa2214776",
   "min_version": "3.0.0",
-  "changelog": "OTA test: v3.7.3 yangilanishi muvaffaqiyatli qabul qilindi!",
+  "changelog": "AMATORA OBS Controller v3.7.4 OTA yangilanishi muvaffaqiyatli o'rnatildi!",
   "release_date": "2026-08-30"
 }
