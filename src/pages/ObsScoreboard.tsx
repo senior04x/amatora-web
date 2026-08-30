@@ -75,21 +75,44 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         }
       }
 
-      // If id is stream1 or stream2, require a valid Organization Slug or Org ID!
-      if (id === 'stream1' || id === 'stream2') {
-        if (!resolvedOrgId) {
-          setActiveMatchId(null);
-          setMatch(null);
-          return;
-        }
-      } else {
-        // Direct Match ID
+      const rawFieldParam = (queryParams.get('field') || queryParams.get('field_id') || queryParams.get('stream') || queryParams.get('maydon') || '').toLowerCase();
+      const idLower = String(id).toLowerCase();
+
+      // Check if direct UUID
+      const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id);
+
+      if (isUuid && !rawFieldParam) {
         setActiveMatchId(id);
         return;
       }
 
+      // Determine field number (1, 2, 3, 4...)
+      let fieldNum = 1;
+      if (idLower.includes('4') || rawFieldParam.includes('4')) fieldNum = 4;
+      else if (idLower.includes('3') || rawFieldParam.includes('3')) fieldNum = 3;
+      else if (idLower.includes('2') || rawFieldParam.includes('2')) fieldNum = 2;
+      else if (idLower.includes('1') || rawFieldParam.includes('1')) fieldNum = 1;
+
+      const isMatchForThisField = (m: any) => {
+        const loc = String(m?.location || '').toLowerCase();
+        if (fieldNum === 2) {
+          return loc.includes('2') || loc.includes('stream2');
+        }
+        if (fieldNum === 3) {
+          return loc.includes('3') || loc.includes('stream3');
+        }
+        if (fieldNum === 4) {
+          return loc.includes('4') || loc.includes('stream4');
+        }
+        // fieldNum === 1
+        return loc.includes('1') || loc.includes('stream1') || (!loc.includes('2') && !loc.includes('3') && !loc.includes('4') && !loc.includes('stream2') && !loc.includes('stream3') && !loc.includes('stream4'));
+      };
+
       const findLiveMatch = async () => {
-        let query = supabase.from('matches').select('*').order('id', { ascending: false });
+        let query = supabase
+          .from('matches')
+          .select('*')
+          .order('updated_at', { ascending: false });
 
         if (resolvedOrgId) {
           query = query.eq('organization_id', resolvedOrgId);
@@ -98,32 +121,17 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
         const { data } = await query;
 
         if (data && data.length > 0) {
-          const isStream1 = id === 'stream1';
-          const isStream2 = id === 'stream2';
-
-          const isMatchForThisStream = (m: any) => {
-            const loc = String(m.location || '').toLowerCase();
-            if (isStream2) {
-              return loc.includes('2') || loc.includes('stream2');
-            }
-            if (isStream1) {
-              return loc.includes('1') || loc.includes('stream1') || (!loc.includes('2') && !loc.includes('stream2'));
-            }
-            return true;
-          };
-
           // Filter matches strictly for this stream field
-          const fieldMatches = data.filter(isMatchForThisStream);
-          const candidateList = fieldMatches.length > 0 ? fieldMatches : data;
+          const fieldMatches = data.filter(isMatchForThisField);
 
-          // 1. Prefer currently active playing match on this field ('first_half', 'second_half')
-          let selectedMatch = candidateList.find((m: any) =>
-            ['first_half', 'second_half'].includes(m.status)
+          // 1. Prefer currently active playing match on this field ('first_half', 'second_half', 'half_time', 'break', 'extra_time', 'live', 'penalties')
+          let selectedMatch = fieldMatches.find((m: any) =>
+            ['first_half', 'second_half', 'half_time', 'break', 'extra_time', 'live', 'penalties'].includes(m.status)
           );
 
-          // 2. Fallback to latest match on this field so realtime connection stays active
-          if (!selectedMatch) {
-            selectedMatch = candidateList[0];
+          // 2. Fallback to latest scheduled match strictly on THIS field
+          if (!selectedMatch && fieldMatches.length > 0) {
+            selectedMatch = fieldMatches.find((m: any) => m.status === 'scheduled') || fieldMatches[0];
           }
 
           if (selectedMatch) {
@@ -135,21 +143,14 @@ export const ObsScoreboard: React.FC<ObsScoreboardProps> = ({
 
       await findLiveMatch();
 
+      const streamKey = `stream${fieldNum}`;
       const streamChannel = supabase
-        .channel(`global-matches-web-${id}`)
+        .channel(`global-matches-web-${streamKey}-${resolvedOrgId || 'all'}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'matches' }, (payload: any) => {
           const newMatch = payload.new;
           if (newMatch) {
             if (!resolvedOrgId || String(newMatch.organization_id) === String(resolvedOrgId)) {
-              const isStream1 = id === 'stream1';
-              const isStream2 = id === 'stream2';
-              const loc = String(newMatch.location || '').toLowerCase();
-
-              const isMatchForThisStream =
-                (isStream2 && (loc.includes('2') || loc.includes('stream2'))) ||
-                (isStream1 && (loc.includes('1') || loc.includes('stream1') || (!loc.includes('2') && !loc.includes('stream2'))));
-
-              if (isMatchForThisStream) {
+              if (isMatchForThisField(newMatch)) {
                 setActiveMatchId(newMatch.id);
                 setMatch(newMatch);
               }
