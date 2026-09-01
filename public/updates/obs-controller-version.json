@@ -1,8 +1,8 @@
 {
-  "version": "3.7.6",
+  "version": "3.7.8",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "78e77ca1e6ead0a6539061989fa5ae741f79cfe5e5b6d01b9ae4b694a1d7bd1b",
+  "sha256": "1082a330d690380954cce74869c1c6462a3f2b6cd28f0e3534c58603a287f629",
   "min_version": "3.0.0",
-  "changelog": "AMATORA OBS Controller v3.7.6: jamoa goli (o'yinchisiz gol) eventi to'g'ri yaratiladi va replay video biriktiriladi; faqat \"markaziy\" o'yinlar uchun replay video bazaga yuklanadi (Storage tejash); goal event tahrirlash tuzatildi.",
+  "changelog": "AMATORA OBS Controller v3.7.8: Replay video tizimi to'liq qayta ko'rib chiqildi — video kechikib topilsa qayta urinadi, upload vaqti oshirildi, tozalash jarayonida yuklanayotgan fayllar himoyalanadi, bitta bosishdan chiqqan bir nechta fayl to'g'ri belgilanadi (orfan fayllar oldini olish), efirga eski video chiqib qolmasligi uchun yangi faylni faol kutadi. Replay davomiyligi 15 soniyaga o'rnatildi — OBS'ning haqiqiy Replay Buffer sozlamasi ham avtomatik shu qiymatga moslashtiriladi, shuning uchun efirda va saqlangan faylda ko'rsatilgan davomiylik bir xil bo'ladi.",
   "release_date": "2026-09-01"
 }
