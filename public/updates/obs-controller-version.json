@@ -1,8 +1,8 @@
 {
-  "version": "3.7.5",
+  "version": "3.7.6",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "f705f7cec2bff5ed09d00233acae3d9df756d71ab853c933ec88c19a403d9a92",
+  "sha256": "78e77ca1e6ead0a6539061989fa5ae741f79cfe5e5b6d01b9ae4b694a1d7bd1b",
   "min_version": "3.0.0",
-  "changelog": "AMATORA OBS Controller v3.7.5 OTA yangilanishi muvaffaqiyatli o'rnatildi!",
-  "release_date": "2026-08-30"
+  "changelog": "AMATORA OBS Controller v3.7.6: jamoa goli (o'yinchisiz gol) eventi to'g'ri yaratiladi va replay video biriktiriladi; faqat \"markaziy\" o'yinlar uchun replay video bazaga yuklanadi (Storage tejash); goal event tahrirlash tuzatildi.",
+  "release_date": "2026-09-01"
 }
