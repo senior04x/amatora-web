@@ -1,8 +1,8 @@
 {
-  "version": "3.7.8",
+  "version": "3.7.9",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "1082a330d690380954cce74869c1c6462a3f2b6cd28f0e3534c58603a287f629",
+  "sha256": "809d2e1a244928d74b5b8bb2f86671401b3528cb8966c334487111941d2daf8d",
   "min_version": "3.0.0",
-  "changelog": "AMATORA OBS Controller v3.7.8: Replay video tizimi to'liq qayta ko'rib chiqildi — video kechikib topilsa qayta urinadi, upload vaqti oshirildi, tozalash jarayonida yuklanayotgan fayllar himoyalanadi, bitta bosishdan chiqqan bir nechta fayl to'g'ri belgilanadi (orfan fayllar oldini olish), efirga eski video chiqib qolmasligi uchun yangi faylni faol kutadi. Replay davomiyligi 15 soniyaga o'rnatildi — OBS'ning haqiqiy Replay Buffer sozlamasi ham avtomatik shu qiymatga moslashtiriladi, shuning uchun efirda va saqlangan faylda ko'rsatilgan davomiylik bir xil bo'ladi.",
-  "release_date": "2026-09-01"
+  "changelog": "OBS Controller 3.7.9: Replay va video yuklash faqat 1-darajali liga yoki turnir uchun ishlaydi. Markaziy belgisi talab qilinmaydi. 2-darajali, darajasiz yoki faol o'yini aniqlanmagan holatda replay bloklanadi. Turnir o'yinida turnir darajasi ustuvor. Bu yangilanish ketma-ket gollarni biriktirish navbatini o'zgartirmaydi.",
+  "release_date": "2026-09-11"
 }
