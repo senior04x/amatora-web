@@ -1,8 +1,9 @@
 {
-  "version": "3.7.9",
+  "version": "3.7.10",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "809d2e1a244928d74b5b8bb2f86671401b3528cb8966c334487111941d2daf8d",
+  "sha256": "a56e17fbd2bb78ffb69752277348c194e1181d3e7449f1f803927731c6de6d77",
   "min_version": "3.0.0",
-  "changelog": "OBS Controller 3.7.9: Replay va video yuklash faqat 1-darajali liga yoki turnir uchun ishlaydi. Markaziy belgisi talab qilinmaydi. 2-darajali, darajasiz yoki faol o'yini aniqlanmagan holatda replay bloklanadi. Turnir o'yinida turnir darajasi ustuvor. Bu yangilanish ketma-ket gollarni biriktirish navbatini o'zgartirmaydi.",
-  "release_date": "2026-09-11"
+  "changelog": "OBS Controller 3.7.10: Replay ishonchliligi va avtomatik biriktirish tizimi yangilandi — lokal replay navbati (ReplayWorkStore) orqali kadrlar aniq gollarga moslashtiriladi, fonda ishonchli yuklash (worker retry va session refresh) va match_events bilan mustahkam sinxronizatsiya ta'minlandi.",
+  "release_date": "2026-09-12"
 }
+
