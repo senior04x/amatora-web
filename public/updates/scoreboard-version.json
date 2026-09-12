@@ -1,8 +1,8 @@
 {
-  "version": "2.5.0",
+  "version": "2.6.0",
   "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "b6d3997ffc5d102dacc18b0be2bcf80f78b79584b33dffd85a7da0929c845809",
+  "sha256": "bb36f4d9ae2a064f8243d1d8bf84bd01d0a088107578469f84721d9b51c7ac59",
   "min_version": "2.0.0",
-  "changelog": "0ms Supabase matches taymer integratsiyasi, liga davomiyligi va barqaror jonli monitoring",
-  "release_date": "2026-08-29"
+  "changelog": "Turnirlar va turnir o'yinlarini to'liq qo'llab-quvvatlash, pleyoff bosqichlari va turnir brendingi",
+  "release_date": "2026-09-12"
 }
