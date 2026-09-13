@@ -1,8 +1,8 @@
 {
-  "version": "2.6.0",
-  "download_url": "https://amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "bb36f4d9ae2a064f8243d1d8bf84bd01d0a088107578469f84721d9b51c7ac59",
+  "version": "2.6.1",
+  "download_url": "https://www.amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
+  "sha256": "4d6ebc1207ecf596a638f0ad5586d22387cb8265573f8c65378af3d1f4457d54",
   "min_version": "2.0.0",
-  "changelog": "Turnirlar va turnir o'yinlarini to'liq qo'llab-quvvatlash, pleyoff bosqichlari va turnir brendingi",
-  "release_date": "2026-09-12"
+  "changelog": "Rasm keshi va qayta yuklash, barqaror timer, eski javoblardan himoya va OTA yuklash tuzatishlari",
+  "release_date": "2026-09-13"
 }
