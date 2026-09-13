@@ -1,8 +1,8 @@
 {
-  "version": "2.6.1",
+  "version": "2.6.2",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "4d6ebc1207ecf596a638f0ad5586d22387cb8265573f8c65378af3d1f4457d54",
+  "sha256": "7653ce934d9a9cbda29ddcec3fcaea326b3c1caafa75ee9cefddec322c86d256",
   "min_version": "2.0.0",
-  "changelog": "Rasm keshi va qayta yuklash, barqaror timer, eski javoblardan himoya va OTA yuklash tuzatishlari",
+  "changelog": "Dastur versiyasi yuqori panelda va oyna sarlavhasida ko‘rsatiladi. Rasm va timer tuzatishlari saqlangan.",
   "release_date": "2026-09-13"
 }
