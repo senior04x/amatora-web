@@ -1,9 +1,8 @@
 {
-  "version": "3.7.10",
+  "version": "3.7.11",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "a56e17fbd2bb78ffb69752277348c194e1181d3e7449f1f803927731c6de6d77",
+  "sha256": "6554c1a20048b5c4a5e3b97d1a3e00a61d83e911f30e2fce4785f0cc62008462",
   "min_version": "3.0.0",
-  "changelog": "OBS Controller 3.7.10: Replay ishonchliligi va avtomatik biriktirish tizimi yangilandi — lokal replay navbati (ReplayWorkStore) orqali kadrlar aniq gollarga moslashtiriladi, fonda ishonchli yuklash (worker retry va session refresh) va match_events bilan mustahkam sinxronizatsiya ta'minlandi.",
-  "release_date": "2026-09-12"
+  "changelog": "1-darajali ligani aniqlash tuzatildi: liga nomidagi ortiqcha qo‘shtirnoq sabab replay rad etilishi bartaraf etildi.",
+  "release_date": "2026-09-20"
 }
-
