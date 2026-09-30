@@ -5,6 +5,8 @@ import { DownloadModal } from './components/DownloadModal';
 
 import { HomePage } from './pages/HomePage';
 import { AppsPage } from './pages/AppsPage';
+import { TransferLinkPage } from './pages/TransferLinkPage';
+import { parseTransferLandingPath } from './utils/transferLink';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { AboutPage } from './pages/AboutPage';
 import { SecurityPage } from './pages/SecurityPage';
@@ -18,7 +20,7 @@ const RESERVED_TABS = new Set([
   'home', 'apps', 'features', 'about', 'security', 
   'downloads', 'obs', 'api', 'assets', 'favicon', 
   'manifest', 'robots', 'sitemap', 'terms', 'privacy', 
-  'apply', 'application'
+  'apply', 'application', 'transfer'
 ]);
 
 // In-memory cache for validated organization slugs
@@ -42,11 +44,15 @@ const sanitizeSlug = (raw: string): string | null => {
 
 export function App() {
   // Synchronize initial activeTab and orgSlug from URL pathname or hash slug
-  const getRouteFromUrl = (): { tab: string; orgSlug?: string; streamId?: string } => {
+  const getRouteFromUrl = (): { tab: string; orgSlug?: string; streamId?: string; transferId?: string } => {
     const rawPath = window.location.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
     const path = rawPath.toLowerCase();
     const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
     const target = path || hash;
+
+    const transferId = parseTransferLandingPath(window.location.pathname);
+    if (transferId) return { tab: 'transfer', transferId };
+    if (path === 'transfer' || path.startsWith('transfer/')) return { tab: 'home' };
 
     // 1. Check if URL is OBS Scoreboard overlay route
     if (path.startsWith('obs/scoreboard')) {
@@ -86,7 +92,7 @@ export function App() {
     return { tab: 'home' };
   };
 
-  const [route, setRoute] = useState<{ tab: string; orgSlug?: string; streamId?: string }>(getRouteFromUrl);
+  const [route, setRoute] = useState<{ tab: string; orgSlug?: string; streamId?: string; transferId?: string }>(getRouteFromUrl);
   const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
     isOpen: false,
     platform: 'android',
@@ -204,6 +210,7 @@ export function App() {
         {activeTab !== 'home' && (
           <div className={`w-full ${activeTab === 'application' ? 'pt-0' : 'pt-20 sm:pt-24'}`}>
             {activeTab === 'apps' && <AppsPage />}
+            {activeTab === 'transfer' && route.transferId && <TransferLinkPage transferId={route.transferId} />}
             {activeTab === 'features' && <FeaturesPage />}
             {activeTab === 'about' && <AboutPage />}
             {activeTab === 'security' && <SecurityPage />}
