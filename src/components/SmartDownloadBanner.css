@@ -1,0 +1,15 @@
+.smart-download-banner { position: fixed; top: max(80px, calc(env(safe-area-inset-top) + 72px)); left: 50%; z-index: 35; width: min(400px, calc(100% - 32px)); padding: 15px 16px 16px; border: 1px solid rgba(255,255,255,.22); border-radius: 20px; background: rgba(12,12,12,.96); color: #fff; box-shadow: 0 16px 48px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); backdrop-filter: blur(16px); transform: translateX(-50%); animation: smart-download-in 420ms cubic-bezier(.16,1,.3,1) both; }
+.smart-download-banner__heading { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.smart-download-banner__heading img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+.smart-download-banner__heading strong { font-family: var(--font-heading); font-size: 14px; letter-spacing: .13em; }
+.smart-download-banner__heading p { margin-top: 3px; font-size: 12px; line-height: 1.4; color: rgba(255,255,255,.65); }
+.smart-download-banner__close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-left: auto; margin-right: -8px; flex-shrink: 0; border: 0; border-radius: 50%; background: transparent; color: #fff; cursor: pointer; }
+.smart-download-banner__close:hover { background: rgba(255,255,255,.1); }
+.smart-download-banner__close:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+.smart-download-banner .store-download-links { flex-wrap: nowrap; }
+.smart-download-banner .store-download-button { flex: 1; padding-inline: 12px; }
+.smart-download-banner--closing { pointer-events: none; animation: smart-download-out 180ms cubic-bezier(.7,0,.84,0) both; }
+@keyframes smart-download-in { from { opacity: 0; transform: translate(-50%, calc(-100% - 85px)); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes smart-download-out { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, -24px); } }
+@media (min-width: 640px) { .smart-download-banner { top: 24px; } }
+@media (prefers-reduced-motion: reduce) { .smart-download-banner, .smart-download-banner--closing { animation: none; } }

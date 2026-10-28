@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Download } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from '../utils/appStores';
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -63,9 +64,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, platform =
           
           {/* Option 1: AMATORA App */}
           <a
-            href={isAndroid ? "https://amatora.uz/downloads/amatora-app.apk" : "https://amatora.uz/ios/app"}
-            download={isAndroid}
-            target={isAndroid ? undefined : "_blank"}
+            href={isAndroid ? GOOGLE_PLAY_URL : APP_STORE_URL}
+            target="_blank"
             rel="noreferrer"
             className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all flex items-center justify-between gap-4 group cursor-pointer block"
           >

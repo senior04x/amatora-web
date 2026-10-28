@@ -10,6 +10,9 @@ interface LanguageContextType {
 
 export const translations = {
   uz: {
+    'download.title': 'Ilovani yuklab oling',
+    'download.close': 'Yopish',
+    'download.soon': 'Tez kunda',
     // Navigation
     'nav.home': 'Bosh Sahifa',
     'nav.apps': 'Ilovalar',
@@ -48,7 +51,7 @@ export const translations = {
     'apps.app.subtitle': 'Ishqibozlar va O\'yinchilar Ilovasi',
     'apps.app.desc': 'Turnir jadvallari, match natijalari, to\'purarlar reytingi hamda jonli statistikalarni real vaqt rejimida kuzatish uchun maxsus mobil ilova.',
     'apps.app.btn': 'AMATORA Ilovasini Olish',
-    'apps.app.sub': 'Qurilmaga qarab avtomatik App Store yoki Google Play',
+    'apps.app.sub': 'App Store · Google Play',
 
     'apps.admin.badge': 'iOS & Android',
     'apps.admin.title': 'AMATORA Admin',
@@ -161,6 +164,9 @@ export const translations = {
   },
 
   ru: {
+    'download.title': 'Скачать приложение',
+    'download.close': 'Закрыть',
+    'download.soon': 'Скоро',
     // Navigation
     'nav.home': 'Главная',
     'nav.apps': 'Приложения',
@@ -199,7 +205,7 @@ export const translations = {
     'apps.app.subtitle': 'Приложение для Игроков и Болельщиков',
     'apps.app.desc': 'Специальное мобильное приложение для отслеживания турнирных таблиц, результатов матчей, рейтинга бомбардиров и статистики в реальном времени.',
     'apps.app.btn': 'Скачать AMATORA App',
-    'apps.app.sub': 'Автоматический переход в App Store или Google Play',
+    'apps.app.sub': 'App Store · Google Play',
 
     'apps.admin.badge': 'iOS & Android',
     'apps.admin.title': 'AMATORA Admin',
@@ -312,6 +318,9 @@ export const translations = {
   },
 
   en: {
+    'download.title': 'Get the app',
+    'download.close': 'Close',
+    'download.soon': 'Coming soon',
     // Navigation
     'nav.home': 'Home',
     'nav.apps': 'Apps',
@@ -350,7 +359,7 @@ export const translations = {
     'apps.app.subtitle': 'App for Players & Fans',
     'apps.app.desc': 'Dedicated mobile app to track tournament standings, match results, top scorer leaderboards, and live game statistics in real time.',
     'apps.app.btn': 'Get AMATORA App',
-    'apps.app.sub': 'Auto-redirect to App Store or Google Play based on device',
+    'apps.app.sub': 'App Store · Google Play',
 
     'apps.admin.badge': 'iOS & Android',
     'apps.admin.title': 'AMATORA Admin',

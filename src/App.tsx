@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { DownloadModal } from './components/DownloadModal';
+import { SmartDownloadBanner } from './components/SmartDownloadBanner';
 
 import { HomePage } from './pages/HomePage';
 import { AppsPage } from './pages/AppsPage';
@@ -93,10 +93,6 @@ export function App() {
   };
 
   const [route, setRoute] = useState<{ tab: string; orgSlug?: string; streamId?: string; transferId?: string }>(getRouteFromUrl);
-  const [downloadModalState, setDownloadModalState] = useState<{ isOpen: boolean; platform: 'android' | 'ios' }>({
-    isOpen: false,
-    platform: 'android',
-  });
 
   const setActiveTab = (tab: string, orgSlug?: string) => {
     setRoute({ tab, orgSlug });
@@ -160,10 +156,6 @@ export function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const handleOpenDownload = (platform: 'android' | 'ios' = 'android') => {
-    setDownloadModalState({ isOpen: true, platform });
-  };
-
   const activeTab = route.tab;
 
   // Render OBS Scoreboard Overlay completely standalone (no navbar/footer/canvas)
@@ -198,13 +190,12 @@ export function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
+      {activeTab !== 'application' && activeTab !== 'transfer' && <SmartDownloadBanner />}
 
       {/* 3. MAIN PAGE CONTENT */}
       <main className="flex-1 w-full mx-auto relative z-10">
         {activeTab === 'home' && (
-          <HomePage
-            onOpenDownload={(platform) => handleOpenDownload(platform)}
-          />
+          <HomePage />
         )}
 
         {activeTab !== 'home' && (
@@ -221,13 +212,6 @@ export function App() {
 
       {/* 4. FOOTER (Hidden on Organization Application Page) */}
       {activeTab !== 'application' && <Footer setActiveTab={setActiveTab} />}
-
-      {/* 5. DOWNLOAD POPUP MODAL */}
-      <DownloadModal
-        isOpen={downloadModalState.isOpen}
-        platform={downloadModalState.platform}
-        onClose={() => setDownloadModalState((prev) => ({ ...prev, isOpen: false }))}
-      />
 
     </div>
   );

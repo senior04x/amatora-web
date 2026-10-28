@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { StoreDownloadLinks } from '../components/StoreDownloadLinks';
+import { detectMobilePlatform } from '../utils/appStores';
 
 const WindowsIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -68,20 +70,7 @@ export const AppsPage: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <button
-              onClick={() => {
-                const isIOS = /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !('MSStream' in window);
-                if (isIOS) {
-                  window.open('https://amatora.uz/ios/app', '_blank');
-                } else {
-                  window.location.href = 'https://amatora.uz/downloads/amatora-app.apk';
-                }
-              }}
-              className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
-            >
-              <SmartphoneIcon className="w-4 h-4 text-black" />
-              <span>{t('apps.app.btn')}</span>
-            </button>
+            <StoreDownloadLinks platform={detectMobilePlatform(navigator) ?? 'all'} />
             <span className="block text-[10px] text-center text-slate-500">
               {t('apps.app.sub')}
             </span>
