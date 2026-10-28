@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { Smartphone, CheckCircle2, BarChart3, Image as ImageIcon, ChevronUp } from 'lucide-react';
 import logoWhite from '../assets/amatora-logo-white.png';
 import { StoreDownloadLinks } from '../components/StoreDownloadLinks';
+import { detectMobilePlatform } from '../utils/appStores';
 
 export const HomePage: React.FC = () => {
   const { t } = useLanguage();
@@ -149,7 +150,7 @@ export const HomePage: React.FC = () => {
             <span className="font-heading font-black text-lg sm:text-xl tracking-wider text-white">AMATORA</span>
           </div>
 
-          <StoreDownloadLinks />
+          <StoreDownloadLinks platform={detectMobilePlatform(navigator) ?? 'all'} />
         </section>
 
       </div>
