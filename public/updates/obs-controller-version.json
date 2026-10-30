@@ -1,8 +1,8 @@
 {
-  "version": "3.7.11",
+  "version": "3.8.6",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "6554c1a20048b5c4a5e3b97d1a3e00a61d83e911f30e2fce4785f0cc62008462",
+  "sha256": "1046fa85dd9b6902c11459fd6443f440f9b517c63536f339f52a77274937c11e",
   "min_version": "3.0.0",
-  "changelog": "1-darajali ligani aniqlash tuzatildi: liga nomidagi ortiqcha qo‘shtirnoq sabab replay rad etilishi bartaraf etildi.",
-  "release_date": "2026-09-20"
+  "changelog": "3.8.6: Gol replayini yaqin va aniq mos kelgan videoga biriktirish tuzatildi. Replay yuklash va boshqa kompyuterda sozlash barqarorligi yaxshilandi.",
+  "release_date": "2026-10-30"
 }
