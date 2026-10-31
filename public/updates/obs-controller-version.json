@@ -1,8 +1,8 @@
 {
-  "version": "3.8.6",
+  "version": "3.8.7",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-OBS-Controller-Setup.exe",
-  "sha256": "1046fa85dd9b6902c11459fd6443f440f9b517c63536f339f52a77274937c11e",
+  "sha256": "38ed9ebf18f7c3c8d46002b2e64bd464892c21f39d55e9ea43cafc236de44402",
   "min_version": "3.0.0",
-  "changelog": "3.8.6: Gol replayini yaqin va aniq mos kelgan videoga biriktirish tuzatildi. Replay yuklash va boshqa kompyuterda sozlash barqarorligi yaxshilandi.",
-  "release_date": "2026-10-30"
+  "changelog": "3.8.7: Replaylar gol va klip vaqtlaridagi farqqa qaramay bir o'yin ichida ketma-ket bog'lanadi. Admin + tugmasi muallifsiz golni qayd etadi.",
+  "release_date": "2026-10-31"
 }
