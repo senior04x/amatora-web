@@ -1,8 +1,8 @@
 {
-  "version": "2.6.3",
+  "version": "2.6.4",
   "download_url": "https://www.amatora.uz/downloads/AMATORA-Scoreboard-Setup.exe",
-  "sha256": "46be0502b5bc993383787d3d6ca833566c4099557c2d322f037fb818225481a5",
+  "sha256": "0ced4dbaa3d9b2a81e4973dadc849de1a61e603b94f0d48772f977d274edb528",
   "min_version": "2.0.0",
-  "changelog": "Match Control, OBS va Windows scoreboard taymeri sinxronlandi. Pauza, taym yakuni va liga davomiyligi tuzatildi.",
-  "release_date": "2026-11-07"
+  "changelog": "Pauza va tanaffusda scoreboard joriy o‘yinda qoladi. Boshlanish vaqti yetishmagan taymer saqlangan qiymatda turadi.",
+  "release_date": "2026-11-08"
 }

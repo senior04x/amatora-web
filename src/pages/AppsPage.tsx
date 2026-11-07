@@ -3,6 +3,10 @@ import { useLanguage } from '../context/LanguageContext';
 import { StoreDownloadLinks } from '../components/StoreDownloadLinks';
 import { detectMobilePlatform } from '../utils/appStores';
 
+type DesktopRelease = { version: string; downloadPath: string; sizeMb: string };
+declare const __DESKTOP_RELEASES__: { scoreboard: DesktopRelease; obsController: DesktopRelease };
+const { scoreboard, obsController } = __DESKTOP_RELEASES__;
+
 const WindowsIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.901-1.8z" />
@@ -134,7 +138,7 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
                 <WindowsIcon className="w-7 h-7" />
               </div>
-              <span className="glass-badge text-[10px]">{t('apps.score.badge')}</span>
+              <span className="glass-badge text-[10px]">Windows • v{scoreboard.version}</span>
             </div>
 
             <div className="space-y-1">
@@ -151,15 +155,15 @@ export const AppsPage: React.FC = () => {
 
           <div className="space-y-2">
             <a
-              href="/downloads/AMATORA-Scoreboard-Setup.exe"
-              download="AMATORA-Scoreboard-Setup.exe"
+              href={scoreboard.downloadPath}
+              download
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <WindowsIcon className="w-4 h-4 text-black" />
               <span>{t('apps.score.btn')}</span>
             </a>
             <span className="block text-[10px] text-center text-slate-500">
-              {t('apps.score.sub')}
+              Windows 10 / 11 (64-bit) • {scoreboard.sizeMb} MB
             </span>
           </div>
         </div>
@@ -171,7 +175,7 @@ export const AppsPage: React.FC = () => {
               <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
                 <img src="/obs-logo.webp" alt="OBS" className="w-9 h-9 object-contain" />
               </div>
-              <span className="glass-badge text-[10px]">{t('apps.obs.badge')}</span>
+              <span className="glass-badge text-[10px]">OBS Studio • v{obsController.version}</span>
             </div>
 
             <div className="space-y-1">
@@ -188,15 +192,15 @@ export const AppsPage: React.FC = () => {
 
           <div className="space-y-2">
             <a
-              href="/downloads/AMATORA-OBS-Controller-Setup.exe"
-              download="AMATORA-OBS-Controller-Setup.exe"
+              href={obsController.downloadPath}
+              download
               className="glass-button glass-button-primary w-full py-3.5 text-center text-xs font-bold gap-2 flex items-center justify-center"
             >
               <img src="/obs-logo.webp" alt="OBS" className="w-4 h-4 object-contain" />
               <span>{t('apps.obs.btn')}</span>
             </a>
             <span className="block text-[10px] text-center text-slate-500">
-              {t('apps.obs.sub')}
+              Windows 10 / 11 (64-bit) • {obsController.sizeMb} MB
             </span>
           </div>
         </div>
